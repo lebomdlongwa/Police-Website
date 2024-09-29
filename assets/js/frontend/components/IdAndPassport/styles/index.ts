@@ -56,10 +56,11 @@ export const Title = styled.div.attrs({
   font-weight: 500;
 `;
 
-export const AddItem = styled(ButtonBase).attrs({
+export const AddItem = styled(ButtonBase).attrs<{ admin: boolean }>({
   className: "AddItem",
 })`
   height: 80%;
+  visibility: ${({ admin }) => (admin ? "none" : "hidden")};
 `;
 
 export const SearchBox = styled.div.attrs({

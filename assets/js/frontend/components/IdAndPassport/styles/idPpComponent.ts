@@ -47,11 +47,11 @@ export const ItemWrapper = styled.div.attrs({
   }
 `;
 
-export const Item = styled.div.attrs({
+export const Item = styled.div.attrs<{ admin: boolean }>({
   className: "Item",
 })`
   height: 100%;
-  width: 87%;
+  width: ${({ admin }) => (admin ? "87%" : "100%")};
 `;
 
 export const ItemContent = styled.div.attrs({
