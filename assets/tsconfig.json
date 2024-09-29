@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "target": "ES2020",
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "module": "NodeNext",
+    "paths": { "@mui/styled-engine": ["./node_modules/@mui/styled-engine-sc"] },
+    "lib": ["esnext.intl", "es2017.intl", "es2018.intl", "ES2020.Intl", "DOM"]
+  }
+}
