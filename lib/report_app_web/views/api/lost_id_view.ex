@@ -8,15 +8,7 @@ defmodule ReportAppWeb.Api.LostIdView do
   end
 
   def render("show.json", %{lost_id: lost_id}) do
-    IO.inspect(lost_id)
-
-    %{
-      id: lost_id.id,
-      fullname: lost_id.fullname,
-      idNumber: lost_id.idNumber
-    }
-
-    # %{data: render_one(lost_id, LostIdView, "lost_id.json")}
+    %{data: render_one(lost_id, LostIdView, "lost_id.json")}
   end
 
   def render("lost_id.json", %{lost_id: lost_id}) do
