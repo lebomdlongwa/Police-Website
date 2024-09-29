@@ -4,8 +4,10 @@ import { SearchIcon } from "../icons/search";
 import { Color } from "../colorCodes";
 import { IdPpComponent } from "./idPpComponent";
 import { fetchData, fetchIds } from "./actions";
+import { useUser } from "../../containers/userContext";
 
 export const IdPassportPage = () => {
+  const { admin } = useUser();
   const [idList, setIdList] = useState<IdItem[]>([]);
 
   const [showAddForm, setShowAddForm] = useState(false);
@@ -20,7 +22,11 @@ export const IdPassportPage = () => {
       <styled.HeaderContainer>
         <styled.TopSubHeader>
           <styled.Title>Lost IDs and Passports</styled.Title>
-          <styled.AddItem text="Add Item" onClick={handleShowAddForm} />
+          <styled.AddItem
+            text="Add Item"
+            onClick={handleShowAddForm}
+            admin={admin}
+          />
         </styled.TopSubHeader>
         <styled.BottomSubHeader>
           <styled.SearchBox>
