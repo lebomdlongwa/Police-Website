@@ -6,6 +6,7 @@ import { IdIcon } from "../icons/id_card";
 import { TrashIcon } from "../icons/trash";
 import { deleteId } from "./actions";
 import AddFormComponent from "../AddForm/addForm";
+import { useUser } from "../../containers/userContext";
 
 type IdPpComponentProps = {
   item: IdItem;
@@ -18,6 +19,7 @@ type IdPpComponentProps = {
 
 export const IdPpComponent = (props: IdPpComponentProps) => {
   const { item, handleShowAddForm, showAddForm, setIdList } = props;
+  const { admin } = useUser();
 
   const [edit, setEdit] = useState(false);
   const handleSetEdit = () => setEdit(!edit);
@@ -31,7 +33,7 @@ export const IdPpComponent = (props: IdPpComponentProps) => {
     <styled.IdPpWrapper>
       <styled.ItemContainer>
         <styled.ItemWrapper>
-          <styled.Item>
+          <styled.Item admin={admin}>
             <styled.ItemContent>
               <styled.FullName>
                 <styled.Content>{item.fullname}</styled.Content>
@@ -52,24 +54,26 @@ export const IdPpComponent = (props: IdPpComponentProps) => {
               </styled.DateLost>
             </styled.ItemContent>
           </styled.Item>
-          <styled.ButtonsWrapper>
-            <styled.Button
-              onClick={() => {
-                handleSetEdit();
-                handleShowAddForm();
-              }}
-            >
-              <styled.ButtonIcon>
-                <EditIcon h={24} w={24} />
-              </styled.ButtonIcon>
-            </styled.Button>
-            <styled.ButtonDivider />
-            <styled.Button onClick={() => handleDeleteItem()}>
-              <styled.ButtonIcon>
-                <TrashIcon h={20} w={20} />
-              </styled.ButtonIcon>
-            </styled.Button>
-          </styled.ButtonsWrapper>
+          {admin && (
+            <styled.ButtonsWrapper>
+              <styled.Button
+                onClick={() => {
+                  handleSetEdit();
+                  handleShowAddForm();
+                }}
+              >
+                <styled.ButtonIcon>
+                  <EditIcon h={24} w={24} />
+                </styled.ButtonIcon>
+              </styled.Button>
+              <styled.ButtonDivider />
+              <styled.Button onClick={() => handleDeleteItem()}>
+                <styled.ButtonIcon>
+                  <TrashIcon h={20} w={20} />
+                </styled.ButtonIcon>
+              </styled.Button>
+            </styled.ButtonsWrapper>
+          )}
         </styled.ItemWrapper>
       </styled.ItemContainer>
       {showAddForm && (
