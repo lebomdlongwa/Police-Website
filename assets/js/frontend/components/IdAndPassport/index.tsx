@@ -5,6 +5,7 @@ import { Color } from "../colorCodes";
 import { IdPpComponent } from "./idPpComponent";
 import { fetchData, fetchIds } from "./actions";
 import { useUser } from "../../containers/userContext";
+import AddFormComponent from "../AddForm/addForm";
 
 export const IdPassportPage = () => {
   const { admin } = useUser();
@@ -38,15 +39,17 @@ export const IdPassportPage = () => {
         </styled.BottomSubHeader>
       </styled.HeaderContainer>
       {idList.map((item) => (
-        <IdPpComponent
-          item={item}
-          handleShowAddForm={handleShowAddForm}
-          showAddForm={showAddForm}
-          setIdList={setIdList}
-          // setEdit={handleSetEdit}
-          // edit={edit}
-        />
+        <IdPpComponent item={item} setIdList={setIdList} />
       ))}
+      {showAddForm && (
+        <>
+          <AddFormComponent
+            handleShowAddForm={handleShowAddForm}
+            showAddForm={showAddForm}
+            setIdList={setIdList}
+          />
+        </>
+      )}
     </styled.IdPpContainer>
   );
 };
