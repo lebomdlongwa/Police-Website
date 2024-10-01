@@ -26,6 +26,7 @@ defmodule ReportAppWeb.Router do
     pipe_through :api
 
     resources "/lost_ids", LostIdController
+    resources "/report", ReportsController
   end
 
   # Enables LiveDashboard only for development
