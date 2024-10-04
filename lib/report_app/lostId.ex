@@ -2,8 +2,21 @@ defmodule ReportApp.LostId do
   alias ReportApp.Repo
   alias ReportApp.LostId.Id
 
+  import Ecto.Query
+
   def list_lost_ids() do
-    Repo.all(Id)
+    sort_id_list()
+  end
+
+  def sort_id_list do
+    data =
+      Repo.all(
+        from i in Id,
+        order_by: [desc: i.inserted_at],
+        select: i
+      )
+
+    data
   end
 
   def get_lost_id!(id) do
