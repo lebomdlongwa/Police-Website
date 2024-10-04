@@ -47,6 +47,16 @@ export const ReportItem = styled.div.attrs({
   align-items: center;
 `;
 
+export const ReportContent = styled.div.attrs({
+  className: "ReportContent",
+})`
+  width: 80%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+`;
+
 export const Informant = styled.div.attrs({
   className: "Informant",
 })`
