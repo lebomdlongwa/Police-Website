@@ -10,16 +10,15 @@ import { useUser } from "../../containers/userContext";
 
 type IdPpComponentProps = {
   item: IdItem;
-  handleShowAddForm: VoidCallBack;
-  showAddForm: boolean;
   setIdList: (list: IdItem[]) => void;
-  // setEdit: VoidCallBack;
-  // edit: boolean;
 };
 
 export const IdPpComponent = (props: IdPpComponentProps) => {
-  const { item, handleShowAddForm, showAddForm, setIdList } = props;
+  const { item, setIdList } = props;
   const { admin } = useUser();
+
+  const [showAddForm, setShowAddForm] = useState(false);
+  const handleShowAddForm = () => setShowAddForm(!showAddForm);
 
   const [edit, setEdit] = useState(false);
   const handleSetEdit = () => setEdit(!edit);
@@ -77,14 +76,16 @@ export const IdPpComponent = (props: IdPpComponentProps) => {
         </styled.ItemWrapper>
       </styled.ItemContainer>
       {showAddForm && (
-        <AddFormComponent
-          handleShowAddForm={handleShowAddForm}
-          showAddForm={showAddForm}
-          setIdList={setIdList}
-          item={item}
-          setEdit={handleSetEdit}
-          edit={edit}
-        />
+        <>
+          <AddFormComponent
+            handleShowAddForm={handleShowAddForm}
+            showAddForm={showAddForm}
+            setIdList={setIdList}
+            item={item}
+            setEdit={handleSetEdit}
+            edit={edit}
+          />
+        </>
       )}
     </styled.IdPpWrapper>
   );

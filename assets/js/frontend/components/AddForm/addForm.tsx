@@ -7,14 +7,10 @@ type AddFormComponentProps = {
   handleShowAddForm: VoidCallBack;
   showAddForm: boolean;
   setIdList: (list: IdItem[]) => void;
-  item: IdItem;
-  edit: boolean;
-  setEdit: VoidCallBack;
+  item?: IdItem;
+  edit?: boolean;
+  setEdit?: VoidCallBack;
 };
-
-interface MyChangeEvent extends Event {
-  target: HTMLInputElement & EventTarget;
-}
 
 type State = {
   fullname: string;
@@ -32,21 +28,6 @@ class AddFormComponent extends Component<AddFormComponentProps, State> {
       dateLost: "",
     };
   }
-
-  onFullnameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    this.setState({ fullname: value });
-  };
-
-  onIdNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    this.setState({ idNumber: value });
-  };
-
-  onDateLostChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    this.setState({ dateLost: value });
-  };
 
   handleFetchedData = (data: Params) => {
     this.setState({
@@ -70,19 +51,22 @@ class AddFormComponent extends Component<AddFormComponentProps, State> {
     setIdList(response);
   };
 
-  // onChange(e) {
-  //   this.setState({
-  //     [e.target.name]: e.target.value,
-  //   });
-  // }
+  onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      ...this.state,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   render() {
-    const { edit, setEdit, item, handleShowAddForm } = this.props;
+    const { item, handleShowAddForm, edit, setEdit } = this.props;
+    const formHeader = edit ? "Edit ID" : "Add ID";
+    const addOrEditButton = edit ? "Edit" : "Add";
 
     return (
       <styled.AddFormContainer>
         <styled.FormWrapper>
-          <styled.FormHeader>Add new ID</styled.FormHeader>
+          <styled.FormHeader>{formHeader}</styled.FormHeader>
           <styled.FormBody>
             <styled.FormInputWrapper>
               <styled.FormLabel>
@@ -91,8 +75,9 @@ class AddFormComponent extends Component<AddFormComponentProps, State> {
               </styled.FormLabel>
               <styled.FormInput
                 placeholder="Enter full name..."
-                value={this.state.fullname}
-                onChange={this.onFullnameChange}
+                value={item?.fullname || this.state.fullname}
+                onChange={this.onChange}
+                name="fullname"
               />
             </styled.FormInputWrapper>
             <styled.FormInputWrapper>
@@ -103,7 +88,8 @@ class AddFormComponent extends Component<AddFormComponentProps, State> {
               <styled.FormInput
                 placeholder="Enter ID number..."
                 value={this.state.idNumber}
-                onChange={this.onIdNumberChange}
+                onChange={this.onChange}
+                name="idNumber"
               />
             </styled.FormInputWrapper>
             <styled.FormInputWrapper>
@@ -119,13 +105,15 @@ class AddFormComponent extends Component<AddFormComponentProps, State> {
               text="Cancel"
               onClick={() => {
                 handleShowAddForm();
+                setEdit();
               }}
             />
             <Button
-              text="Add"
+              text={addOrEditButton}
               onClick={() => {
                 this.handleAddItem();
                 handleShowAddForm();
+                setEdit();
               }}
             />
           </styled.FormFooter>
