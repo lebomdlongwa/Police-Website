@@ -13,13 +13,15 @@ defmodule ReportAppWeb.Api.ReportView do
 
   def render("report.json", %{report: report}) do
     %{
+      id: report.id,
       informant: report.informant,
       officer: report.officer,
       grade: report.grade,
       brief_circumstance: report.brief_circumstance,
       # attendance: report.attendance,
       # action_taken: report.action_taken,
-      accused: report.accused
+      accused: report.accused,
+      report_date: Date.to_string(report.inserted_at)
     }
   end
 

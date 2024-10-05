@@ -16,7 +16,7 @@ defmodule ReportAppWeb.Api.LostIdView do
       id: lost_id.id,
       fullname: lost_id.fullname,
       idNumber: lost_id.idNumber,
-      dateLost: lost_id.dateLost
+      dateLost: Date.to_string(lost_id.inserted_at)
     }
   end
 

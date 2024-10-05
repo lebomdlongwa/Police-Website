@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import * as styled from "./styles/report";
 
 import { EditIcon } from "../../../components/icons/edit";
 import { TrashIcon } from "../../../components/icons/trash";
@@ -7,21 +6,26 @@ import { SpeakerIcon } from "../../../components/icons/speaker";
 import { GradeIcon } from "../../../components/icons/grade";
 import { CalendarIcon } from "../../../components/icons/calendar";
 import PolicemanIcon from "../../../components/icons/policeman";
-import { i18n } from "./utils/i18n";
 import { InfoIcon } from "../../../components/icons/info";
 import { ExpandedComponent } from "./expandedItem";
+import { ReportModalComponent } from "../ReportModal/reportModal";
+import * as styled from "./styles/report";
 
 type ReportProps = {
   report: ReportItem;
+  onUpdate: (id: string, params: ReportParams) => Promise<void>;
+  onDelete: (id: string) => Promise<void>;
 };
 
 export const Report = (props: ReportProps) => {
-  const { report } = props;
+  const { report, onDelete, onUpdate } = props;
+
+  const [showReportEditModal, setShowReportEditModal] = useState(false);
+  const handleShowReportEditModal = () =>
+    setShowReportEditModal(!showReportEditModal);
 
   const [expand, setExpand] = useState(false);
-  const handleExpand = () => {
-    setExpand(!expand);
-  };
+  const handleExpand = () => setExpand(!expand);
 
   return (
     <styled.ReportWrapper>
@@ -62,22 +66,30 @@ export const Report = (props: ReportProps) => {
                   <CalendarIcon h={15} w={15} />
                   <styled.IconLabel>REPORT DATE</styled.IconLabel>
                 </styled.Icon>
-                <styled.Content></styled.Content>
+                <styled.Content>{report.report_date}</styled.Content>
               </styled.ReportDate>
             </styled.ReportContent>
             <styled.ButtonsWrapper>
-              <styled.Button>
+              <styled.Button onClick={handleShowReportEditModal}>
                 <EditIcon h={24} w={24} />
               </styled.Button>
               <styled.ButtonDivider />
-              <styled.Button>
+              <styled.Button onClick={() => onDelete(report.id)}>
                 <TrashIcon h={20} w={20} />
               </styled.Button>
             </styled.ButtonsWrapper>
           </styled.ReportItem>
-          {!expand && <ExpandedComponent report={report} />}
+          {expand && <ExpandedComponent report={report} />}
         </styled.ReportItemWrapper>
       </styled.ReportBody>
+      {showReportEditModal && (
+        <ReportModalComponent
+          report={report}
+          showReportEditModal={showReportEditModal}
+          handleShowReportEditModal={handleShowReportEditModal}
+          onUpdate={onUpdate}
+        />
+      )}
     </styled.ReportWrapper>
   );
 };

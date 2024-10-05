@@ -4,4 +4,9 @@ type IdPpParams = {
   dateLost: string;
 };
 
-type IdItem = IdPpParams & { id: string };
+type IdItem = {
+  id: string;
+  fullname: string;
+  idNumber: string;
+  dateLost: string;
+};
