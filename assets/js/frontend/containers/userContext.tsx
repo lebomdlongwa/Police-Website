@@ -11,7 +11,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const user = {
     fullname: "Lebohang Mdlongwa",
     email: "lebomdlongwa@.gmail.com",
-    admin: false,
+    admin: true,
   };
 
   return <UserContext.Provider value={user}>{children}</UserContext.Provider>;

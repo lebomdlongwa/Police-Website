@@ -1,4 +1,4 @@
-defmodule ReportAppWeb.Api.ReportsController do
+defmodule ReportAppWeb.Api.ReportController do
   use ReportAppWeb, :controller
 
   alias ReportApp.{
