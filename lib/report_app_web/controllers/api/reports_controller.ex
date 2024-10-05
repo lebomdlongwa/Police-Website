@@ -23,7 +23,7 @@ defmodule ReportAppWeb.Api.ReportController do
   end
 
   def update(conn, %{"id" => id, "params" => params}) do
-    report = Repo.get_report!(id)
+    report = Reports.get_report!(id)
 
     with {:ok, %Report{} = report} <- Reports.update_report(report, params) do
       render(conn, "show.json", report: report)
@@ -31,7 +31,7 @@ defmodule ReportAppWeb.Api.ReportController do
   end
 
   def delete(conn, %{"id" => id}) do
-    report = Repo.get_report!(id)
+    report = Reports.get_report!(id)
 
     with {:ok, %Report{} = report} <- Reports.delete_report(report) do
       render(conn, "delete.json", "")

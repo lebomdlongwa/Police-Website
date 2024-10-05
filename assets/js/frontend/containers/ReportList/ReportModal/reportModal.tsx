@@ -4,10 +4,12 @@ import { Color } from "../../../components/colorCodes";
 import { Button } from "../../../components/Button/button";
 
 type ReportModalComponentProps = {
-  showReportModal: VoidCallBack;
-  onCreate: (params: ReportParams) => Promise<void>;
+  report?: ReportItem;
+  showReportEditModal?: boolean;
+  handleShowReportModal?: VoidCallBack;
+  handleShowReportEditModal?: VoidCallBack;
+  onCreate?: (params: ReportParams) => Promise<void>;
   onUpdate: (id: string, params: ReportParams) => Promise<void>;
-  onDelete: (id: string) => Promise<void>;
 };
 
 export class ReportModalComponent extends Component<
@@ -34,7 +36,32 @@ export class ReportModalComponent extends Component<
   };
 
   render() {
-    const { showReportModal, onCreate, onUpdate, onDelete } = this.props;
+    const {
+      handleShowReportModal,
+      handleShowReportEditModal,
+      onCreate,
+      onUpdate,
+      showReportEditModal,
+      report,
+    } = this.props;
+
+    const addOrEditButonText = showReportEditModal ? "Edit" : "Add";
+
+    const handleModal = () => {
+      if (showReportEditModal) {
+        return handleShowReportEditModal();
+      } else {
+        return handleShowReportModal();
+      }
+    };
+
+    const handleAddorUpdate = () => {
+      if (showReportEditModal) {
+        return onUpdate(report.id, { ...this.state });
+      } else {
+        return onCreate({ ...this.state });
+      }
+    };
 
     return (
       <styled.ReportModalWrapper
@@ -47,7 +74,7 @@ export class ReportModalComponent extends Component<
             <styled.InputLabel>Fullname</styled.InputLabel>
             <styled.FormInput
               onChange={this.onChange}
-              value={this.state.informant}
+              value={report?.informant || this.state.informant}
               name="informant"
             />
           </styled.Fullname>
@@ -56,7 +83,7 @@ export class ReportModalComponent extends Component<
               <styled.InputLabel>Officer</styled.InputLabel>
               <styled.FormInput
                 onChange={this.onChange}
-                value={this.state.officer}
+                value={report?.officer || this.state.officer}
                 name="officer"
               />
             </styled.Officer>
@@ -65,7 +92,7 @@ export class ReportModalComponent extends Component<
               <styled.FormInput
                 width={80}
                 onChange={this.onChange}
-                value={this.state.grade}
+                value={report?.grade || this.state.grade}
                 name="grade"
               />
             </styled.Grade>
@@ -74,7 +101,7 @@ export class ReportModalComponent extends Component<
             <styled.InputLabel>Suspect Name</styled.InputLabel>
             <styled.FormInput
               onChange={this.onChange}
-              value={this.state.accused}
+              value={report?.accused || this.state.accused}
               name="accused"
             />
           </styled.SuspectName>
@@ -82,24 +109,29 @@ export class ReportModalComponent extends Component<
             <styled.InputLabel>Brief Circumstance</styled.InputLabel>
             <styled.BriefCircumstanceInput
               onChange={this.onChange}
-              value={this.state.brief_circumstance}
+              value={
+                report?.brief_circumstance || this.state.brief_circumstance
+              }
+              name="brief_circumstance"
             />
           </styled.BriefCircumstance>
         </styled.FormWrapper>
         <styled.ModalButtonWrapper>
           <Button
-            color={Color.white}
+            buttonColor={Color.white}
+            fontColor={Color.darkBlueFont}
             text="Cancel"
             onClick={() => {
-              showReportModal();
+              handleModal();
             }}
           />
           <Button
-            color={Color.white}
-            text="Add"
+            buttonColor={Color.white}
+            fontColor={Color.darkBlueFont}
+            text={addOrEditButonText}
             onClick={() => {
-              showReportModal();
-              onCreate({ ...this.state });
+              handleModal();
+              handleAddorUpdate();
             }}
           />
         </styled.ModalButtonWrapper>

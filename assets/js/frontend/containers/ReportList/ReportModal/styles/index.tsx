@@ -65,7 +65,7 @@ export const OfficerGradeWrapper = styled.div.attrs({
 })`
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 15px;
 `;
@@ -83,7 +83,7 @@ export const Officer = styled.div.attrs({
 export const Grade = styled.div.attrs({
   className: "Grade",
 })`
-  width: 60px;
+  width: 38px;
   margin-left: 10px;
   display: flex;
   flex-direction: column;

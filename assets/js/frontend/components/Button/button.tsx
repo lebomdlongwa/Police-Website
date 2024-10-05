@@ -4,27 +4,20 @@ import * as styled from "./styles";
 export type ButtonProps = {
   // size?: "small" | "medium" | "large";
   text: string;
-  // colorOnHover?: string;
-  color?: string;
+  fontOnHover?: string;
+  buttonColor?: string;
+  fontColor?: string;
   // rounded?: boolean;
   onClick?: any;
   className?: string;
 };
 
 export const Button = (props: ButtonProps) => {
-  // const { size, text, color, rounded = false, colorOnHover = color } = props;
-  const { text, color } = props;
-
-  // const buttonSettings = {
-  //   size: size,
-  //   color: color,
-  //   rounded: rounded,
-  //   colorOnHover: colorOnHover,
-  // };
+  const { text } = props;
 
   return (
-    <styled.Wrapper {...props}>
-      <styled.ButtonContent color={color}>{text}</styled.ButtonContent>
+    <styled.Wrapper>
+      <styled.ButtonContent {...props}>{text}</styled.ButtonContent>
     </styled.Wrapper>
   );
 };
