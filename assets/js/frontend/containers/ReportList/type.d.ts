@@ -7,6 +7,7 @@ type ReportParams = {
 };
 
 type ReportItem = {
+  id: string;
   informant: string;
   officer: string;
   grade: string;

@@ -2,8 +2,19 @@ defmodule ReportApp.Reports do
   alias ReportApp.Report
   alias ReportApp.Repo
 
+  import Ecto.Query
+
   def list_reports() do
-    Repo.all(Report)
+    sort_report_list()
+  end
+
+  def sort_report_list() do
+    report_list =
+      Repo.all(
+        from r in Report,
+        order_by: [desc: r.inserted_at],
+        select: r
+      )
   end
 
   def get_report!(id) do
