@@ -11,9 +11,14 @@ import { i18n } from "./utils/i18n";
 import { InfoIcon } from "../../../components/icons/info";
 import { ExpandedComponent } from "./expandedItem";
 
-export const Report = () => {
-  const [expand, setExpand] = useState(false);
+type ReportProps = {
+  report: ReportItem;
+};
 
+export const Report = (props: ReportProps) => {
+  const { report } = props;
+
+  const [expand, setExpand] = useState(false);
   const handleExpand = () => {
     setExpand(!expand);
   };
@@ -29,7 +34,7 @@ export const Report = () => {
                   <SpeakerIcon h={20} w={20} />
                   <styled.IconLabel>INFORMANT</styled.IconLabel>
                 </styled.Icon>
-                <styled.Content>BUKHOSI NDLELA</styled.Content>
+                <styled.Content>{report.informant}</styled.Content>
               </styled.Informant>
               <styled.CaseNumber>
                 <styled.Icon>
@@ -43,21 +48,21 @@ export const Report = () => {
                   <PolicemanIcon h={21} w={21} />
                   <styled.IconLabel>Officer</styled.IconLabel>
                 </styled.Icon>
-                <styled.Content>B CHIKOVORE</styled.Content>
+                <styled.Content>{report.officer}</styled.Content>
               </styled.Officer>
               <styled.ReportGrade>
                 <styled.Icon>
                   <GradeIcon h={19} w={19} />
                   <styled.IconLabel>GRADE</styled.IconLabel>
                 </styled.Icon>
-                <styled.Content>A</styled.Content>
+                <styled.Content>{report.grade}</styled.Content>
               </styled.ReportGrade>
               <styled.ReportDate>
                 <styled.Icon>
                   <CalendarIcon h={15} w={15} />
                   <styled.IconLabel>REPORT DATE</styled.IconLabel>
                 </styled.Icon>
-                <styled.Content>27-10-01</styled.Content>
+                <styled.Content></styled.Content>
               </styled.ReportDate>
             </styled.ReportContent>
             <styled.ButtonsWrapper>
@@ -70,7 +75,7 @@ export const Report = () => {
               </styled.Button>
             </styled.ButtonsWrapper>
           </styled.ReportItem>
-          {!expand && <ExpandedComponent />}
+          {!expand && <ExpandedComponent report={report} />}
         </styled.ReportItemWrapper>
       </styled.ReportBody>
     </styled.ReportWrapper>

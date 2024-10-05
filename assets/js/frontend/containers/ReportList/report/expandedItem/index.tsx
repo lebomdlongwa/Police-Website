@@ -1,12 +1,16 @@
 import React from "react";
 import * as styled from "./styles";
-import { CrimeSceneIcon } from "../../../../components/icons/crimeScene";
-import { Color } from "../../../../components/colorCodes";
 import { RunningManIcon } from "../../../../components/icons/runningMan";
 import { AccusedIcon } from "../../../../components/icons/accused";
 import { LocationIcon } from "../../../../components/icons/location";
 
-export const ExpandedComponent = () => {
+type ExpandedComponentProps = {
+  report: ReportItem;
+};
+
+export const ExpandedComponent = (props: ExpandedComponentProps) => {
+  const { report } = props;
+
   return (
     <styled.ExpandedItemWrapper>
       <styled.TopItemWrapper>
@@ -15,12 +19,7 @@ export const ExpandedComponent = () => {
             BRIEF CIRCUMSTANCE
           </styled.BriefCircumstanceHeader>
           <styled.BriefCircumstanceContent>
-            There are a few problems with this. One is that the input component
-            cannot be reused separately from the enhanced component. More
-            crucially, if you apply another HOC to EnhancedComponent that also
-            mutates componentDidUpdate, the first HOC’s functionality will be
-            overridden! This HOC also won’t work with function components, which
-            do not have lifecycle methods.
+            {report.brief_circumstance}
           </styled.BriefCircumstanceContent>
         </styled.BriefCircumstance>
       </styled.TopItemWrapper>
@@ -42,7 +41,7 @@ export const ExpandedComponent = () => {
             <AccusedIcon h={23} w={23} />
             <styled.IconLabel>Accused</styled.IconLabel>
           </styled.Icon>
-          <styled.Content>L MDLONGWA</styled.Content>
+          <styled.Content>{report.accused}</styled.Content>
         </styled.Accussed>
       </styled.BottomItemWrapper>
     </styled.ExpandedItemWrapper>

@@ -5,7 +5,7 @@ export type ButtonProps = {
   // size?: "small" | "medium" | "large";
   text: string;
   // colorOnHover?: string;
-  // color?: string;
+  color?: string;
   // rounded?: boolean;
   onClick?: any;
   className?: string;
@@ -13,7 +13,7 @@ export type ButtonProps = {
 
 export const Button = (props: ButtonProps) => {
   // const { size, text, color, rounded = false, colorOnHover = color } = props;
-  const { text } = props;
+  const { text, color } = props;
 
   // const buttonSettings = {
   //   size: size,
@@ -24,7 +24,7 @@ export const Button = (props: ButtonProps) => {
 
   return (
     <styled.Wrapper {...props}>
-      <styled.ButtonContent>{text}</styled.ButtonContent>
+      <styled.ButtonContent color={color}>{text}</styled.ButtonContent>
     </styled.Wrapper>
   );
 };

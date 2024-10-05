@@ -1,7 +1,7 @@
-type Params = {
+type IdPpParams = {
   fullname: string;
   idNumber: string;
   dateLost: string;
 };
 
-type IdItem = Params & { id: string };
+type IdItem = IdPpParams & { id: string };

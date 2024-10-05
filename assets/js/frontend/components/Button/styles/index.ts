@@ -16,11 +16,20 @@ export const Wrapper = styled.div`
 //   rounded?: boolean;
 // };
 
-export const ButtonContent = styled.div`
+export const ButtonContent = styled.div.attrs<{ color?: string }>({
+  className: "ButtonContent",
+})`
   padding: 7px 12px;
   border-radius: 4px;
-  color: white;
-  background-color: ${Color.darkBlue};
+  color: ${({ color }) => {
+    if (color === "white") {
+      return Color.darkBlueFont;
+    } else {
+      return Color.white;
+    }
+  }};
+  background-color: ${({ color }) =>
+    color ? color : `${Color.navyBlueLighter}`};
   display: flex;
   justify-content: center;
   align-items: center;
