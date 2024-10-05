@@ -58,13 +58,18 @@ export const ReportList = () => {
       </styled.HeaderContainer>
       {reportList &&
         reportList.length > 0 &&
-        reportList.map((report) => <Report report={report} />)}
+        reportList.map((report) => (
+          <Report
+            report={report}
+            onUpdate={handleUpdateReport}
+            onDelete={handleDeleteReport}
+          />
+        ))}
       {showReportModal && (
         <ReportModalComponent
-          showReportModal={handleShowReportModal}
+          handleShowReportModal={handleShowReportModal}
           onCreate={handleAddReport}
           onUpdate={handleUpdateReport}
-          onDelete={handleDeleteReport}
         />
       )}
     </styled.ListWrapper>

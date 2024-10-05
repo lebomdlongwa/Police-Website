@@ -49,7 +49,7 @@ export const IdPpComponent = (props: IdPpComponentProps) => {
                   <CalendarIcon />
                   <styled.IconLabel>DATE ADDED</styled.IconLabel>
                 </styled.Icon>
-                <styled.Content>{item.id}</styled.Content>
+                <styled.Content>{item.dateLost}</styled.Content>
               </styled.DateLost>
             </styled.ItemContent>
           </styled.Item>
