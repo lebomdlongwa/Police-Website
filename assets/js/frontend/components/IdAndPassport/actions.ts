@@ -24,13 +24,7 @@ export const fetchIds = async (): Promise<IdItem[]> => {
   }
 };
 
-export const createId = async (bodyParams: Params): Promise<IdItem[]> => {
-  const params = {
-    fullname: bodyParams.fullname,
-    idNumber: bodyParams.idNumber,
-    dateLost: bodyParams.dateLost,
-  };
-
+export const createId = async (params: IdPpParams): Promise<IdItem[]> => {
   try {
     const response = await fetch(`${baseUrl}/lost_ids`, {
       method: "POST",
@@ -44,12 +38,12 @@ export const createId = async (bodyParams: Params): Promise<IdItem[]> => {
   }
 };
 
-export const updateId = async (id: string, params: Partial<Params>) => {
+export const updateId = async (id: string, params: Partial<IdPpParams>) => {
   try {
     const response = await fetch(`${baseUrl}/lost_ids/${id}`, {
       method: "PUT",
       headers: headers,
-      body: JSON.stringify({ params }),
+      body: JSON.stringify({ id, params }),
     });
 
     return fetchIds();

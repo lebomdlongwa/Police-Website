@@ -29,7 +29,7 @@ class AddFormComponent extends Component<AddFormComponentProps, State> {
     };
   }
 
-  handleFetchedData = (data: Params) => {
+  handleFetchedData = (data: IdPpParams) => {
     this.setState({
       fullname: data.fullname,
       idNumber: data.idNumber,

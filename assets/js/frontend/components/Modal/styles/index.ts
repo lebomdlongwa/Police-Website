@@ -15,16 +15,21 @@ export const ModalContainer = styled.div.attrs({
   z-index: 3001;
 `;
 
-export const Modal = styled.div.attrs({
+export const Modal = styled.div.attrs<{
+  modalHeight: number;
+  modalWidth: number;
+  backgroundColor: string;
+}>({
   className: "Modal",
 })`
-  background-color: white;
+  background-color: ${({ backgroundColor }) =>
+    backgroundColor ? backgroundColor : "white"};
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 2000px rgba(0, 0, 0, 0.5);
-  width: 50%;
-  height: 80%;
-  max-height: 80vh;
+  width: ${({ modalWidth }) => (modalWidth ? `${modalWidth}%` : "50%")};
+  height: ${({ modalHeight }) => (modalHeight ? `${modalHeight}%` : "80%")};
+  max-height: 95vh;
   overflow-y: auto;
   z-index: 10000;
   display: flex;

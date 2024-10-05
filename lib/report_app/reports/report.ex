@@ -3,8 +3,8 @@ defmodule ReportApp.Report do
 
   import Ecto.Changeset
 
-  @required_params [:informant, :officer, :grade, :brief_circumstance]
-  @params @required_params ++ [:attendance, :action_taken, :accused]
+  @required_params [:informant, :officer, :grade]
+  @params @required_params ++ [:attendance, :action_taken, :accused, :brief_circumstance]
 
   schema "report" do
     field :informant, :string
