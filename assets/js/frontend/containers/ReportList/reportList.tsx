@@ -7,10 +7,10 @@ import { ReportModalComponent } from "./ReportModal/reportModal";
 import {
   createReport,
   deleteReport,
-  fetchData,
   getReports,
   updateReport,
 } from "./actions";
+import { fetchData } from "../requests";
 
 export const ReportList = () => {
   const [reportList, setReportList] = useState([]);
