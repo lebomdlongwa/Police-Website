@@ -1,67 +1,26 @@
-type IdList = {
-  data?: IdItem[];
+import {
+  httpDelete,
+  httpGet,
+  httpPost,
+  httpPut,
+} from "../../containers/requests";
+
+const path = "/lost_ids";
+
+export const fetchIds = async (): Promise<IdItem[]> => await httpGet(path);
+
+export const createId = async (params: ReportParams): Promise<IdItem[]> =>
+  await httpPost(path, params);
+
+export const updateId = async (
+  id: string,
+  params: Partial<IdPpParams>
+): Promise<IdItem[]> => {
+  const url_object = { id, params };
+  const response = await httpPut(path, url_object);
+
+  return response;
 };
 
-const baseUrl = "http://localhost:4000/api";
-const headers = { "Content-Type": "application/json" };
-
-export const fetchData = async (getRequestFn: any, stateUpdateFn: any) => {
-  try {
-    const response = await getRequestFn();
-    stateUpdateFn(response);
-  } catch (err) {
-    console.error("Error fetching data:", err);
-  }
-};
-
-export const fetchIds = async (): Promise<IdItem[]> => {
-  try {
-    const response = await fetch(`${baseUrl}/lost_ids`);
-    const responseJSON: IdList = await response.json();
-    return responseJSON.data || [];
-  } catch (err) {
-    console.error("Error retrieving lost ids: ", err);
-  }
-};
-
-export const createId = async (params: IdPpParams): Promise<IdItem[]> => {
-  try {
-    const response = await fetch(`${baseUrl}/lost_ids`, {
-      method: "POST",
-      headers: headers,
-      body: JSON.stringify({ params }),
-    });
-
-    return fetchIds();
-  } catch (err) {
-    console.error("Error posting data: ", err);
-  }
-};
-
-export const updateId = async (id: string, params: Partial<IdPpParams>) => {
-  try {
-    const response = await fetch(`${baseUrl}/lost_ids/${id}`, {
-      method: "PUT",
-      headers: headers,
-      body: JSON.stringify({ id, params }),
-    });
-
-    return fetchIds();
-  } catch (err) {
-    console.error("Error updating data: ", err);
-  }
-};
-
-export const deleteId = async (id: string): Promise<IdItem[]> => {
-  try {
-    const response = await fetch(`${baseUrl}/lost_ids/${id}`, {
-      method: "DELETE",
-      headers: headers,
-      body: JSON.stringify({ id }),
-    });
-
-    return fetchIds();
-  } catch (err) {
-    console.error("Error deleting data: ", err);
-  }
-};
+export const deleteId = async (id: string): Promise<IdItem[]> =>
+  await httpDelete(path, id);
