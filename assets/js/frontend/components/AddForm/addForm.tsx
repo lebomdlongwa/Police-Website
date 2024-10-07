@@ -13,7 +13,8 @@ type AddFormComponentProps = {
 };
 
 type State = {
-  fullname: string;
+  name: string;
+  surname: string;
   idNumber: string;
   dateLost: string;
 };
@@ -23,7 +24,8 @@ class AddFormComponent extends Component<AddFormComponentProps, State> {
     super(props);
 
     this.state = {
-      fullname: "",
+      name: "",
+      surname: "",
       idNumber: "",
       dateLost: "",
     };
@@ -31,7 +33,8 @@ class AddFormComponent extends Component<AddFormComponentProps, State> {
 
   handleFetchedData = (data: IdPpParams) => {
     this.setState({
-      fullname: data.fullname,
+      name: data.name,
+      surname: data.surname,
       idNumber: data.idNumber,
       dateLost: data.dateLost,
     });
@@ -70,14 +73,26 @@ class AddFormComponent extends Component<AddFormComponentProps, State> {
           <styled.FormBody>
             <styled.FormInputWrapper>
               <styled.FormLabel>
-                Full Name
+                Name
                 <styled.RequiredAsterisk>*</styled.RequiredAsterisk>
               </styled.FormLabel>
               <styled.FormInput
-                placeholder="Enter full name..."
-                value={item?.fullname || this.state.fullname}
+                placeholder="Enter name..."
+                value={item?.name || this.state.name}
                 onChange={this.onChange}
-                name="fullname"
+                name="name"
+              />
+            </styled.FormInputWrapper>
+            <styled.FormInputWrapper>
+              <styled.FormLabel>
+                Surname
+                <styled.RequiredAsterisk>*</styled.RequiredAsterisk>
+              </styled.FormLabel>
+              <styled.FormInput
+                placeholder="Enter surname..."
+                value={item?.surname || this.state.surname}
+                onChange={this.onChange}
+                name="surname"
               />
             </styled.FormInputWrapper>
             <styled.FormInputWrapper>

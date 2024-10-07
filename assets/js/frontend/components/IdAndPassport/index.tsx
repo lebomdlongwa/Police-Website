@@ -39,9 +39,9 @@ export const IdPassportPage = () => {
           </styled.SearchBox>
         </styled.BottomSubHeader>
       </styled.HeaderContainer>
-      {idList.map((item) => (
-        <IdPpComponent item={item} setIdList={setIdList} />
-      ))}
+      {idList.map((item) => {
+        return <IdPpComponent item={item} setIdList={setIdList} />;
+      })}
       {showAddForm && (
         <>
           <AddFormComponent
