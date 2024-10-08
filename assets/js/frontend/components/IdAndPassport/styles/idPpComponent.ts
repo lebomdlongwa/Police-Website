@@ -52,6 +52,8 @@ export const Item = styled.div.attrs<{ admin: boolean }>({
 })`
   height: 100%;
   width: ${({ admin }) => (admin ? "87%" : "100%")};
+  display: flex;
+  align-items: center;
 `;
 
 export const ItemContent = styled.div.attrs({
@@ -61,6 +63,7 @@ export const ItemContent = styled.div.attrs({
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-grow: 1;
 `;
 
 export const FullName = styled.div.attrs({

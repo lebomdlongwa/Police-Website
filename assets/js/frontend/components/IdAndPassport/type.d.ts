@@ -1,12 +1,14 @@
 type IdPpParams = {
-  fullname: string;
+  name: string;
+  surname: string;
   idNumber: string;
   dateLost: string;
 };
 
 type IdItem = {
   id: string;
-  fullname: string;
+  name: string;
+  surname: string;
   idNumber: string;
   dateLost: string;
 };
