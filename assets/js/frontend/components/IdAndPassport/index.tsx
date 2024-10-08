@@ -3,9 +3,10 @@ import * as styled from "./styles";
 import { SearchIcon } from "../icons/search";
 import { Color } from "../colorCodes";
 import { IdPpComponent } from "./idPpComponent";
-import { fetchData, fetchIds } from "./actions";
 import { useUser } from "../../containers/userContext";
 import AddFormComponent from "../AddForm/addForm";
+import { fetchData } from "../../containers/requests";
+import { fetchIds } from "./actions";
 
 export const IdPassportPage = () => {
   const { admin } = useUser();
