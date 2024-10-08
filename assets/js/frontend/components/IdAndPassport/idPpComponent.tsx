@@ -7,10 +7,12 @@ import { TrashIcon } from "../icons/trash";
 import { deleteId } from "./actions";
 import AddFormComponent from "../AddForm/addForm";
 import { useUser } from "../../containers/userContext";
+import { AvatarComponent } from "../Avatar/avatar";
 
 type IdPpComponentProps = {
   item: IdItem;
   setIdList: (list: IdItem[]) => void;
+  color?: string;
 };
 
 export const IdPpComponent = (props: IdPpComponentProps) => {
@@ -28,14 +30,18 @@ export const IdPpComponent = (props: IdPpComponentProps) => {
     setIdList(response);
   };
 
+  const fullname = item && `${item.name} ${item.surname}`;
+  const initials = item && `${item.name[0]}${item.surname[0]}`;
+
   return (
     <styled.IdPpWrapper>
       <styled.ItemContainer>
         <styled.ItemWrapper>
           <styled.Item admin={admin}>
+            <AvatarComponent initials={initials} />
             <styled.ItemContent>
               <styled.FullName>
-                <styled.Content>{item.fullname}</styled.Content>
+                <styled.Content>{fullname}</styled.Content>
               </styled.FullName>
               <styled.IdNumber>
                 <styled.Icon>
