@@ -9,7 +9,7 @@ const path = "/lost_ids";
 
 export const fetchIds = async (): Promise<IdItem[]> => await httpGet(path);
 
-export const createId = async (params: ReportParams): Promise<IdItem[]> =>
+export const createId = async (params: IdPpParams): Promise<IdItem[]> =>
   await httpPost(path, params);
 
 export const updateId = async (
