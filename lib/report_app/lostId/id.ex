@@ -3,8 +3,12 @@ defmodule ReportApp.LostId.Id do
 
   import Ecto.Changeset
 
+  @required_params [:name, :surname, :idNumber]
+  @params @required_params ++ [:finder, :dateLost]
+
   schema "lost_ids" do
-    field :fullname, :string
+    field :name, :string
+    field :surname, :string
     field :idNumber, :string
     field :dateLost, :string
     field :finder, :string
@@ -14,7 +18,7 @@ defmodule ReportApp.LostId.Id do
 
   def changeset(lost_id, attrs) do
     lost_id
-    |> cast(attrs, [:fullname, :idNumber, :dateLost])
-    |> validate_required([:fullname, :idNumber])
+    |> cast(attrs, @params)
+    |> validate_required(@required_params)
   end
 end

@@ -14,7 +14,8 @@ defmodule ReportAppWeb.Api.LostIdView do
   def render("lost_id.json", %{lost_id: lost_id}) do
     %{
       id: lost_id.id,
-      fullname: lost_id.fullname,
+      name: lost_id.name,
+      surname: lost_id.surname,
       idNumber: lost_id.idNumber,
       dateLost: Date.to_string(lost_id.inserted_at)
     }
