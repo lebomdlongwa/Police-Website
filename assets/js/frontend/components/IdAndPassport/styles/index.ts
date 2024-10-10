@@ -63,45 +63,6 @@ export const AddItem = styled(ButtonBase).attrs<{ admin: boolean }>({
   visibility: ${({ admin }) => (admin ? "none" : "hidden")};
 `;
 
-export const SearchBox = styled.div.attrs({
-  className: "SearchBox",
-})`
-  border: 1px solid lightgray;
-  height: 90%;
-  width: 40%;
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  padding: 10px 0;
-`;
-
-export const SearchIcon = styled.div.attrs({
-  className: "SearchIcon",
-})`
-  height: 100%;
-  width: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 10px;
-  margin-left: 5px;
-`;
-
-export const SearchInput = styled.input.attrs({
-  className: "SearchInput",
-})`
-  text-decoration: none;
-  color: ${Color.darkBlueFont};
-  font-size: 18px;
-  font-weight: 400;
-  padding: 5px;
-  border: none;
-
-  &:focus {
-    outline: none;
-  }
-`;
-
 export const ExpandedItem = styled.div.attrs({
   className: "ExpandedItem",
 })`
