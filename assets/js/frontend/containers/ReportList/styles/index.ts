@@ -27,6 +27,7 @@ export const HeaderContainer = styled.div.attrs({
   height: 16vh;
   border-bottom: 1px solid lightgray;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  margin-bottom: 30px;
 `;
 
 export const TopSubHeader = styled.div.attrs({

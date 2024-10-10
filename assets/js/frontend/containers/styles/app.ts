@@ -4,50 +4,34 @@ import { Color } from "../../components/colorCodes";
 export const AppContainer = styled.div.attrs({
   className: "AppContainer",
 })`
-  background-color: ${Color.darkBlue};
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
-  /* position: relative; */
   display: flex;
 `;
 
-export const AppSideBar = styled.div.attrs({
+export const AppSideBar = styled.div.attrs<{ expandMenu: boolean }>({
   className: "AppSideBar",
 })`
-  width: 63px;
   height: 100vh;
+  width: ${({ expandMenu }) => (expandMenu ? "200px" : "60px")};
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.7);
+  background-color: #0c213a;
+  position: fixed;
 
   /* For mobile dev sake */
   /* background-color: #333; */
-
+  /* 
   @media (max-width: 400px) {
     max-height: 7vh;
-  }
+  } */
 `;
 
-export const AppNavBar = styled.div.attrs({
-  className: "AppNavBar",
-})`
-  height: 53px;
-  width: 100%;
-
-  /* For mobile dev sake */
-  /* background-color: #333; */
-
-  @media (max-width: 400px) {
-    max-height: 7vh;
-  }
-`;
-
-export const AppBody = styled.div.attrs({
+export const AppBody = styled.div.attrs<{ expandMenu: boolean }>({
   className: "AppBody",
 })`
-  background-color: ${Color.darkBlue};
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  position: relative;
+  width: calc(100vw - 60px);
+  overflow: auto;
+  margin-left: ${({ expandMenu }) => (expandMenu ? "200px" : "60px")};
 `;
