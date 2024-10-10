@@ -76,7 +76,7 @@ export const SearchComponent = (props: SearchComponentProps) => {
           {searchActive &&
             searchResults.map((item) => {
               const fullname = item && `${item.name} ${item.surname}`;
-              const initials = item && `${item.name[0]}${item.surname[0]}`;
+              const initials = item && `${item.name[0]}`;
 
               return (
                 <styled.DropdownOption>
