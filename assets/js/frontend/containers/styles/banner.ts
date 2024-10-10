@@ -8,7 +8,7 @@ import { Button as BaseButton } from "../../components/Button/button";
 export const Wrapper = styled.div.attrs({
   className: "Wrapper",
 })`
-  min-height: calc(100vh - 53px);
+  min-height: 100vh;
   background-color: ${Color.darkBlue};
   color: black;
   position: relative;
