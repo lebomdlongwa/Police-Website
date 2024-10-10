@@ -28,7 +28,7 @@ export const Report = (props: ReportProps) => {
   const handleExpand = () => setExpand(!expand);
 
   return (
-    <styled.ReportWrapper>
+    <styled.ReportWrapper expand={expand}>
       <styled.ReportBody>
         <styled.ReportItemWrapper>
           <styled.ReportItem>

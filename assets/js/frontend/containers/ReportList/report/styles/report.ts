@@ -1,13 +1,12 @@
 import styled from "styled-components";
 import { Color } from "../../../../components/colorCodes";
 
-export const ReportWrapper = styled.div.attrs({
+export const ReportWrapper = styled.div.attrs<{ expand: boolean }>({
   className: "ReportWrapper",
 })`
   width: 100%;
-  height: 100%;
+  height: ${({ expand }) => (expand ? "355px" : "75px")};
   padding: 5px 50px;
-  margin-top: 10px;
 `;
 
 export const ReportBody = styled.div.attrs({
@@ -25,7 +24,6 @@ export const ReportItemWrapper = styled.div.attrs({
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   border: 1px solid ${Color.grayLighter};
   border-radius: 4px;
-  margin: 10px 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -33,18 +31,19 @@ export const ReportItemWrapper = styled.div.attrs({
 
   &:hover {
     cursor: pointer;
-    transform: scale(1.01);
-    transition: all 0.3s ease;
+    /* transform: scale(1.01);
+    transition: all 0.3s ease; */
   }
 `;
 
 export const ReportItem = styled.div.attrs({
   className: "ReportItem",
 })`
+  height: 75px;
   width: 100%;
-  height: 9vh;
   display: flex;
   align-items: center;
+  padding: 5px 0;
 `;
 
 export const ReportContent = styled.div.attrs({
@@ -63,6 +62,9 @@ export const Informant = styled.div.attrs({
   width: 25%;
   height: 100%;
   padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 export const CaseNumber = styled.div.attrs({
@@ -73,6 +75,7 @@ export const CaseNumber = styled.div.attrs({
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
 `;
 
 export const Officer = styled.div.attrs({
@@ -83,6 +86,7 @@ export const Officer = styled.div.attrs({
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
 `;
 
 export const ReportGrade = styled.div.attrs({
@@ -93,6 +97,7 @@ export const ReportGrade = styled.div.attrs({
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
 `;
 
 export const ReportDate = styled.div.attrs({
@@ -103,6 +108,7 @@ export const ReportDate = styled.div.attrs({
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
 `;
 
 export const Icon = styled.div.attrs<{ class?: string }>({
@@ -134,6 +140,9 @@ export const Content = styled.div.attrs({
   align-items: center;
   color: ${Color.darkBlueFont};
   font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 `;
 
 export const ButtonsWrapper = styled.div.attrs({

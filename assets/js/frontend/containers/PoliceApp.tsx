@@ -1,5 +1,5 @@
-import React from "react";
-import Navbar from "./NavBar";
+import React, { useState } from "react";
+import SideBar from "./NavBar";
 import { MissingList } from "./People/MissingPeople";
 import { Individual } from "./People/MissingPeople/individual";
 import * as styled from "./styles/app";
@@ -20,35 +20,46 @@ export const routes = {
 };
 
 const PoliceApp = () => {
+  const [expandMenu, setExpandMenu] = useState(false);
+
+  const handleExpandMenu = () => setExpandMenu(!expandMenu);
+
   return (
     <BrowserRouter>
       <styled.AppContainer>
-        <styled.AppNavBar>
-          <Navbar />
-        </styled.AppNavBar>
+        <styled.AppSideBar
+          expandMenu={expandMenu}
+          onMouseLeave={() => setExpandMenu(false)}
+        >
+          <SideBar
+            handleExpandMenu={handleExpandMenu}
+            expandMenu={expandMenu}
+          />
+        </styled.AppSideBar>
+        <styled.AppBody expandMenu={expandMenu}>
+          <Routes>
+            <Route path={routes.home} Component={HomePage} />
+          </Routes>
+          <Routes>
+            <Route path={routes.missing} Component={MissingList} />
+          </Routes>
+          <Routes>
+            <Route path={routes.lost_id_pp} Component={IdPassportPage} />
+          </Routes>
+          <Routes>
+            <Route path={routes.lost_general_goods} Component={LostItems} />
+          </Routes>
+          <Routes>
+            <Route path={`${routes.missing}/:id`} Component={Individual} />
+          </Routes>
+          <Routes>
+            <Route path={routes.reports_list} Component={ReportList} />
+          </Routes>
+          <Routes>
+            <Route path={`${routes.report}/:id`} Component={Report} />
+          </Routes>
+        </styled.AppBody>
       </styled.AppContainer>
-
-      <Routes>
-        <Route path={routes.home} Component={HomePage} />
-      </Routes>
-      <Routes>
-        <Route path={routes.missing} Component={MissingList} />
-      </Routes>
-      <Routes>
-        <Route path={routes.lost_id_pp} Component={IdPassportPage} />
-      </Routes>
-      <Routes>
-        <Route path={routes.lost_general_goods} Component={LostItems} />
-      </Routes>
-      <Routes>
-        <Route path={`${routes.missing}/:id`} Component={Individual} />
-      </Routes>
-      <Routes>
-        <Route path={routes.reports_list} Component={ReportList} />
-      </Routes>
-      <Routes>
-        <Route path={`${routes.report}/:id`} Component={Report} />
-      </Routes>
     </BrowserRouter>
   );
 };
