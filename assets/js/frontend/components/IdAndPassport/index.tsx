@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import * as styled from "./styles";
-import { SearchIcon } from "../icons/search";
-import { Color } from "../colorCodes";
 import { IdPpComponent } from "./idPpComponent";
 import { useUser } from "../../containers/userContext";
 import AddFormComponent from "../AddForm/addForm";
 import { fetchData } from "../../containers/requests";
 import { fetchIds } from "./actions";
+import { SearchComponent } from "../SearchComponent/search";
 
 export const IdPassportPage = () => {
   const { admin } = useUser();
@@ -31,12 +30,7 @@ export const IdPassportPage = () => {
           />
         </styled.TopSubHeader>
         <styled.BottomSubHeader>
-          <styled.SearchBox>
-            <styled.SearchIcon>
-              <SearchIcon h={22} w={22} c={Color.iconGray} />
-            </styled.SearchIcon>
-            <styled.SearchInput placeholder="Type some text to search..."></styled.SearchInput>
-          </styled.SearchBox>
+          <SearchComponent idList={idList} />
         </styled.BottomSubHeader>
       </styled.HeaderContainer>
       {idList.map((item) => {
