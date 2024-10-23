@@ -26,7 +26,7 @@ const SideBar = (props: SideBarProps) => {
         <styled.StyledLink to={routes.home}>
           <styled.OptionsWrapper>
             <styled.OptionIcon>
-              <HomeIcon c={Color.white} h={30} w={30} />
+              <HomeIcon c={Color.white} h={40} w={40} />
             </styled.OptionIcon>
             <styled.ExpandedMenuOption expandMenu={expandMenu}>
               Home

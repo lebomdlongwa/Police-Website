@@ -11,7 +11,7 @@ import { AvatarComponent } from "../Avatar/avatar";
 
 type IdPpComponentProps = {
   item: IdItem;
-  setIdList: (list: IdItem[]) => void;
+  setIdList?: (list: IdItem[]) => void;
   color?: string;
 };
 

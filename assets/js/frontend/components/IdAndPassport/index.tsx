@@ -6,13 +6,22 @@ import AddFormComponent from "../AddForm/addForm";
 import { fetchData } from "../../containers/requests";
 import { fetchIds } from "./actions";
 import { SearchComponent } from "../SearchComponent/search";
+import { BackIcon } from "../icons/back";
+import { Color } from "../colorCodes";
 
 export const IdPassportPage = () => {
   const { admin } = useUser();
   const [idList, setIdList] = useState<IdItem[]>([]);
+  const [searchedId, setSearchedId] = useState<string>(null);
+  const [displaySearchedId, setDisplaySearchedId] = useState(false);
 
   const [showAddForm, setShowAddForm] = useState(false);
   const handleShowAddForm = () => setShowAddForm(!showAddForm);
+
+  const handleDisplaySearchedId = (id: string) => {
+    setDisplaySearchedId(!displaySearchedId);
+    setSearchedId(id);
+  };
 
   useEffect(() => {
     fetchData(fetchIds, setIdList);
@@ -30,12 +39,31 @@ export const IdPassportPage = () => {
           />
         </styled.TopSubHeader>
         <styled.BottomSubHeader>
-          <SearchComponent idList={idList} />
+          <SearchComponent
+            idList={idList}
+            handleDisplaySearchedId={handleDisplaySearchedId}
+          />
         </styled.BottomSubHeader>
       </styled.HeaderContainer>
-      {idList.map((item) => {
-        return <IdPpComponent item={item} setIdList={setIdList} />;
-      })}
+      {searchedId && idList && (
+        <styled.SearchedResultWrapper>
+          <styled.BackButton>
+            <styled.IconWrapper onClick={() => setSearchedId(null)}>
+              <BackIcon w={50} h={50} c={Color.navyBlue} />
+            </styled.IconWrapper>
+            <styled.BackButtonText>
+              Go back to the report list
+            </styled.BackButtonText>
+          </styled.BackButton>
+          <IdPpComponent
+            item={idList.find((item) => item.id === searchedId)!}
+          />
+        </styled.SearchedResultWrapper>
+      )}
+      {!searchedId &&
+        idList.map((item) => {
+          return <IdPpComponent item={item} setIdList={setIdList} />;
+        })}
       {showAddForm && (
         <>
           <AddFormComponent
