@@ -3,7 +3,7 @@ import { Color } from "../../colorCodes";
 import { AvatarComponent } from "../../Avatar/avatar";
 
 export const SearchWrapper = styled.div.attrs<{
-  searchActive: boolean;
+  searchResultsPresent: boolean;
 }>({
   className: "SearchWrapper",
 })`
@@ -11,8 +11,10 @@ export const SearchWrapper = styled.div.attrs<{
   width: 40%;
   height: 90%;
   border-radius: 20px;
-  border-bottom-left-radius: ${({ searchActive }) => searchActive && 0};
-  border-bottom-right-radius: ${({ searchActive }) => searchActive && 0};
+  border-bottom-left-radius: ${({ searchResultsPresent }) =>
+    searchResultsPresent && 0};
+  border-bottom-right-radius: ${({ searchResultsPresent }) =>
+    searchResultsPresent && 0};
   display: flex;
   flex-direction: column;
   justify-content: center;
