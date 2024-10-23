@@ -5,15 +5,17 @@ import { SearchIcon } from "../icons/search";
 
 type SearchComponentProps = {
   idList: IdItem[];
+  handleDisplaySearchedId: (id: string) => void;
 };
 
 export const SearchComponent = (props: SearchComponentProps) => {
-  const { idList } = props;
+  const { idList, handleDisplaySearchedId } = props;
 
   const [distanceToTop, setDistanceToTop] = useState(0);
   const [searchbarWidth, setSearchbarWidth] = useState(0);
   const [searchBarLeft, setSearchBarLeft] = useState(0);
   const [searchTerm, setsearchTerm] = useState("");
+  const [searchActive, setSearchActive] = useState(false);
   const searchRef = useRef(null);
   const searchbarRef = useRef(null);
 
@@ -27,6 +29,9 @@ export const SearchComponent = (props: SearchComponentProps) => {
         return item;
       }
     });
+
+  const searchResultsPresent =
+    searchActive && searchResults && searchResults.length > 0;
 
   useEffect(() => {
     const measureDistance = () => {
@@ -52,11 +57,15 @@ export const SearchComponent = (props: SearchComponentProps) => {
     };
   }, []);
 
-  const searchActive = searchResults && searchResults.length > 0;
-
   return (
-    <styled.SearchWrapper ref={searchbarRef} searchActive={searchActive}>
-      <styled.SearchBox ref={searchRef}>
+    <styled.SearchWrapper
+      ref={searchbarRef}
+      searchResultsPresent={searchResultsPresent}
+    >
+      <styled.SearchBox
+        ref={searchRef}
+        onClick={() => setSearchActive(!searchActive)}
+      >
         <styled.InputWrapper>
           <styled.SearchIcon>
             <SearchIcon h={22} w={22} c={Color.iconGray} />
@@ -67,28 +76,32 @@ export const SearchComponent = (props: SearchComponentProps) => {
           />
         </styled.InputWrapper>
       </styled.SearchBox>
-      {searchActive && (
+      {searchResultsPresent && searchActive && (
         <styled.DropdownWrapper
           distanceToTop={distanceToTop}
           searchbarWidth={searchbarWidth}
           searchBarLeft={searchBarLeft}
         >
-          {searchActive &&
-            searchResults.map((item) => {
-              const fullname = item && `${item.name} ${item.surname}`;
-              const initials = item && `${item.name[0]}`;
+          {searchResults.map((item) => {
+            const fullname = item && `${item.name} ${item.surname}`;
+            const initials = item && `${item.name[0]}`;
 
-              return (
-                <styled.DropdownOption>
-                  <styled.OptionNameAvatar
-                    fontSize={12}
-                    initials={initials}
-                    avatarSize={30}
-                  />
-                  <styled.OptionName>{fullname}</styled.OptionName>
-                </styled.DropdownOption>
-              );
-            })}
+            return (
+              <styled.DropdownOption
+                onClick={() => {
+                  handleDisplaySearchedId(item.id);
+                  setSearchActive(false);
+                }}
+              >
+                <styled.OptionNameAvatar
+                  fontSize={12}
+                  initials={initials}
+                  avatarSize={30}
+                />
+                <styled.OptionName>{fullname}</styled.OptionName>
+              </styled.DropdownOption>
+            );
+          })}
         </styled.DropdownWrapper>
       )}
     </styled.SearchWrapper>
