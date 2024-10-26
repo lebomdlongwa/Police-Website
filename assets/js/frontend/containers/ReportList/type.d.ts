@@ -6,6 +6,8 @@ type ReportParams = {
   brief_circumstance: string;
 };
 
+type SortByType = "officer" | "grade";
+
 type ReportItem = {
   id: string;
   informant: string;
