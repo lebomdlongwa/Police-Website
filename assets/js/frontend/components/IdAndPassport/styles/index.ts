@@ -18,7 +18,7 @@ export const HeaderContainer = styled.div.attrs({
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 16vh;
+  height: 105px;
   border-bottom: 1px solid lightgray;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   margin-bottom: 20px;
@@ -50,7 +50,6 @@ export const BottomSubHeader = styled.div.attrs({
 export const Title = styled.div.attrs({
   className: "Title",
 })`
-  height: 3vh;
   color: ${Color.darkBlueFont};
   font-size: 20px;
   font-weight: 500;
@@ -66,7 +65,7 @@ export const AddItem = styled(ButtonBase).attrs<{ admin: boolean }>({
 export const ExpandedItem = styled.div.attrs({
   className: "ExpandedItem",
 })`
-  height: 12vh;
+  height: 150px;
   width: 100%;
   border-top: 0;
   border-top: 1px solid lightgray;

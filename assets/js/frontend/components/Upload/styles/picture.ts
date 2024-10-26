@@ -9,12 +9,9 @@ export const Wrapper = styled.div.attrs({
   align-items: center;
   width: 30%;
   min-width: 390px;
-  height: 6.5vh;
-  min-height: 44.4px;
-  /* height: 40vh; */
+  height: 44.4px;
   border: 2px solid ${Color.darkBlue};
   border-radius: 4px;
-  /* padding: 20px; */
   position: relative;
   padding: 0 5px;
 

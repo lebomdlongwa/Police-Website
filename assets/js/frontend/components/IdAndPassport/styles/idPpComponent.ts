@@ -1,12 +1,10 @@
 import styled from "styled-components";
 import { Color } from "../../colorCodes";
-import { Button as ButtonBase } from "../../Button/button";
 
 export const IdPpWrapper = styled.div.attrs({
   className: "IdPpWrapper",
 })`
   padding: 10px 0;
-  /* border: 1px solid blue; */
   flex-grow: 1;
   width: 100%;
   display: flex;
@@ -35,7 +33,7 @@ export const ItemContainer = styled.div.attrs({
 export const ItemWrapper = styled.div.attrs({
   className: "ItemWrapper",
 })`
-  height: 9vh;
+  height: 60px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -139,7 +137,7 @@ export const DateLost = styled.div.attrs({
 export const ExpandedItem = styled.div.attrs({
   className: "ExpandedItem",
 })`
-  height: 12vh;
+  height: 130px;
   width: 100%;
   border-top: 0;
   border-top: 1px solid lightgray;

@@ -10,13 +10,6 @@ export const ListWrapper = styled.div.attrs({
   min-height: 100vh;
 `;
 
-export const ListHeader = styled.div.attrs({
-  className: "ListHeader",
-})`
-  width: 100%;
-  min-height: 10vh;
-`;
-
 export const HeaderContainer = styled.div.attrs({
   className: "HeaderContainer",
 })`
@@ -24,6 +17,7 @@ export const HeaderContainer = styled.div.attrs({
   flex-direction: column;
   align-items: center;
   width: 100%;
+  height: 110px;
   border-bottom: 1px solid lightgray;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   margin-bottom: 30px;
@@ -36,13 +30,6 @@ export const SortByHeader = styled.div.attrs({
   width: 100%;
 `;
 
-export const SubHeader = styled.div.attrs({
-  className: "SubHeader",
-})`
-  height: 18vh;
-  width: 100%;
-`;
-
 export const TopSubHeader = styled.div.attrs({
   className: "TopSubHeader",
 })`
@@ -51,7 +38,7 @@ export const TopSubHeader = styled.div.attrs({
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 45%;
+  height: 50%;
   background-color: ${Color.grayLighter};
 `;
 
@@ -62,13 +49,12 @@ export const BottomSubHeader = styled.div.attrs({
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 55%;
+  height: 50%;
 `;
 
 export const Title = styled.div.attrs({
   className: "Title",
 })`
-  height: 3vh;
   display: flex;
   align-items: center;
   color: ${Color.darkBlueFont};
@@ -80,11 +66,4 @@ export const AddItem = styled(ButtonBase).attrs({
   className: "AddItem",
 })`
   height: 80%;
-`;
-
-export const ListTitle = styled.div.attrs({
-  className: "ListTitle",
-})`
-  width: 100%;
-  height: 100%;
 `;
