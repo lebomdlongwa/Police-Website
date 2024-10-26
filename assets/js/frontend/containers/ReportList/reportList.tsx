@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as styled from "./styles";
 import { Report } from "./report/report";
-import { SearchIcon } from "../../components/icons/search";
-import { Color } from "../../components/colorCodes";
 import { ReportModalComponent } from "./ReportModal/reportModal";
 import {
   createReport,
@@ -11,6 +9,7 @@ import {
   updateReport,
 } from "./actions";
 import { fetchData } from "../requests";
+import { SortByComponent } from "./sortBy";
 
 export const ReportList = () => {
   const [reportList, setReportList] = useState([]);
@@ -21,6 +20,14 @@ export const ReportList = () => {
   useEffect(() => {
     fetchData(getReports, setReportList);
   }, []);
+
+  const handleGetReports = async (getType: SortByType) => {
+    const params = {
+      type: getType,
+    };
+    const response = await getReports(params);
+    setReportList(response);
+  };
 
   const handleAddReport = async (params: ReportParams) => {
     const response = await createReport(params);
@@ -43,18 +50,15 @@ export const ReportList = () => {
   return (
     <styled.ListWrapper>
       <styled.HeaderContainer>
-        <styled.TopSubHeader>
-          <styled.Title>Report Cases</styled.Title>
-          <styled.AddItem text="Add Item" onClick={handleShowReportModal} />
-        </styled.TopSubHeader>
-        <styled.BottomSubHeader>
-          <styled.SearchBox>
-            <styled.SearchIcon>
-              <SearchIcon h={22} w={22} c={Color.iconGray} />
-            </styled.SearchIcon>
-            <styled.SearchInput placeholder="Type some text to search..."></styled.SearchInput>
-          </styled.SearchBox>
-        </styled.BottomSubHeader>
+        <styled.SubHeader>
+          <styled.TopSubHeader>
+            <styled.Title>Report Cases</styled.Title>
+            <styled.AddItem text="Add Item" onClick={handleShowReportModal} />
+          </styled.TopSubHeader>
+          <styled.BottomSubHeader>
+            <SortByComponent handleGetReports={handleGetReports} />
+          </styled.BottomSubHeader>
+        </styled.SubHeader>
       </styled.HeaderContainer>
       {reportList &&
         reportList.length > 0 &&

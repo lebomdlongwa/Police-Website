@@ -9,7 +9,6 @@ export const RunningManIcon = (props: IconProps) => {
       fill={c as string}
       width={`${w}px`}
       height={`${h}px`}
-      version="1.1"
       viewBox="0 0 512 512"
     >
       {/* <style type="text/css">

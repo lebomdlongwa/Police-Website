@@ -2,8 +2,9 @@ import { httpDelete, httpGet, httpPost, httpPut } from "../requests";
 
 const path = "/reports";
 
-export const getReports = async (): Promise<ReportItem[]> =>
-  await httpGet(path);
+export const getReports = async (params?: {
+  type: SortByType;
+}): Promise<ReportItem[]> => await httpGet(path, params);
 
 export const createReport = async (
   params: ReportParams
