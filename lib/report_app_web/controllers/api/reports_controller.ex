@@ -7,7 +7,7 @@ defmodule ReportAppWeb.Api.ReportController do
   }
 
   def index(conn, _params) do
-    reports = Reports.list_reports()
+    reports = Reports.list_reports(conn.query_params)
     render(conn, "index.json", reports: reports)
   end
 

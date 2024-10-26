@@ -10,9 +10,19 @@ export const fetchData = async (getRequestFn: any, stateUpdateFn: any) => {
   }
 };
 
-export const httpGet = async (path: string) => {
+export const httpGet = async (
+  path: string,
+  params?: string | number | object
+) => {
   try {
-    const response = await fetch(`${baseUrl}${path}`);
+    let queryString = "";
+
+    if (params) {
+      const searchParams = new URLSearchParams(params as string);
+      queryString = `?${searchParams.toString()}`;
+    }
+
+    const response = await fetch(`${baseUrl}${path}${queryString}`);
     const responseJSON = await response.json();
 
     return responseJSON.data || [];
