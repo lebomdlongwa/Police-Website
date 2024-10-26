@@ -50,15 +50,13 @@ export const ReportList = () => {
   return (
     <styled.ListWrapper>
       <styled.HeaderContainer>
-        <styled.SubHeader>
-          <styled.TopSubHeader>
-            <styled.Title>Report Cases</styled.Title>
-            <styled.AddItem text="Add Item" onClick={handleShowReportModal} />
-          </styled.TopSubHeader>
-          <styled.BottomSubHeader>
-            <SortByComponent handleGetReports={handleGetReports} />
-          </styled.BottomSubHeader>
-        </styled.SubHeader>
+        <styled.TopSubHeader>
+          <styled.Title>Report Cases</styled.Title>
+          <styled.AddItem text="Add Item" onClick={handleShowReportModal} />
+        </styled.TopSubHeader>
+        <styled.BottomSubHeader>
+          <SortByComponent handleGetReports={handleGetReports} />
+        </styled.BottomSubHeader>
       </styled.HeaderContainer>
       {reportList &&
         reportList.length > 0 &&

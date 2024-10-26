@@ -43,7 +43,7 @@ export const TilesWrapper = styled.div.attrs({
   className: "TilesWrapper",
 })`
   width: 90%;
-  height: 46vh;
+  height: 290px;
   margin: 0 auto;
   padding: 0 15px;
   width: 87%;

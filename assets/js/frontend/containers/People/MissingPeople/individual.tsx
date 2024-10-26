@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import * as styled from "./styles/individual";
-import { Modal } from "../../../components/Modal/modal";
 
 export const Individual = () => {
   const [showReporterModal, setShowReporterModal] = useState(false);
