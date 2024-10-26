@@ -7,9 +7,8 @@ import { ButtonContent } from "../../../../components/Button/styles";
 export const Wrapper = styled.div.attrs({
   className: "Wrapper",
 })`
-  padding: 0 7vw;
-  width: 100vw;
-  padding: 30px;
+  width: 100%;
+  padding: 20px 30px;
   background-color: ${Color.white};
 
   @media (max-width: 500px) {
@@ -24,14 +23,13 @@ export const Wrapper = styled.div.attrs({
 export const CaseHeader = styled.div.attrs({
   className: "CaseHeader",
 })`
-  /* margin-top: 30px; */
-  height: 10vh;
+  height: 65px;
   padding-left: 30px;
   background-color: ${Color.lightBlue};
   color: ${Color.darkBlueFont};
   display: flex;
   align-items: center;
-  font-size: 5vh;
+  font-size: 35px;
   border-radius: 4px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 
@@ -95,7 +93,7 @@ export const DetailRows = styled.div.attrs<{ graybackground?: boolean }>({
 })`
   margin-bottom: 20px;
   background-color: ${Color.grayLighter};
-  height: 7vh;
+  height: 46px;
   display: flex;
   align-items: center;
   padding-left: 20px;
@@ -129,8 +127,8 @@ export const DetailContent = styled.div.attrs({
 export const ReportPersonWrapper = styled.div.attrs({
   className: "ReportPersonWrapper",
 })`
-  width: 45vw;
-  height: 25vh;
+  width: 590px;
+  height: 164px;
   margin-top: 30px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 
