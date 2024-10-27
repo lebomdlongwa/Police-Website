@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import * as styled from "./styles";
 import { IdPpComponent } from "./idPpComponent";
-import { useUser } from "../../containers/userContext";
-import AddFormComponent from "../AddForm/addForm";
-import { fetchData } from "../../containers/requests";
+import { useUser } from "../userContext";
+import AddFormComponent from "./AddForm/addForm";
+import { fetchData } from "../requests";
 import { fetchIds } from "./actions";
-import { SearchComponent } from "../SearchComponent/search";
-import { BackIcon } from "../icons/back";
-import { Color } from "../colorCodes";
+import { SearchComponent } from "../../components/SearchComponent/search";
+import { BackIcon } from "../../components/icons/back";
+import { Color } from "../../components/colorCodes";
 
 export const IdPassportPage = () => {
   const { admin } = useUser();
@@ -49,11 +49,9 @@ export const IdPassportPage = () => {
         <styled.SearchedResultWrapper>
           <styled.BackButton>
             <styled.IconWrapper onClick={() => setSearchedId(null)}>
-              <BackIcon w={50} h={50} c={Color.navyBlue} />
+              <BackIcon w={50} h={50} c={Color.navyBlueLighter} />
             </styled.IconWrapper>
-            <styled.BackButtonText>
-              Go back to the report list
-            </styled.BackButtonText>
+            <styled.BackButtonText>Go back to ID list</styled.BackButtonText>
           </styled.BackButton>
           <IdPpComponent
             item={idList.find((item) => item.id === searchedId)!}
