@@ -1,7 +1,7 @@
 import React, { ChangeEvent, Component } from "react";
 import * as styled from "./styles/addform";
-import { Button } from "../Button/button";
-import { createId, updateId } from "../IdAndPassport/actions";
+import { Button } from "../../../components/Button/button";
+import { createId, updateId } from "../actions";
 
 type AddFormComponentProps = {
   handleShowAddForm: VoidCallBack;

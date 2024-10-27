@@ -1,9 +1,4 @@
-import {
-  httpDelete,
-  httpGet,
-  httpPost,
-  httpPut,
-} from "../../containers/requests";
+import { httpDelete, httpGet, httpPost, httpPut } from "../requests";
 
 const path = "/lost_ids";
 
