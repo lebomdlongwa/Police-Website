@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import * as styled from "./styles/idPpComponent";
-import { CalendarIcon } from "../icons/calendar";
-import { EditIcon } from "../icons/edit";
-import { IdIcon } from "../icons/id_card";
-import { TrashIcon } from "../icons/trash";
+import { CalendarIcon } from "../../components/icons/calendar";
+import { EditIcon } from "../../components/icons/edit";
+import { IdIcon } from "../../components/icons/id_card";
+import { TrashIcon } from "../../components/icons/trash";
 import { deleteId } from "./actions";
-import AddFormComponent from "../AddForm/addForm";
-import { useUser } from "../../containers/userContext";
-import { AvatarComponent } from "../Avatar/avatar";
+import AddFormComponent from "./AddForm/addForm";
+import { useUser } from "../userContext";
+import { AvatarComponent } from "../../components/Avatar/avatar";
 
 type IdPpComponentProps = {
   item: IdItem;

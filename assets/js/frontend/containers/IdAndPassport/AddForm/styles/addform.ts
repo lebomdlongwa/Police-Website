@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { Color } from "../../colorCodes";
-import { Button as ButtonBase } from "../../Button/button";
+import { Color } from "../../../../components/colorCodes";
+import { Button as ButtonBase } from "../../../../components/Button/button";
 
 export const AddFormContainer = styled.div.attrs({
   className: "AddFormContainer",
