@@ -3,7 +3,7 @@ import SideBar from "./NavBar";
 import { MissingList } from "./People/MissingPeople";
 import { Individual } from "./People/MissingPeople/individual";
 import * as styled from "./styles/app";
-import { IdPassportPage } from "../components/IdAndPassport";
+import { IdPassportPage } from "./IdAndPassport";
 import { LostItems } from "../components/LostItem/lostItem";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { HomePage } from "./HomePage";

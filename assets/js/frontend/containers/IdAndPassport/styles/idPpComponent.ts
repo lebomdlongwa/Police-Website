@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Color } from "../../colorCodes";
+import { Color } from "../../../components/colorCodes";
 
 export const IdPpWrapper = styled.div.attrs({
   className: "IdPpWrapper",
