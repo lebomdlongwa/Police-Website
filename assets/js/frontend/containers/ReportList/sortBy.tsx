@@ -26,14 +26,23 @@ export class SortByComponent extends Component<SortByComponentProps, State> {
   handleClickOption = (option: SortByType) => {
     const { handleGetReports } = this.props;
 
-    this.setState({
-      ...this.state,
-      [option]: !this.state[option],
-    });
+    if (option === "grade") {
+      if (this.state.grade == false) {
+        this.setState({
+          ...this.state,
+          [option]: !this.state[option],
+        });
 
-    // if (this.state[option] == true) {
-    handleGetReports(option);
-    // }
+        handleGetReports(option);
+      } else {
+        this.setState({
+          ...this.state,
+          [option]: !this.state[option],
+        });
+
+        handleGetReports();
+      }
+    }
   };
 
   render() {
