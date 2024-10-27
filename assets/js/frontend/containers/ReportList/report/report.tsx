@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { EditIcon } from "../../../components/icons/edit";
 import { TrashIcon } from "../../../components/icons/trash";
@@ -17,6 +17,10 @@ type ReportProps = {
   onDelete: (id: string) => Promise<void>;
 };
 
+interface WrapperElement extends HTMLDivElement {
+  contains: (target: EventTarget | undefined | null) => boolean;
+}
+
 export const Report = (props: ReportProps) => {
   const { report, onDelete, onUpdate } = props;
 
@@ -27,10 +31,30 @@ export const Report = (props: ReportProps) => {
   const [expand, setExpand] = useState(false);
   const handleExpand = () => setExpand(!expand);
 
+  const wrapperRef = useRef<WrapperElement>();
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        expand &&
+        wrapperRef.current &&
+        !wrapperRef.current.contains(e.target)
+      ) {
+        handleExpand();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [handleExpand]);
+
   return (
     <styled.ReportWrapper expand={expand}>
       <styled.ReportBody>
-        <styled.ReportItemWrapper>
+        <styled.ReportItemWrapper ref={wrapperRef} expand={expand}>
           <styled.ReportItem>
             <styled.ReportContent onClick={handleExpand}>
               <styled.Informant>
