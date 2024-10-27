@@ -16,13 +16,16 @@ export const ReportBody = styled.div.attrs({
   height: 100%;
 `;
 
-export const ReportItemWrapper = styled.div.attrs({
+export const ReportItemWrapper = styled.div.attrs<{ expand: boolean }>({
   className: "ReportItemWrapper",
 })`
   width: 100%;
   height: 100%;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  border: 1px solid ${Color.grayLighter};
+  border: ${({ expand }) =>
+    expand
+      ? `2px solid ${Color.lightBlue}`
+      : `1px solid ${Color.grayLighter} `};
   border-radius: 4px;
   display: flex;
   flex-direction: column;
@@ -31,8 +34,6 @@ export const ReportItemWrapper = styled.div.attrs({
 
   &:hover {
     cursor: pointer;
-    /* transform: scale(1.01);
-    transition: all 0.3s ease; */
   }
 `;
 
