@@ -14,7 +14,8 @@ defmodule ReportAppWeb.Api.ReportView do
   def render("report.json", %{report: report}) do
     %{
       id: report.id,
-      informant: report.informant,
+      name: report.name,
+      surname: report.surname,
       officer: report.officer,
       grade: report.grade,
       brief_circumstance: report.brief_circumstance,
