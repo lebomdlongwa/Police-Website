@@ -6,10 +6,13 @@ type ColorProps = {
   navyBlue: "#0c213a";
   darkBlueFont: "#385164";
   grayLighter: "#e0e0e0";
+  gray: "gray";
   white: "white";
   black: "black";
   lightgray: "lightgray";
   iconGray: "#989898";
+  chalk: "#eef0f4";
+  lightBlack: "#333";
 };
 
 export const Color: ColorProps = {
@@ -24,4 +27,7 @@ export const Color: ColorProps = {
   black: "black",
   lightgray: "lightgray",
   iconGray: "#989898",
+  chalk: "#eef0f4",
+  lightBlack: "#333",
+  gray: "gray",
 };

@@ -99,6 +99,7 @@ export const DropdownOption = styled.div.attrs({
   display: flex;
   align-items: center;
   border-bottom: 1px solid lightgray;
+  gap: 10px;
 
   &:first-child {
     border-top: 1px solid lightgray;

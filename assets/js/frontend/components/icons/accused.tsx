@@ -2,13 +2,13 @@ import React from "react";
 import { Color } from "../colorCodes";
 
 export const AccusedIcon = (props: IconProps) => {
-  const { h = 15, c = Color.iconGray, w = 15 } = props;
+  const { size = 15, color = Color.iconGray } = props;
 
   return (
     <svg
-      width={`${w}px`}
-      height={`${h}px`}
-      fill={c as string}
+      width={`${size}px`}
+      height={`${size}px`}
+      fill={color as string}
       version="1.1"
       id="Capa_1"
       viewBox="0 0 104.387 104.387"

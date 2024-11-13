@@ -52,6 +52,7 @@ export const Item = styled.div.attrs<{ admin: boolean }>({
   width: ${({ admin }) => (admin ? "87%" : "100%")};
   display: flex;
   align-items: center;
+  gap: 20px;
 `;
 
 export const ItemContent = styled.div.attrs({
