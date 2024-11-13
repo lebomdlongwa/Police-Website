@@ -12,7 +12,6 @@ export const AvatarWrapper = styled.div.attrs<{
   border-radius: 50%;
   background-color: ${({ backgroundColor }) =>
     backgroundColor ? backgroundColor : `${Color.navyBlueLighter}`};
-  margin-right: 30px;
 `;
 
 export const Avatar = styled.div.attrs<{ fontSize?: number }>({
