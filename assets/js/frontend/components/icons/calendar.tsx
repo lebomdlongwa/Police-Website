@@ -1,15 +1,14 @@
 import React from "react";
-import { Icon } from "./icon";
 import { Color } from "../colorCodes";
 
 export const CalendarIcon = (props: IconProps) => {
-  const { h = 15, c = Color.iconGray, w = 15 } = props;
+  const { size = 15, color = Color.iconGray } = props;
 
   return (
     <svg
-      fill={c as string}
-      width={`${w}px`}
-      height={`${h}px`}
+      fill={color as string}
+      width={`${size}px`}
+      height={`${size}px`}
       viewBox="0 0 48 48"
       enable-background="new 0 0 48 48"
     >

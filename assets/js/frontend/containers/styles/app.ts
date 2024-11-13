@@ -16,7 +16,6 @@ export const AppSideBar = styled.div.attrs<{ expandMenu: boolean }>({
 })`
   height: 100vh;
   width: ${({ expandMenu }) => (expandMenu ? "200px" : "60px")};
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.7);
   background-color: #0c213a;
   position: fixed;
 

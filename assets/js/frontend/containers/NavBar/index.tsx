@@ -8,6 +8,7 @@ import { PassportIcon } from "../../components/icons/passport";
 import { ClipboardIcon } from "../../components/icons/clipboard";
 import { LostItemsIcons } from "../../components/icons/lost_items";
 import { MenuIcon } from "../../components/icons/menu";
+import { ChatIcon } from "../../components/icons/chat";
 
 type SideBarProps = {
   handleExpandMenu: VoidCallBack;
@@ -70,6 +71,16 @@ const SideBar = (props: SideBarProps) => {
             </styled.OptionIcon>
             <styled.ExpandedMenuOption expandMenu={expandMenu}>
               Lost ID & Passport
+            </styled.ExpandedMenuOption>
+          </styled.OptionsWrapper>
+        </styled.StyledLink>
+        <styled.StyledLink to={routes.chat}>
+          <styled.OptionsWrapper>
+            <styled.OptionIcon>
+              <ChatIcon color={Color.white} size={25} />
+            </styled.OptionIcon>
+            <styled.ExpandedMenuOption expandMenu={expandMenu}>
+              Chat
             </styled.ExpandedMenuOption>
           </styled.OptionsWrapper>
         </styled.StyledLink>
