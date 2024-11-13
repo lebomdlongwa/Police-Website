@@ -9,6 +9,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { HomePage } from "./HomePage";
 import { ReportList } from "./ReportList/reportList";
 import { Report } from "./ReportList/report/report";
+import { ChatAppComponent } from "./Chat/chatApp";
 
 export const routes = {
   home: "/",
@@ -17,6 +18,7 @@ export const routes = {
   lost_general_goods: "/police/lost_general_goods",
   reports_list: "/police/reportsList",
   report: "police/report",
+  chat: "police/chat",
 };
 
 const PoliceApp = () => {
@@ -57,6 +59,9 @@ const PoliceApp = () => {
           </Routes>
           <Routes>
             <Route path={`${routes.report}/:id`} Component={Report} />
+          </Routes>
+          <Routes>
+            <Route path={routes.chat} Component={ChatAppComponent} />
           </Routes>
         </styled.AppBody>
       </styled.AppContainer>

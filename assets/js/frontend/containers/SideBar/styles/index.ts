@@ -10,5 +10,4 @@ export const SideBarWrapper = styled.div.attrs({
   height: 100%;
   background-color: #333;
   border-top: 1px solid lightgray;
-  box-shadow: 0 20px 20px rgba(0, 0, 0, 1);
 `;
