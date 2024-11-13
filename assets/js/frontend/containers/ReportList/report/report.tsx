@@ -51,6 +51,8 @@ export const Report = (props: ReportProps) => {
     };
   }, [handleExpand]);
 
+  const informant = `${report.name} ${report.surname}`;
+
   return (
     <styled.ReportWrapper expand={expand}>
       <styled.ReportBody>
@@ -60,9 +62,9 @@ export const Report = (props: ReportProps) => {
               <styled.Informant>
                 <styled.Icon>
                   <SpeakerIcon h={20} w={20} />
-                  <styled.IconLabel>INFORMANT</styled.IconLabel>
+                  <styled.IconLabel>Informant</styled.IconLabel>
                 </styled.Icon>
-                <styled.Content>{report.informant}</styled.Content>
+                <styled.Content>{informant}</styled.Content>
               </styled.Informant>
               <styled.CaseNumber>
                 <styled.Icon>
