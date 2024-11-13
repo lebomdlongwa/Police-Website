@@ -1,5 +1,6 @@
 type ReportParams = {
-  informant: string;
+  name: string;
+  surname: string;
   officer: string;
   grade: string;
   accused: string;
@@ -10,7 +11,8 @@ type SortByType = "officer" | "grade";
 
 type ReportItem = {
   id: string;
-  informant: string;
+  name: string;
+  surname: string;
   officer: string;
   grade: string;
   accused: string;
