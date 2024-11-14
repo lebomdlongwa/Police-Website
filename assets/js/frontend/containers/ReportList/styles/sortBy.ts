@@ -76,6 +76,7 @@ export const SearchBox = styled.div.attrs({
   border: 1px solid lightgray;
   height: 80%;
   width: 40%;
+  min-width: 310px;
   border-radius: 20px;
   display: flex;
   align-items: center;

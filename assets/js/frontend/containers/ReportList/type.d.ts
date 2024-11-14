@@ -7,6 +7,10 @@ type ReportParams = {
   brief_circumstance: string;
 };
 
+type SortByParams = {
+  type: SortByType;
+};
+
 type SortByType = "officer" | "grade";
 
 type ReportItem = {
