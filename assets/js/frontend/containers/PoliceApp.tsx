@@ -7,7 +7,7 @@ import { IdPassportPage } from "./IdAndPassport";
 import { LostItems } from "../components/LostItem/lostItem";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { HomePage } from "./HomePage";
-import { ReportList } from "./ReportList/reportList";
+import { ReportListComponent } from "./ReportList/reportList";
 import { Report } from "./ReportList/report/report";
 import { ChatAppComponent } from "./Chat/chatApp";
 
@@ -55,7 +55,7 @@ const PoliceApp = () => {
             <Route path={`${routes.missing}/:id`} Component={Individual} />
           </Routes>
           <Routes>
-            <Route path={routes.reports_list} Component={ReportList} />
+            <Route path={routes.reports_list} Component={ReportListComponent} />
           </Routes>
           <Routes>
             <Route path={`${routes.report}/:id`} Component={Report} />

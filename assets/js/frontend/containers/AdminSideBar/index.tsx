@@ -1,6 +1,6 @@
 import React from "react";
 import * as styled from "./styles";
-import { ReportList } from "../ReportList/reportList";
+import { ReportListComponent } from "../ReportList/reportList";
 
 export const AdminSideBar = () => {
   return (

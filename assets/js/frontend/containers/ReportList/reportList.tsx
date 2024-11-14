@@ -10,8 +10,15 @@ import {
 } from "./actions";
 import { fetchData } from "../requests";
 import { SortByComponent } from "./sortBy";
+import { connect, useDispatch } from "react-redux";
 
-export const ReportList = () => {
+type ReportListProps = {
+  handleGetReports: (params?: SortByType) => Promise<ReportItem[]>;
+};
+
+const ReportList = (props: ReportListProps) => {
+  const { handleGetReports } = props;
+
   const [reportList, setReportList] = useState([]);
   const [showReportModal, setShowReportModal] = useState(false);
 
@@ -21,12 +28,20 @@ export const ReportList = () => {
     fetchData(getReports, setReportList);
   }, []);
 
-  const handleGetReports = async (getType: SortByType) => {
-    const params = {
-      type: getType,
-    };
-    const response = await getReports(params);
+  // const handleGetReports = async (getType: SortByType) => {
+  //   const params = {
+  //     type: getType,
+  //   };
+  //   const response = await getReports(params);
+  //   setReportList(response);
+  // };
+
+  const onGetReports = async (params: SortByType) => {
+    console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBBBB", params);
+    const response = await handleGetReports(params);
     setReportList(response);
+    console.log("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC", response);
+    // return response;
   };
 
   const handleAddReport = async (params: ReportParams) => {
@@ -55,7 +70,7 @@ export const ReportList = () => {
           <styled.AddItem text="Add Item" onClick={handleShowReportModal} />
         </styled.TopSubHeader>
         <styled.BottomSubHeader>
-          <SortByComponent handleGetReports={handleGetReports} />
+          <SortByComponent onGetReports={onGetReports} />
         </styled.BottomSubHeader>
       </styled.HeaderContainer>
       {reportList &&
@@ -77,3 +92,13 @@ export const ReportList = () => {
     </styled.ListWrapper>
   );
 };
+
+const dispatch = useDispatch();
+
+const mapDispatchToProps = () => {
+  return {
+    handleGetReports: (params: SortByType) => dispatch(getReports(params)),
+  };
+};
+
+export const ReportListComponent = connect(mapDispatchToProps)(ReportList);

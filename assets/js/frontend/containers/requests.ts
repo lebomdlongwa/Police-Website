@@ -4,6 +4,7 @@ const headers = { "Content-Type": "application/json" };
 export const fetchData = async (getRequestFn: any, stateUpdateFn: any) => {
   try {
     const response = await getRequestFn();
+    console.log("EEEEEEEEEEEEEEEEEEEEEEEEEEE", response);
     stateUpdateFn(response);
   } catch (err) {
     console.error("Error fetching data:", err);

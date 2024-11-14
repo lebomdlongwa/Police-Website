@@ -1,10 +1,50 @@
+import { Dispatch } from "redux";
 import { httpDelete, httpGet, httpPost, httpPut } from "../requests";
+import {
+  REPORT_LIST_FETCH_ERROR,
+  REPORT_LIST_FETCH_REQUEST,
+  REPORT_LIST_FETCH_SUCCESS,
+} from "./constants";
 
 const path = "/reports";
 
-export const getReports = async (params?: {
-  type: SortByType;
-}): Promise<ReportItem[]> => await httpGet(path, params);
+export const getReports = async (
+  getParams?: SortByType
+): Promise<ReportItem[]> => {
+  const params = { type: getParams };
+  const response = await httpGet(path, params);
+
+  return response;
+};
+
+// export const getReports = (getParams?: SortByType) => {
+//   return () =>
+//     new Promise((resolve, reject) => {
+//       // dispatch({ type: REPORT_LIST_FETCH_REQUEST });
+
+//       const params = { type: getParams };
+
+//       httpGet(path, params)
+//         .then((response) => {
+//           console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAA", response);
+//           // dispatch({
+//           //   type: REPORT_LIST_FETCH_SUCCESS,
+//           //   reportList: response,
+//           // });
+
+//           resolve(response);
+//           // return response;
+//         })
+//         .catch((error) => {
+//           // dispatch({
+//           //   type: REPORT_LIST_FETCH_ERROR,
+//           //   error,
+//           // });
+
+//           reject(error);
+//         });
+//     });
+// };
 
 export const createReport = async (
   params: ReportParams

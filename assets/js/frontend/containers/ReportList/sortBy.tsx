@@ -5,7 +5,7 @@ import { Color } from "../../components/colorCodes";
 import { XIcon } from "../../components/icons/xIcon";
 
 type SortByComponentProps = {
-  handleGetReports: (params?: SortByType) => Promise<void>;
+  onGetReports: (params?: SortByType) => Promise<void>;
 };
 
 type State = {
@@ -24,7 +24,7 @@ export class SortByComponent extends Component<SortByComponentProps, State> {
   }
 
   handleClickOption = (option: SortByType) => {
-    const { handleGetReports } = this.props;
+    const { onGetReports } = this.props;
 
     if (option === "grade") {
       if (this.state.grade == false) {
@@ -33,14 +33,14 @@ export class SortByComponent extends Component<SortByComponentProps, State> {
           [option]: !this.state[option],
         });
 
-        handleGetReports(option);
+        onGetReports(option);
       } else {
         this.setState({
           ...this.state,
           [option]: !this.state[option],
         });
 
-        handleGetReports();
+        onGetReports();
       }
     }
   };
