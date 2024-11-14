@@ -10,6 +10,7 @@ import {
 } from "./actions";
 import { fetchData } from "../requests";
 import { SortByComponent } from "./sortBy";
+import { OpenFlashMessage } from "../../components/openFlashMessage/openFlashMessage";
 
 export const ReportList = () => {
   const [reportList, setReportList] = useState([]);
@@ -74,6 +75,7 @@ export const ReportList = () => {
           onUpdate={handleUpdateReport}
         />
       )}
+      <OpenFlashMessage />
     </styled.ListWrapper>
   );
 };
