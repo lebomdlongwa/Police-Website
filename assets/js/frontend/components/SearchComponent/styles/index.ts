@@ -8,7 +8,7 @@ export const SearchWrapper = styled.div.attrs<{
   className: "SearchWrapper",
 })`
   border: 1px solid lightgray;
-  width: 40%;
+  width: 450px;
   height: 90%;
   border-radius: 20px;
   border-bottom-left-radius: ${({ searchResultsPresent }) =>
@@ -44,7 +44,7 @@ export const InputWrapper = styled.div.attrs({
 export const SearchIcon = styled.div.attrs({
   className: "SearchIcon",
 })`
-  height: 100%;
+  /* height: 50%; */
   width: 30px;
   display: flex;
   justify-content: center;
@@ -68,28 +68,6 @@ export const SearchInput = styled.input.attrs({
   }
 `;
 
-export const DropdownWrapper = styled.div.attrs<{
-  distanceToTop: number;
-  searchbarWidth: number;
-  searchBarLeft: number;
-}>({
-  className: "DropdownWrapper",
-})`
-  max-height: 300px;
-  width: ${({ searchbarWidth }) => searchbarWidth && `${searchbarWidth}px`};
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  box-shadow: 0 20px 20px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-  background-color: white;
-  border: 1px solid lightgray;
-  border-top: 0;
-  position: fixed;
-  top: ${({ distanceToTop }) => distanceToTop && `${distanceToTop}px`};
-  left: ${({ searchBarLeft }) => searchBarLeft && `${searchBarLeft}px`};
-  /* top: 145px; */
-`;
-
 export const DropdownOption = styled.div.attrs({
   className: "DropdownOption",
 })`
@@ -98,29 +76,14 @@ export const DropdownOption = styled.div.attrs({
   padding: 0 20px;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid lightgray;
-  gap: 10px;
-
-  &:first-child {
-    border-top: 1px solid lightgray;
-  }
-
-  &:last-child {
-    border-bottom: 0;
-  }
-
-  &:hover {
-    background-color: ${Color.lightBlue};
-    cursor: pointer;
-    transition: 0.3s ease;
-  }
+  gap: 20px;
 `;
 
 export const OptionNameAvatar = styled(AvatarComponent).attrs({
   className: "OptionNameAvatar",
 })`
   height: 30px;
-  width: 30px;
+  width: 100%;
   font-size: 10px;
   display: flex;
   align-items: center;
@@ -130,7 +93,7 @@ export const OptionName = styled.div.attrs({
   className: "OptionName",
 })`
   height: 100%;
-  width: 100%;
+  width: calc(100% - 50px);
   color: ${Color.darkBlueFont};
   display: flex;
   align-items: center;

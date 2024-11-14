@@ -4,7 +4,7 @@ import { Color } from "../../../components/colorCodes";
 export const Wrapper = styled.div.attrs({
   className: "Wrapper",
 })`
-  height: 60px;
+  height: 100%;
   width: 100%;
   display: flex;
   align-items: center;
