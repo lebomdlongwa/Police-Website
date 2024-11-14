@@ -44,7 +44,7 @@ export const BottomSubHeader = styled.div.attrs({
   align-items: center;
   width: 100%;
   height: 50%;
-  padding: 5px 0;
+  padding: 10px 0;
 `;
 
 export const Title = styled.div.attrs({

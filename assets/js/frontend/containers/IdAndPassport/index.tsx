@@ -40,7 +40,8 @@ export const IdPassportPage = () => {
         </styled.TopSubHeader>
         <styled.BottomSubHeader>
           <SearchComponent
-            idList={idList}
+            itemList={idList}
+            searchValue="name"
             handleDisplaySearchedId={handleDisplaySearchedId}
           />
         </styled.BottomSubHeader>
@@ -49,7 +50,7 @@ export const IdPassportPage = () => {
         <styled.SearchedResultWrapper>
           <styled.BackButton>
             <styled.IconWrapper onClick={() => setSearchedId(null)}>
-              <BackIcon w={50} h={50} c={Color.navyBlueLighter} />
+              <BackIcon size={50} color={Color.navyBlueLighter} />
             </styled.IconWrapper>
             <styled.BackButtonText>Go back to ID list</styled.BackButtonText>
           </styled.BackButton>

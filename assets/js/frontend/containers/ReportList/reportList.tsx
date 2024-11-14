@@ -55,7 +55,10 @@ export const ReportList = () => {
           <styled.AddItem text="Add Item" onClick={handleShowReportModal} />
         </styled.TopSubHeader>
         <styled.BottomSubHeader>
-          <SortByComponent handleGetReports={handleGetReports} />
+          <SortByComponent
+            handleGetReports={handleGetReports}
+            reportList={reportList}
+          />
         </styled.BottomSubHeader>
       </styled.HeaderContainer>
       {reportList &&
