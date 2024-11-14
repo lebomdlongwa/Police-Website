@@ -29,7 +29,7 @@ export const Container = styled.div.attrs({
   }
 `;
 
-export const PersonTile = styled(Link).attrs({
+export const PersonTile = styled.div.attrs({
   className: "Person_Tile",
 })`
   background-color: ${Color.darkBlue};
