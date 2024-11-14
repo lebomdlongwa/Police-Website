@@ -73,3 +73,7 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
+
+config :guardian, Guardian,
+  allowed_algos: ["HS512"],
+  secret_key: "3PzDX/9tMO0edLy1udROWkwS0uyoTlYM5BiIkLPlbcD4MDnFwHB4WxwfiHWJ8qEf"
