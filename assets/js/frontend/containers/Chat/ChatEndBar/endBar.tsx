@@ -9,12 +9,18 @@ import { DeleteIcon } from "../../../components/icons/delete";
 import { SinglePersonIcon } from "../../../components/icons/singlePerson";
 import { ThreeDotsIcon } from "../../../components/icons/threeDots";
 
-export const ChatEndBar = () => {
+type ChatEndBarProps = {
+  ShowPersonDetails: VoidCallBack;
+};
+
+export const ChatEndBar = (props: ChatEndBarProps) => {
+  const { ShowPersonDetails } = props;
+
   return (
     <styled.EndBarWrapper>
       <styled.Header>
         <styled.HeaderButtonsWrapper>
-          <styled.Button>
+          <styled.Button onClick={ShowPersonDetails}>
             <DeleteIcon size={25} color="gray" />
           </styled.Button>
           <styled.Button active={true}>

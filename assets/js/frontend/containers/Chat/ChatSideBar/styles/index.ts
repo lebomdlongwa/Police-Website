@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Color } from "../../../../components/colorCodes";
+import { HideScrollBarMixin } from "../../../../appStyles";
 
 export const SideBarWrapper = styled.div.attrs({
   className: "SideBarWrapper",
@@ -35,16 +36,18 @@ export const UnReadChatsWrapper = styled.div.attrs({
   className: "UnReadChatsWrapper",
 })`
   width: 100%;
-  height: 50%;
-  overflow-y: scroll;
+  max-height: 50%;
+
+  ${HideScrollBarMixin}
 `;
 
 export const ReadChatsWrapper = styled.div.attrs({
   className: "ReadChatsWrapper",
 })`
   width: 100%;
-  height: 50%;
-  overflow-y: scroll;
+  max-height: 50%;
+
+  ${HideScrollBarMixin}
 `;
 
 export const ChatHeader = styled.div.attrs({
