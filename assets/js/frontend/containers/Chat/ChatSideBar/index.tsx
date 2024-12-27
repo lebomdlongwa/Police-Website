@@ -6,8 +6,8 @@ import { Color } from "../../../components/colorCodes";
 import { DownCaretIcon } from "../../../components/icons/downCaret";
 
 export const ChatSideBar = () => {
-  const [unReadClicked, setUnReadClicked] = useState(true);
-  const [readClicked, setReadClicked] = useState(true);
+  const [unReadClicked, setUnReadClicked] = useState(false);
+  const [readClicked, setReadClicked] = useState(false);
 
   const unReadArr = [
     {
@@ -47,13 +47,13 @@ export const ChatSideBar = () => {
     }
   };
 
-  const unReadMessagesCarot = unReadClicked ? (
+  const unReadMessagesCarot = !unReadClicked ? (
     <DownCaretIcon size={13} color="#333" />
   ) : (
     <UpCaretIcon size={13} color="#333" />
   );
 
-  const readMessagesCarot = readClicked ? (
+  const readMessagesCarot = !readClicked ? (
     <DownCaretIcon size={13} color="#333" />
   ) : (
     <UpCaretIcon size={13} color="#333" />
@@ -68,38 +68,40 @@ export const ChatSideBar = () => {
             <styled.CarotWrapper>{unReadMessagesCarot}</styled.CarotWrapper>
             UnRead Chats
           </styled.ChatHeader>
-          {unReadArr.map((item) => (
-            <styled.MessageContainer active={item.active}>
-              <styled.UserChatWrapper>
-                <styled.UserChatContainer>
-                  <AvatarComponent initials={item.avatar} avatarSize={37} />
-                  <styled.UserMessageWrapper>
-                    <styled.User>{item.user}</styled.User>
-                    <styled.Message>{item.message}</styled.Message>
-                  </styled.UserMessageWrapper>
-                </styled.UserChatContainer>
-              </styled.UserChatWrapper>
-            </styled.MessageContainer>
-          ))}
+          {!unReadClicked &&
+            unReadArr.map((item) => (
+              <styled.MessageContainer active={item.active}>
+                <styled.UserChatWrapper>
+                  <styled.UserChatContainer>
+                    <AvatarComponent initials={item.avatar} avatarSize={37} />
+                    <styled.UserMessageWrapper>
+                      <styled.User>{item.user}</styled.User>
+                      <styled.Message>{item.message}</styled.Message>
+                    </styled.UserMessageWrapper>
+                  </styled.UserChatContainer>
+                </styled.UserChatWrapper>
+              </styled.MessageContainer>
+            ))}
         </styled.UnReadChatsWrapper>
         <styled.ReadChatsWrapper>
           <styled.ChatHeader onClick={() => handleCarot("read")}>
             <styled.CarotWrapper>{readMessagesCarot}</styled.CarotWrapper>
             Read Chats
           </styled.ChatHeader>
-          {unReadArr.map((item) => (
-            <styled.MessageContainer active={item.active}>
-              <styled.UserChatWrapper>
-                <styled.UserChatContainer>
-                  <AvatarComponent initials={item.avatar} avatarSize={37} />
-                  <styled.UserMessageWrapper>
-                    <styled.User>{item.user}</styled.User>
-                    <styled.Message>{item.message}</styled.Message>
-                  </styled.UserMessageWrapper>
-                </styled.UserChatContainer>
-              </styled.UserChatWrapper>
-            </styled.MessageContainer>
-          ))}
+          {!readClicked &&
+            unReadArr.map((item) => (
+              <styled.MessageContainer active={item.active}>
+                <styled.UserChatWrapper>
+                  <styled.UserChatContainer>
+                    <AvatarComponent initials={item.avatar} avatarSize={37} />
+                    <styled.UserMessageWrapper>
+                      <styled.User>{item.user}</styled.User>
+                      <styled.Message>{item.message}</styled.Message>
+                    </styled.UserMessageWrapper>
+                  </styled.UserChatContainer>
+                </styled.UserChatWrapper>
+              </styled.MessageContainer>
+            ))}
         </styled.ReadChatsWrapper>
       </styled.ChatWrapper>
     </styled.SideBarWrapper>
