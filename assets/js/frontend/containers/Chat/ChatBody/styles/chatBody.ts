@@ -5,8 +5,9 @@ import { Button as ButtonBase } from "../../../../components/Button/button";
 export const ChatBodyWrapper = styled.div.attrs({
   className: "ChatBodyWrapper",
 })`
-  width: 50%;
+  max-width: 75%;
   height: 100%;
+  flex-grow: 1;
 `;
 
 export const Header = styled.div.attrs({
