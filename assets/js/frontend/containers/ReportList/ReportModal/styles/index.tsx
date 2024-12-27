@@ -49,10 +49,28 @@ export const FormInput = styled.input.attrs<{ width?: number }>({
   }
 `;
 
-export const Fullname = styled.div.attrs({
-  className: "Fullname",
+export const ReporterDetails = styled.div.attrs({
+  className: "ReporterDetails",
 })`
-  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const Name = styled.div.attrs({
+  className: "Name",
+})`
+  width: 48%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+`;
+
+export const Surname = styled.div.attrs({
+  className: "Surname",
+})`
+  width: 48%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -83,7 +101,7 @@ export const Officer = styled.div.attrs({
 export const Grade = styled.div.attrs({
   className: "Grade",
 })`
-  width: 38px;
+  width: 50px;
   margin-left: 10px;
   display: flex;
   flex-direction: column;
