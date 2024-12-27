@@ -62,7 +62,7 @@ export const Report = (props: ReportProps) => {
               <styled.Informant>
                 <styled.Icon>
                   <SpeakerIcon h={20} w={20} />
-                  <styled.IconLabel>Informant</styled.IconLabel>
+                  <styled.IconLabel>INFORMANT</styled.IconLabel>
                 </styled.Icon>
                 <styled.Content>{informant}</styled.Content>
               </styled.Informant>
@@ -76,7 +76,7 @@ export const Report = (props: ReportProps) => {
               <styled.Officer>
                 <styled.Icon>
                   <PolicemanIcon h={21} w={21} />
-                  <styled.IconLabel>Officer</styled.IconLabel>
+                  <styled.IconLabel>OFFICER</styled.IconLabel>
                 </styled.Icon>
                 <styled.Content>{report.officer}</styled.Content>
               </styled.Officer>
