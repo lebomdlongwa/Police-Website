@@ -20,7 +20,8 @@ export class ReportModalComponent extends Component<
     super(props);
 
     this.state = {
-      informant: "",
+      name: "",
+      surname: "",
       officer: "",
       grade: "",
       accused: "",
@@ -70,14 +71,24 @@ export class ReportModalComponent extends Component<
         backgroundColor={Color.darkBlue}
       >
         <styled.FormWrapper>
-          <styled.Fullname>
-            <styled.InputLabel>Fullname</styled.InputLabel>
-            <styled.FormInput
-              onChange={this.onChange}
-              value={report?.informant || this.state.informant}
-              name="informant"
-            />
-          </styled.Fullname>
+          <styled.ReporterDetails>
+            <styled.Name>
+              <styled.InputLabel>Name</styled.InputLabel>
+              <styled.FormInput
+                onChange={this.onChange}
+                value={report?.name || this.state.name}
+                name="name"
+              />
+            </styled.Name>
+            <styled.Surname>
+              <styled.InputLabel>Surname</styled.InputLabel>
+              <styled.FormInput
+                onChange={this.onChange}
+                value={report?.surname || this.state.surname}
+                name="surname"
+              />
+            </styled.Surname>
+          </styled.ReporterDetails>
           <styled.OfficerGradeWrapper>
             <styled.Officer>
               <styled.InputLabel>Officer</styled.InputLabel>
@@ -90,6 +101,7 @@ export class ReportModalComponent extends Component<
             <styled.Grade>
               <styled.InputLabel>Grade</styled.InputLabel>
               <styled.FormInput
+                style={{ textAlign: "center" }}
                 width={80}
                 onChange={this.onChange}
                 value={report?.grade || this.state.grade}
