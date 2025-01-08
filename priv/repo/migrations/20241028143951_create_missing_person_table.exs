@@ -2,7 +2,7 @@ defmodule ReportApp.Repo.Migrations.CreateMissingPersonTable do
   use Ecto.Migration
 
   def change do
-    create table (:missing_person) do
+    create table(:missing_person) do
       add :fullname, :string
       add :age, :integer
       add :last_seen, :string

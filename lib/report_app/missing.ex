@@ -12,8 +12,8 @@ defmodule ReportApp.Missing do
     data =
       Repo.all(
         from mp in MissingPerson,
-        order_by: [desc: mp.inserted_at],
-        select: mp
+          order_by: [desc: mp.inserted_at],
+          select: mp
       )
 
     data
