@@ -21,8 +21,8 @@ defmodule ReportApp.Reports do
     report_list =
       Repo.all(
         from r in Report,
-        order_by: [desc: r.inserted_at],
-        select: r
+          order_by: [desc: r.inserted_at],
+          select: r
       )
   end
 

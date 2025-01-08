@@ -25,5 +25,4 @@ defmodule ReportApp.MissingPerson.MissingPerson do
     |> cast(attrs, @params)
     |> validate_required(@required_params)
   end
-
 end
