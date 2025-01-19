@@ -6,6 +6,19 @@ import { NextIcon } from "../icons/next";
 export const HorizontalPeopleList = () => {
   const missingPeopleRef = useRef(null);
   const wantedPeopleRef = useRef(null);
+  const scrollButtonRef = useRef();
+
+  const scrollRight = () => {
+    if (scrollButtonRef.current) {
+      scrollButtonRef.current.scrollBy({ right: 200, behavior: "smooth" });
+    }
+  };
+
+  const scrollLeft = () => {
+    if (scrollButtonRef.current) {
+      scrollButtonRef.current.scrollBy({ left: -200, behavior: "smooth" });
+    }
+  };
 
   const ScrollToMissingList = () => {
     missingPeopleRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -32,7 +45,7 @@ export const HorizontalPeopleList = () => {
           Latest Missing People
         </styled.ListHeader>
         <styled.ListWrapper>
-          <styled.PreviousButton>
+          <styled.PreviousButton ref={scrollButtonRef} onClick={scrollLeft}>
             <PreviousIcon h={30} w={30} c="black" />
           </styled.PreviousButton>
           <styled.TilesWrapper>
@@ -49,7 +62,7 @@ export const HorizontalPeopleList = () => {
             <styled.PersonTiles></styled.PersonTiles>
             <styled.PersonTiles></styled.PersonTiles>
           </styled.TilesWrapper>
-          <styled.NextButton>
+          <styled.NextButton ref={scrollButtonRef} onClick={scrollRight}>
             <NextIcon h={30} w={30} c="black" />
           </styled.NextButton>
         </styled.ListWrapper>
