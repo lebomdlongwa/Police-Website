@@ -6,22 +6,17 @@ import AddFormComponent from "./AddForm/addForm";
 import { fetchData } from "../requests";
 import { fetchIds } from "./actions";
 import { SearchComponent } from "../../components/SearchComponent/search";
-import { BackIcon } from "../../components/icons/back";
-import { Color } from "../../components/colorCodes";
+import { SearchedResultComponent } from "../../components/SearchedResult";
 
 export const IdPassportPage = () => {
   const { admin } = useUser();
   const [idList, setIdList] = useState<IdItem[]>([]);
   const [searchedId, setSearchedId] = useState<string>(null);
-  const [displaySearchedId, setDisplaySearchedId] = useState(false);
-
   const [showAddForm, setShowAddForm] = useState(false);
   const handleShowAddForm = () => setShowAddForm(!showAddForm);
+  const handleSetSearchIdNull = () => setSearchedId(null);
 
-  const handleDisplaySearchedId = (id: string) => {
-    setDisplaySearchedId(!displaySearchedId);
-    setSearchedId(id);
-  };
+  const handleDisplaySearchedId = (id: string) => setSearchedId(id);
 
   useEffect(() => {
     fetchData(fetchIds, setIdList);
@@ -40,23 +35,21 @@ export const IdPassportPage = () => {
         </styled.TopSubHeader>
         <styled.BottomSubHeader>
           <SearchComponent
-            idList={idList}
-            handleDisplaySearchedId={handleDisplaySearchedId}
+            itemList={idList}
+            searchValue="name"
+            handleDisplaySearchedItem={handleDisplaySearchedId}
           />
         </styled.BottomSubHeader>
       </styled.HeaderContainer>
       {searchedId && idList && (
-        <styled.SearchedResultWrapper>
-          <styled.BackButton>
-            <styled.IconWrapper onClick={() => setSearchedId(null)}>
-              <BackIcon w={50} h={50} c={Color.navyBlueLighter} />
-            </styled.IconWrapper>
-            <styled.BackButtonText>Go back to ID list</styled.BackButtonText>
-          </styled.BackButton>
-          <IdPpComponent
-            item={idList.find((item) => item.id === searchedId)!}
-          />
-        </styled.SearchedResultWrapper>
+        <SearchedResultComponent
+          list={idList}
+          listName="ID"
+          setSearchedIdNull={handleSetSearchIdNull}
+          searchedId={searchedId}
+          SearchedComponent={IdPpComponent}
+          itemName="item"
+        />
       )}
       {!searchedId &&
         idList.map((item) => {

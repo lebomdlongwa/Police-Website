@@ -10,7 +10,7 @@ import { useUser } from "../userContext";
 import { AvatarComponent } from "../../components/Avatar/avatar";
 
 type IdPpComponentProps = {
-  item: IdItem;
+  item?: IdItem;
   setIdList?: (list: IdItem[]) => void;
   color?: string;
 };
