@@ -6,9 +6,9 @@ type IdPpParams = {
 };
 
 type IdItem = {
-  id: string;
-  name: string;
-  surname: string;
-  idNumber: string;
-  dateLost: string;
+  id?: string;
+  name?: string;
+  surname?: string;
+  idNumber?: string;
+  dateLost?: string;
 };

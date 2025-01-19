@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { DropdownProps } from "../dropdown";
+import { Color } from "../../colorCodes";
 
 export const DropdownContainer = styled.div.attrs({
   className: "DropdownContainer",
@@ -17,15 +18,19 @@ export const DropdownWrapper = styled.div.attrs<{
 }>({
   className: "DropdownWrapper",
 })`
+  display: ${({ dropdownSettings }) =>
+    dropdownSettings.displayDropdown ? "flex" : "none"};
   background-color: ${({ dropdownSettings }) =>
     dropdownSettings.backgroundColor && `${dropdownSettings.backgroundColor}`};
   position: fixed;
   top: ${({ distanceToTop }) => distanceToTop && `${distanceToTop - 1}px`};
   left: ${({ dropdownDistToLeft }) =>
     dropdownDistToLeft && `${dropdownDistToLeft}px`};
-  border: 1px solid lightgray;
-  border-radius: 5px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  border: 1px solid ${Color.lightgray};
+  border-radius: ${({ dropdownSettings }) =>
+    dropdownSettings.isSearch ? "none" : "5px"};
+  box-shadow: ${({ dropdownSettings }) =>
+    dropdownSettings.isSearch ? "none" : "0 0 10px rgba(0, 0, 0, 0.3)"};
   width: ${({ dropdownWidth, dropdownSettings }) =>
     dropdownSettings.width
       ? `${dropdownSettings.width}px`
@@ -36,34 +41,27 @@ export const DropdownWrapper = styled.div.attrs<{
     dropdownSettings.fontColor && `${dropdownSettings.fontColor}`};
   font-size: ${({ dropdownSettings }) =>
     dropdownSettings.fontSize && `${dropdownSettings.fontSize}`};
-
-  &:hover {
-    background-color: ${({ dropdownSettings }) =>
-      dropdownSettings.backgroundColor &&
-      `${dropdownSettings.backgroundColorOnHover}`};
-  }
 `;
 
 export const OptionsWrapper = styled.div.attrs({
   className: "OptionsWrapper",
 })`
   width: 100%;
+
+  & > :last-child {
+    & > :first-child {
+      border-bottom: none;
+    }
+  }
 `;
 
-export const Option = styled.div.attrs<{ dropdownSettings: DropdownProps }>({
-  className: "Option",
+export const OptionContainer = styled.div.attrs<{
+  dropdownSettings: DropdownProps;
+}>({
+  className: "OptionContainer",
 })`
-  border-bottom: 1px solid lightgray;
-  width: 100%;
   height: 50px;
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  color: ${({ dropdownSettings }) => dropdownSettings.fontColor};
-
-  &:last-child {
-    border-bottom: none;
-  }
+  width: 100%;
 
   &:hover {
     background-color: ${({ dropdownSettings }) =>
@@ -72,4 +70,16 @@ export const Option = styled.div.attrs<{ dropdownSettings: DropdownProps }>({
     cursor: pointer;
     color: ${({ dropdownSettings }) => dropdownSettings.fontColorOnHover};
   }
+`;
+
+export const Option = styled.div.attrs<{ dropdownSettings: DropdownProps }>({
+  className: "Option",
+})`
+  height: 100%;
+  margin: auto;
+  width: 95%;
+  display: flex;
+  align-items: center;
+  color: ${({ dropdownSettings }) => dropdownSettings.fontColor};
+  border-bottom: 1px solid ${Color.grayLighter};
 `;
