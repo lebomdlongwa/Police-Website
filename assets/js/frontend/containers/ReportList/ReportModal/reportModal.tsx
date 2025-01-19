@@ -29,6 +29,15 @@ export class ReportModalComponent extends Component<
     };
   }
 
+  componentDidMount() {
+    const { report } = this.props;
+
+    this.setState({
+      ...this.state,
+      ...report
+    })
+  };
+
   onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     this.setState({
       ...this.state,
@@ -68,23 +77,26 @@ export class ReportModalComponent extends Component<
       <styled.ReportModalWrapper
         width={50}
         height={100}
-        backgroundColor={Color.darkBlue}
+        backgroundColor={Color.chalk}
       >
+        <styled.ShadowContainer>
         <styled.FormWrapper>
           <styled.ReporterDetails>
             <styled.Name>
               <styled.InputLabel>Name</styled.InputLabel>
               <styled.FormInput
+                placeholder="Enter a name..."
                 onChange={this.onChange}
-                value={report?.name || this.state.name}
+                value={this.state.name}
                 name="name"
               />
             </styled.Name>
             <styled.Surname>
               <styled.InputLabel>Surname</styled.InputLabel>
               <styled.FormInput
+                placeholder="Enter a surname..."
                 onChange={this.onChange}
-                value={report?.surname || this.state.surname}
+                value={this.state.surname}
                 name="surname"
               />
             </styled.Surname>
@@ -93,8 +105,9 @@ export class ReportModalComponent extends Component<
             <styled.Officer>
               <styled.InputLabel>Officer</styled.InputLabel>
               <styled.FormInput
+                placeholder="Enter officer name..."
                 onChange={this.onChange}
-                value={report?.officer || this.state.officer}
+                value={this.state.officer}
                 name="officer"
               />
             </styled.Officer>
@@ -104,7 +117,7 @@ export class ReportModalComponent extends Component<
                 style={{ textAlign: "center" }}
                 width={80}
                 onChange={this.onChange}
-                value={report?.grade || this.state.grade}
+                value={this.state.grade}
                 name="grade"
               />
             </styled.Grade>
@@ -112,34 +125,34 @@ export class ReportModalComponent extends Component<
           <styled.SuspectName>
             <styled.InputLabel>Suspect Name</styled.InputLabel>
             <styled.FormInput
+                placeholder="Enter accused name..."
               onChange={this.onChange}
-              value={report?.accused || this.state.accused}
+              value={this.state.accused}
               name="accused"
             />
           </styled.SuspectName>
           <styled.BriefCircumstance>
-            <styled.InputLabel>Brief Circumstance</styled.InputLabel>
+            <styled.InputLabel>Brief Summary</styled.InputLabel>
             <styled.BriefCircumstanceInput
+              placeholder="Enter brief summary..."
               onChange={this.onChange}
-              value={
-                report?.brief_circumstance || this.state.brief_circumstance
-              }
+              value={this.state.brief_circumstance}
               name="brief_circumstance"
             />
           </styled.BriefCircumstance>
         </styled.FormWrapper>
         <styled.ModalButtonWrapper>
           <Button
-            buttonColor={Color.white}
-            fontColor={Color.darkBlueFont}
+            buttonColor={Color.blue}
+            fontColor={Color.white}
             text="Cancel"
             onClick={() => {
               handleModal();
             }}
           />
           <Button
-            buttonColor={Color.white}
-            fontColor={Color.darkBlueFont}
+            buttonColor={Color.blue}
+            fontColor={Color.white}
             text={addOrEditButonText}
             onClick={() => {
               handleModal();
@@ -147,6 +160,7 @@ export class ReportModalComponent extends Component<
             }}
           />
         </styled.ModalButtonWrapper>
+        </styled.ShadowContainer>
       </styled.ReportModalWrapper>
     );
   }

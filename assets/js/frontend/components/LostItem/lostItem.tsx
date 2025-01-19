@@ -66,7 +66,7 @@ export const LostItems = () => {
       </styled.HeaderContainer>
       <styled.IdPpWrapper>
         {lostItems.map((item) => (
-          <styled.ItemContainer>
+          <styled.ItemContainer key={item.tag}>
             <styled.ItemWrapper>
               <styled.Item>
                 <styled.ItemContent>
