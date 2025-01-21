@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Color } from "../../colorCodes";
+import { Link } from "react-router-dom";
 
 export const Wrapper = styled.div.attrs({
   className: "Wrapper",
@@ -50,4 +51,11 @@ export const Upload = styled.div.attrs({
     cursor: pointer;
     transition: 0.3s ease;
   }
+`;
+
+export const StyledLink = styled(Link).attrs({
+  className: "StyledLink",
+})`
+  text-decoration: none;
+  width: 100%;
 `;

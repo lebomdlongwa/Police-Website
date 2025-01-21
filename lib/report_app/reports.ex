@@ -6,9 +6,6 @@ defmodule ReportApp.Reports do
 
   def list_reports(params) do
     case Map.get(params, "type", nil) do
-      nil ->
-        sort_report_list()
-
       "grade" ->
         sort_report_by_grade()
 
@@ -18,16 +15,15 @@ defmodule ReportApp.Reports do
   end
 
   def sort_report_list() do
-    report_list =
-      Repo.all(
-        from r in Report,
-          order_by: [desc: r.inserted_at],
-          select: r
-      )
+    Repo.all(
+      from r in Report,
+        order_by: [desc: r.inserted_at],
+        select: r
+    )
   end
 
   def sort_report_by_grade() do
-    grade_sorted_reports = Enum.sort_by(Repo.all(Report), &get_grade_position(&1.grade))
+    Enum.sort_by(Repo.all(Report), &get_grade_position(&1.grade))
   end
 
   def get_report!(id) do
