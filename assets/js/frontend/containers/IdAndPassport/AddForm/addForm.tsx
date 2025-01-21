@@ -31,6 +31,15 @@ class AddFormComponent extends Component<AddFormComponentProps, State> {
     };
   }
 
+  componentDidMount() {
+    const { item } = this.props;
+
+    this.setState({
+      ...this.state,
+      ...item
+    })
+  };
+
   handleFetchedData = (data: IdPpParams) => {
     this.setState({
       name: data.name,
@@ -52,6 +61,12 @@ class AddFormComponent extends Component<AddFormComponentProps, State> {
 
     const response = await updateId(item.id, { ...this.state });
     setIdList(response);
+  };
+  
+  onUpdateOrAdd = () => {
+    const { edit } = this.props
+
+    edit ? this.handleUpdateItem() : this.handleAddItem()
   };
 
   onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -78,7 +93,7 @@ class AddFormComponent extends Component<AddFormComponentProps, State> {
               </styled.FormLabel>
               <styled.FormInput
                 placeholder="Enter name..."
-                value={item?.name || this.state.name}
+                value={this.state.name}
                 onChange={this.onChange}
                 name="name"
               />
@@ -90,7 +105,7 @@ class AddFormComponent extends Component<AddFormComponentProps, State> {
               </styled.FormLabel>
               <styled.FormInput
                 placeholder="Enter surname..."
-                value={item?.surname || this.state.surname}
+                value={this.state.surname}
                 onChange={this.onChange}
                 name="surname"
               />
@@ -126,7 +141,7 @@ class AddFormComponent extends Component<AddFormComponentProps, State> {
             <Button
               text={addOrEditButton}
               onClick={() => {
-                this.handleAddItem();
+                this.onUpdateOrAdd();
                 handleShowAddForm();
                 setEdit();
               }}

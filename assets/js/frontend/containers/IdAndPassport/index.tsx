@@ -60,7 +60,7 @@ export const IdPassportPage = () => {
       )}
       {!searchedId &&
         idList.map((item) => {
-          return <IdPpComponent item={item} setIdList={setIdList} />;
+          return <IdPpComponent key={item.id} item={item} setIdList={setIdList} />;
         })}
       {showAddForm && (
         <>
