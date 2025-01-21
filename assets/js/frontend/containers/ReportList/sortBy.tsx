@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import * as styled from "./styles/sortBy";
-import { SearchIcon } from "../../components/icons/search";
 import { Color } from "../../components/colorCodes";
 import { XIcon } from "../../components/icons/xIcon";
+import { SearchComponent } from "../../components/SearchComponent/search";
 
 type SortByComponentProps = {
   handleGetReports: (params?: SortByType) => Promise<void>;
+  reportList: ReportItem[];
+  handleDisplaySearchedReportId: (id: string) => void;
 };
 
 type State = {
@@ -46,6 +48,8 @@ export class SortByComponent extends Component<SortByComponentProps, State> {
   };
 
   render() {
+    const { reportList, handleDisplaySearchedReportId } = this.props;
+
     return (
       <styled.Wrapper>
         <styled.SortByWrapper>
@@ -71,12 +75,11 @@ export class SortByComponent extends Component<SortByComponentProps, State> {
             </styled.Options>
           </styled.OptionsWrapper>
         </styled.SortByWrapper>
-        <styled.SearchBox>
-          <styled.SearchIcon>
-            <SearchIcon h={25} w={25} c={Color.iconGray} />
-          </styled.SearchIcon>
-          <styled.SearchInput placeholder="Type some text to search..."></styled.SearchInput>
-        </styled.SearchBox>
+        <SearchComponent
+          itemList={reportList}
+          searchValue="name"
+          handleDisplaySearchedItem={handleDisplaySearchedReportId}
+        />
       </styled.Wrapper>
     );
   }

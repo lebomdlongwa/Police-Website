@@ -10,12 +10,17 @@ import {
 } from "./actions";
 import { fetchData } from "../requests";
 import { SortByComponent } from "./sortBy";
+import { SearchedResultComponent } from "../../components/SearchedResult";
 
 export const ReportList = () => {
   const [reportList, setReportList] = useState([]);
   const [showReportModal, setShowReportModal] = useState(false);
+  const [searchedReportId, setSearchedReportId] = useState<string>(null);
 
   const handleShowReportModal = () => setShowReportModal(!showReportModal);
+  const handleSetSearchIdNull = () => setSearchedReportId(null);
+
+  const handleDisplaySearchedReportId = (id: string) => setSearchedReportId(id);
 
   useEffect(() => {
     fetchData(getReports, setReportList);
@@ -47,6 +52,9 @@ export const ReportList = () => {
     setReportList(response);
   };
 
+  const showReportList =
+    reportList && !searchedReportId && reportList.length > 0;
+
   return (
     <styled.ListWrapper>
       <styled.HeaderContainer>
@@ -55,11 +63,14 @@ export const ReportList = () => {
           <styled.AddItem text="Add Item" onClick={handleShowReportModal} />
         </styled.TopSubHeader>
         <styled.BottomSubHeader>
-          <SortByComponent handleGetReports={handleGetReports} />
+          <SortByComponent
+            handleGetReports={handleGetReports}
+            reportList={reportList}
+            handleDisplaySearchedReportId={handleDisplaySearchedReportId}
+          />
         </styled.BottomSubHeader>
       </styled.HeaderContainer>
-      {reportList &&
-        reportList.length > 0 &&
+      {showReportList &&
         reportList.map((report) => (
           <Report
             report={report}
@@ -67,6 +78,16 @@ export const ReportList = () => {
             onDelete={handleDeleteReport}
           />
         ))}
+      {searchedReportId && (
+        <SearchedResultComponent
+          list={reportList}
+          listName="Report"
+          setSearchedIdNull={handleSetSearchIdNull}
+          searchedId={searchedReportId}
+          SearchedComponent={Report}
+          itemName="report"
+        />
+      )}
       {showReportModal && (
         <ReportModalComponent
           handleShowReportModal={handleShowReportModal}
