@@ -1,13 +1,15 @@
 import styled from "styled-components";
-import { Color } from "../../../../components/colorCodes";
-import { Button } from "../../../../components/Button/button";
+import { Color } from "../../../../../components/colorCodes";
+import { Button } from "../../../../../components/Button/button";
 
 export const Wrapper = styled.div.attrs({
   className: "Wrapper",
 })`
   width: 100%;
+  height: 100%;
   padding: 20px 30px;
   background-color: ${Color.white};
+  position: relative;
 
   @media (max-width: 500px) {
     width: 100vw;
@@ -22,6 +24,7 @@ export const CaseHeader = styled.div.attrs({
   className: "CaseHeader",
 })`
   height: 65px;
+  width: 100%;
   padding-left: 30px;
   background-color: ${Color.lightBlue};
   color: ${Color.darkBlueFont};
@@ -43,9 +46,8 @@ export const DetailsWrapper = styled.div.attrs({
   className: "DetailsWrapper",
 })`
   margin-top: 50px;
-  padding-bottom: 50px;
   display: flex;
-  /* justify-content: center; */
+  position: relative;
 
   @media (max-width: 500px) {
     display: block;
@@ -56,8 +58,12 @@ export const DetailsWrapper = styled.div.attrs({
 export const PictureWrapper = styled.div.attrs({
   className: "PictureWrapper",
 })`
-  height: 30vh;
   width: 35%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 
   @media (max-width: 500px) {
     width: 100%;
@@ -67,18 +73,33 @@ export const PictureWrapper = styled.div.attrs({
 export const Picture = styled.div.attrs({
   className: "Picture",
 })`
-  height: 100%;
-  width: 60%;
+  height: 35vh;
+  width: 20vw;
   border: 1px solid lightgray;
-  margin: auto;
 `;
 
-export const Details = styled.div.attrs({
+export const PersonReportsWrapper = styled.div.attrs({
+  className: "PersonReportsWrapper",
+})`
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+`;
+
+export const PersonReportsButton = styled(Button).attrs({
+  className: "PersonReports",
+})`
+  padding: 10px 12px;
+  display: flex;
+  align-items: flex;
+`;
+
+export const Details = styled.div.attrs<{ admin: boolean }>({
   className: "Details",
 })`
   width: 65%;
-  padding-bottom: 50px;
-  border-bottom: 1px solid lightgray;
+  padding-bottom: 30px;
+  border-bottom: ${({ admin }) => (admin ? "none" : "1px solid lightgray")};
 
   @media (max-width: 500px) {
     width: 100%;
@@ -148,79 +169,6 @@ export const DetailContent = styled.input.attrs({
   outline: none;
   border: none;
   font-size: 16px;
-`;
-
-export const ReportPersonWrapper = styled.div.attrs({
-  className: "ReportPersonWrapper",
-})`
-  width: 590px;
-  height: 164px;
-  margin-top: 30px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-
-  @media (max-width: 500px) {
-    width: 340px;
-    height: 165px;
-  }
-
-  @media (max-width: 330px) {
-    width: 260px;
-    height: 210px;
-  }
-`;
-
-export const ReportPersonHeader = styled.div.attrs({
-  className: "ReportPersonHeader",
-})`
-  background-color: ${Color.navyBlueLighter};
-  height: 32%;
-  width: 100%;
-  color: white;
-  font-size: 25px;
-  display: flex;
-  align-items: center;
-  padding-left: 20px;
-
-  @media (max-width: 330px) {
-    font-size: 20px;
-    height: 28%;
-  }
-`;
-
-export const ReportPersonBody = styled.div.attrs({
-  className: "ReportPersonBody",
-})`
-  background-color: ${Color.blue};
-  height: 68%;
-  width: 100%;
-  padding: 20px;
-  flex-grow: 1;
-
-  @media (max-width: 330px) {
-    height: 72%;
-  }
-`;
-
-export const ReportPersonButton = styled.div.attrs({
-  className: "ReportPersonButton",
-})`
-  color: ${Color.darkBlueFont};
-  background-color: ${Color.lightBlue};
-  height: 100%;
-  padding: 15px;
-  display: flex;
-  align-items: center;
-
-  &:hover {
-    background-color: ${Color.navyBlueLighter};
-    transition: all 0.3s ease;
-    color: ${Color.white};
-    cursor: pointer;
-  }
-
-  @media (max-width: 500px) {
-    padding: 5px;
-  }
 `;
 
 export const CallPolice = styled.div.attrs({

@@ -44,16 +44,6 @@ const SideBar = (props: SideBarProps) => {
             </styled.ExpandedMenuOption>
           </styled.OptionsWrapper>
         </styled.StyledLink>
-        <styled.StyledLink to={routes.lost_general_goods}>
-          <styled.OptionsWrapper>
-            <styled.OptionIcon>
-              <LostItemsIcons c={Color.white} h={25} w={25} />
-            </styled.OptionIcon>
-            <styled.ExpandedMenuOption expandMenu={expandMenu}>
-              Lost Goods
-            </styled.ExpandedMenuOption>
-          </styled.OptionsWrapper>
-        </styled.StyledLink>
         <styled.StyledLink to={routes.missing}>
           <styled.OptionsWrapper>
             <styled.OptionIcon>

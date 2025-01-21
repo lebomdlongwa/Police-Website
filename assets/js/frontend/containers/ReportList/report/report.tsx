@@ -12,9 +12,9 @@ import { ReportModalComponent } from "../ReportModal/reportModal";
 import * as styled from "./styles/report";
 
 type ReportProps = {
-  report: ReportItem;
-  onUpdate: (id: string, params: ReportParams) => Promise<void>;
-  onDelete: (id: string) => Promise<void>;
+  report?: ReportItem;
+  onUpdate?: (id: string, params: ReportParams) => Promise<void>;
+  onDelete?: (id: string) => Promise<void>;
 };
 
 interface WrapperElement extends HTMLDivElement {
