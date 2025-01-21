@@ -29,7 +29,8 @@ export const Modal = styled.div.attrs<{
   box-shadow: 0 2px 2000px rgba(0, 0, 0, 0.5);
   width: ${({ modalWidth }) => (modalWidth ? `${modalWidth}%` : "50%")};
   height: ${({ modalHeight }) => (modalHeight ? `${modalHeight}%` : "80%")};
-  max-height: 95vh;
+  max-width: 800px;
+  max-height: 600px;
   overflow-y: auto;
   z-index: 10000;
   display: flex;

@@ -10,15 +10,29 @@ export const ReportModalWrapper = styled(Modal).attrs({
   justify-content: space-between;
 `;
 
+export const ShadowContainer = styled.div.attrs({
+  className: "ShadowContainer",
+})`
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  padding: 20px 30px;
+  width: 100%;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
 export const FormWrapper = styled.div.attrs({
   className: "FormWrapper",
 })`
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
   height: 90%;
   display: flex;
   flex-direction: column;
-  align-items: center;
 `;
 
 export const InputLabel = styled.div.attrs({
@@ -28,7 +42,7 @@ export const InputLabel = styled.div.attrs({
   display: flex;
   flex-direction: column;
   justify-content: center;
-  color: ${Color.white};
+  color: ${Color.black};
   font-size: 18px;
   margin-bottom: 5px;
 `;
@@ -39,10 +53,10 @@ export const FormInput = styled.input.attrs<{ width?: number }>({
 })`
   width: ${({ width }) => (width ? `${width}%` : "100%")};
   padding: 10px;
-  border: none;
   border-radius: 4px;
   color: ${Color.darkBlueFont};
   font-size: 15px;
+  border: 1px solid ${Color.lightgray};
 
   &:focus {
     outline: none;
@@ -52,6 +66,7 @@ export const FormInput = styled.input.attrs<{ width?: number }>({
 export const ReporterDetails = styled.div.attrs({
   className: "ReporterDetails",
 })`
+  width: 100%;
   display: flex;
   justify-content: space-between;
 `;
@@ -138,9 +153,9 @@ export const BriefCircumstanceInput = styled.textarea.attrs({
 })`
   width: 100%;
   height: 100%;
+  border: 1px solid ${Color.lightgray};
   padding: 10px;
   resize: vertical;
-  border: none;
   border-radius: 4px;
   color: ${Color.darkBlueFont};
   font-size: 17px;
@@ -154,7 +169,6 @@ export const ModalButtonWrapper = styled.div.attrs({
   className: "ModalButtonWrapper",
 })`
   width: 100%;
-  padding: 0 30px;
   color: ${Color.white};
   height: 8vh;
   display: flex;

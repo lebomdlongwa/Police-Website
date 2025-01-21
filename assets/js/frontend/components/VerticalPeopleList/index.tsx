@@ -15,6 +15,7 @@ export const PeopleListComponent = (props: PeopleListComponentProps) => {
         {peopleList &&
           peopleList?.map((person) => (
             <styled.PersonTile
+              key={person.id}
               onClick={() => {
                 handleShowPersonInfo(person.id);
               }}

@@ -51,6 +51,8 @@ export const TilesWrapper = styled.div.attrs({
   display: flex;
   align-items: center;
   padding-left: 5px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 `;
 
 export const PersonTiles = styled.div.attrs({
