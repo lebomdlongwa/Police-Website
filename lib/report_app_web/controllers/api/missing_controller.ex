@@ -9,7 +9,7 @@ defmodule ReportAppWeb.Api.MissingController do
     render(conn, "index.json", missing_persons: missing_persons)
   end
 
-  def show(conn, %{"id" => id}) do
+  def show(conn, %{"id" => id}) when is_binary(id) do
     missing_person = Missing.get_missing_person!(id)
     render(conn, "show.json", missing_person: missing_person)
   end
