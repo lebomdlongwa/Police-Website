@@ -12,6 +12,8 @@ export type DropdownProps = {
   fontColorOnHover?: string;
   children?: ReactNode;
   options?: any[];
+  displayDropdown: boolean;
+  isSearch?: boolean;
 };
 
 export const Dropdown = (props: DropdownProps) => {
@@ -25,6 +27,8 @@ export const Dropdown = (props: DropdownProps) => {
     fontSize,
     children,
     options,
+    displayDropdown = false,
+    isSearch = false,
   } = props;
 
   const [distanceToTop, setDistToTop] = useState(0);
@@ -40,6 +44,8 @@ export const Dropdown = (props: DropdownProps) => {
     fontColor,
     fontColorOnHover,
     fontSize,
+    displayDropdown,
+    isSearch,
   };
 
   useEffect(() => {
@@ -90,9 +96,11 @@ export const Dropdown = (props: DropdownProps) => {
         <styled.OptionsWrapper>
           {options &&
             options.map((option) => (
-              <styled.Option dropdownSettings={dropdownSettings}>
-                {option}
-              </styled.Option>
+              <styled.OptionContainer dropdownSettings={dropdownSettings}>
+                <styled.Option dropdownSettings={dropdownSettings}>
+                  {option}
+                </styled.Option>
+              </styled.OptionContainer>
             ))}
         </styled.OptionsWrapper>
       </styled.DropdownWrapper>
