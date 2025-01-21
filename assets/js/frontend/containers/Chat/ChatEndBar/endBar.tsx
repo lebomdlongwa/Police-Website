@@ -1,9 +1,5 @@
 import React from "react";
 import * as styled from "./styles";
-import { XIcon } from "../../../components/icons/xIcon";
-import { Color } from "../../../components/colorCodes";
-import { PeopleIcon } from "../../../components/icons/people";
-import { MenuIcon } from "../../../components/icons/menu";
 import { GeneralInfoComponent } from "./GeneralInfo/generalInfo";
 import { DeleteIcon } from "../../../components/icons/delete";
 import { SinglePersonIcon } from "../../../components/icons/singlePerson";

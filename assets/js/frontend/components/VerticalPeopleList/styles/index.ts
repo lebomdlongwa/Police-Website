@@ -7,7 +7,8 @@ export const VerticalListWrapper = styled.div.attrs({
 })`
   /* background-color: #0c213a; */
   margin-top: 10px;
-  height: 100vh;
+  width: 85vw;
+  height: calc(100vh - 108px);
 
   @media (max-width: 500px) {
     width: 100%;
@@ -18,7 +19,9 @@ export const Container = styled.div.attrs({
   className: "Container",
 })`
   display: flex;
+  flex-wrap: wrap;
   padding: auto;
+  width: 100%;
 
   @media (max-width: 500px) {
     display: block;
@@ -29,7 +32,7 @@ export const Container = styled.div.attrs({
   }
 `;
 
-export const PersonTile = styled.div.attrs({
+export const PersonTile = styled(Link).attrs({
   className: "Person_Tile",
 })`
   background-color: ${Color.darkBlue};
@@ -86,12 +89,12 @@ export const Details = styled.div.attrs({
   bottom: 10px;
 `;
 
-export const Name = styled.div.attrs({
-  className: " Name",
+export const NameAndAge = styled.div.attrs({
+  className: " NameAndAge",
 })`
   display: flex;
   align-items: center;
-  margin-right: 6px;
+  margin-left: 10px;
 `;
 
 export const SurName = styled.div.attrs({

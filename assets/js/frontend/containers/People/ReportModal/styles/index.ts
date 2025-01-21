@@ -1,113 +1,124 @@
 import styled from "styled-components";
-import { Color } from "../../../../components/colorCodes";
 import { Modal } from "../../../../components/Modal/modal";
-import { Button as BaseButton } from "../../../../components/Button/button";
-import { ButtonContent } from "../../../../components/Button/styles";
+import { Color } from "../../../../components/colorCodes";
 
-export const ReportModal = styled(Modal).attrs({
-  className: "ReportModal",
-})``;
-
-export const ReportModalContent = styled.div.attrs({
-  className: "ReportModalContent",
+export const ReportModalWrapper = styled(Modal).attrs({
+  className: "ReportModalWrapper",
 })`
-  flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 `;
 
-export const Reporter = styled.div.attrs({
-  className: "Reporter",
+export const FormWrapper = styled.div.attrs({
+  className: "FormWrapper",
 })`
+  width: 100%;
+  margin: 0 auto;
+  height: 90%;
   display: flex;
-  align-items: center;
-  /* justify-content: space-between; */
-  height: 16%;
+  flex-direction: column;
+`;
+
+export const InputLabel = styled.div.attrs({
+  className: "InputLabel",
+})`
   width: 100%;
-`;
-
-export const Name = styled.div.attrs({
-  className: "Name",
-})`
-  height: 100%;
-  width: 50%;
-  border: 1px solid lightgray;
-`;
-
-export const Surname = styled.div.attrs({
-  className: "Surname",
-})`
-  height: 100%;
-  width: 50%;
-  border: 1px solid lightgray;
-`;
-
-export const Contacts = styled.div.attrs({
-  className: "Contacts",
-})`
   display: flex;
-  align-items: center;
-  /* justify-content: space-between; */
-  height: 16%;
-  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  color: ${Color.black};
+  font-size: 18px;
+  margin-bottom: 5px;
 `;
 
-export const Email = styled.div.attrs({
-  className: "Email",
+export const FormInput = styled.input.attrs<{ width?: number }>({
+  className: "FormInput",
+  type: "text",
 })`
-  height: 100%;
-  width: 100%;
-  border: 1px solid lightgray;
-`;
-
-export const PhoneNumber = styled.div.attrs({
-  className: "PhoneNumber",
-})`
-  height: 100%;
-  width: 100%;
-  border: 1px solid lightgray;
-`;
-
-export const LastSeen = styled.div.attrs({
-  className: "LastSeen",
-})`
-  height: 16%;
-  width: 100%;
-  border: 1px solid lightgray;
-`;
-
-export const AdditionalInfo = styled.div.attrs({
-  className: "AdditionalInfo",
-})`
-  height: 39%;
-  width: 100%;
-  border: 1px solid lightgray;
-`;
-
-export const ButtonsWrapper = styled.div.attrs({
-  className: "ButtonsWrapper",
-})`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 20px;
-
-  ${ButtonContent} {
-    background-color: ${Color.darkBlue};
-  }
-`;
-
-export const Button = styled(BaseButton).attrs({
-  className: "Button",
-})`
-  background-color: ${Color.darkBlue};
+  width: ${({ width }) => (width ? `${width}%` : "100%")};
+  padding: 10px;
   border-radius: 4px;
+  color: ${Color.black};
+  font-size: 16px;
+  font-weight: 600;
+  border: 1px solid ${Color.lightgray};
 
-  ${ButtonContent} {
-    &:hover {
-      background-color: ${Color.blue};
-      transition: 0.3s ease;
-    }
+  &:focus {
+    outline: none;
   }
+`;
+
+export const DateAndPlaceContainer = styled.div.attrs({
+  className: "DateAndPlaceWrapper",
+})`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const DateWrapper = styled.div.attrs({
+  className: "DateWrapper",
+})`
+  width: 48%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+`;
+
+export const Place = styled(DateWrapper).attrs({
+  className: "Surname",
+})``;
+
+export const SuspectName = styled(DateWrapper).attrs({
+  className: "SuspectName",
+})`
+  width: 100%;
+`;
+
+export const Clothes = styled(SuspectName).attrs({
+  className: "Clothes",
+})``;
+
+export const BriefCircumstance = styled.div.attrs({
+  className: "BriefCircumstance",
+})`
+  min-width: 200px;
+  width: 100%;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+`;
+
+export const BriefCircumstanceInput = styled.textarea.attrs({
+  className: "BriefCircumstanceInput",
+})`
+  width: 100%;
+  height: 100%;
+  border: 1px solid ${Color.lightgray};
+  padding: 10px;
+  resize: vertical;
+  border-radius: 4px;
+  font-size: 17px;
+  color: ${Color.black};
+  font-weight: 600;
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const ModalButtonWrapper = styled.div.attrs({
+  className: "ModalButtonWrapper",
+})`
+  width: 100%;
+  color: ${Color.white};
+  height: 8vh;
+  display: flex;
+  justify-content: space-between;
 `;

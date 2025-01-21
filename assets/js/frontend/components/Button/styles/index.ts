@@ -2,19 +2,11 @@ import styled from "styled-components";
 import { Color } from "../../colorCodes";
 
 export const Wrapper = styled.div`
-  /* position: absolute; */
-  /* bottom: 20px; */
-  /* top: 20px; */
   display: flex;
   align-items: center;
+  cursor: pointer;
+  transition: all 0.1s ease;
 `;
-
-// type SettingsProps = {
-//   size?: "small" | "medium" | "large";
-//   colorOnHover?: string;
-//   color?: string;
-//   rounded?: boolean;
-// };
 
 export const ButtonContent = styled.div.attrs<{
   buttonColor?: string;
@@ -36,7 +28,5 @@ export const ButtonContent = styled.div.attrs<{
   &:hover {
     background-color: ${Color.blue};
     color: ${({ fontOnHover }) => (fontOnHover ? `${fontOnHover}` : "white")};
-    cursor: pointer;
-    transition: all 0.3s ease;
   }
 `;
