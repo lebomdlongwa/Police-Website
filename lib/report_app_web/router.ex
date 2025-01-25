@@ -28,6 +28,7 @@ defmodule ReportAppWeb.Router do
     resources "/lost_ids", LostIdController
     resources "/reports", ReportController
     resources "/missing_people", MissingController
+    resources "/missing_reports", MissingReportController
   end
 
   # Enables LiveDashboard only for development

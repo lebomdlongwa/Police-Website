@@ -12,13 +12,13 @@ export const fetchData = async (getRequestFn: any, stateUpdateFn: any) => {
 
 export const httpGet = async (
   path: string,
-  params?: string | number | object
+  params?: string | Record<string, string>
 ) => {
   try {
     let queryString = "";
 
     if (params) {
-      const searchParams = new URLSearchParams(params as string);
+      const searchParams = new URLSearchParams(params);
       queryString = `?${searchParams.toString()}`;
     }
 

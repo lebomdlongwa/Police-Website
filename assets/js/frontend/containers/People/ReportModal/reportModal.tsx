@@ -4,17 +4,19 @@ import { Color } from "../../../components/colorCodes";
 import { Button } from "../../../components/Button/button";
 import { ShadowContainer } from "../../../appStyles";
 import { DatePickerComponent } from "../../../components/DateComponent";
+import { addMissingReport } from "./actions";
 
 type PeopleReportModalProps = {
   handleShowModal: VoidCallBack;
+  id: string;
 };
 
 type State = {
-  last_seen: string;
-  last_place_seen: string;
-  clothes: string;
+  date_last_seen: string;
+  location_last_seen: string;
+  clothes_worn: string;
   known_as: string;
-  brief_circumstance: string;
+  brief_summary: string;
 };
 
 export class PeopleReportModal extends Component<
@@ -25,11 +27,11 @@ export class PeopleReportModal extends Component<
     super(props);
 
     this.state = {
-      last_seen: "",
-      last_place_seen: "",
-      clothes: "",
+      date_last_seen: "",
+      location_last_seen: "",
+      clothes_worn: "",
       known_as: "",
-      brief_circumstance: "",
+      brief_summary: "",
     };
   }
 
@@ -38,6 +40,22 @@ export class PeopleReportModal extends Component<
       ...this.state,
       [e.target.name]: e.target.value,
     });
+  };
+
+  handleCreateReport = async () => {
+    const { id } = this.props;
+
+    const response = await addMissingReport({
+      ...this.state,
+      person_id: id,
+    });
+  };
+
+  handleSaveReport = () => {
+    const { handleShowModal } = this.props;
+
+    this.handleCreateReport();
+    handleShowModal();
   };
 
   render() {
@@ -59,10 +77,10 @@ export class PeopleReportModal extends Component<
               <styled.Place>
                 <styled.InputLabel>Last Place Seen At</styled.InputLabel>
                 <styled.FormInput
-                  placeholder="Enter last place seen at..."
+                  placeholder="Enter location place seen at..."
                   onChange={this.onChange}
-                  value={this.state.last_place_seen}
-                  name="last_place_seen"
+                  value={this.state.location_last_seen}
+                  name="location_last_seen"
                 />
               </styled.Place>
             </styled.DateAndPlaceContainer>
@@ -78,10 +96,10 @@ export class PeopleReportModal extends Component<
             <styled.Clothes>
               <styled.InputLabel>Clothes Worn</styled.InputLabel>
               <styled.FormInput
-                placeholder="clothes last seen wearing..."
+                placeholder="clothes_worn last seen wearing..."
                 onChange={this.onChange}
-                value={this.state.clothes}
-                name="clothes"
+                value={this.state.clothes_worn}
+                name="clothes_worn"
               />
             </styled.Clothes>
             <styled.BriefCircumstance>
@@ -89,8 +107,8 @@ export class PeopleReportModal extends Component<
               <styled.BriefCircumstanceInput
                 placeholder="Have seen him a couple of times going to the store..."
                 onChange={this.onChange}
-                value={this.state.brief_circumstance}
-                name="brief_circumstance"
+                value={this.state.brief_summary}
+                name="brief_summary"
               />
             </styled.BriefCircumstance>
           </styled.FormWrapper>
@@ -105,6 +123,7 @@ export class PeopleReportModal extends Component<
               buttonColor={Color.blue}
               fontColor={Color.white}
               text="Report"
+              onClick={this.handleSaveReport}
             />
           </styled.ModalButtonWrapper>
         </ShadowContainer>
