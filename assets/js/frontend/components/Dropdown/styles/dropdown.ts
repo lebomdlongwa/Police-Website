@@ -6,9 +6,14 @@ export const DropdownContainer = styled.div.attrs({
   className: "DropdownContainer",
 })``;
 
-export const Children = styled.div.attrs({
+export const Children = styled.div.attrs<{ borderTop: boolean }>({
   className: "Children",
-})``;
+})`
+  & > :first-child {
+    border-bottom-left-radius: ${({ borderTop }) => !borderTop && "0"};
+    border-bottom-right-radius: ${({ borderTop }) => !borderTop && "0"};
+  }
+`;
 
 export const DropdownWrapper = styled.div.attrs<{
   distanceToTop: number;
@@ -23,14 +28,19 @@ export const DropdownWrapper = styled.div.attrs<{
   background-color: ${({ dropdownSettings }) =>
     dropdownSettings.backgroundColor && `${dropdownSettings.backgroundColor}`};
   position: fixed;
-  top: ${({ distanceToTop }) => distanceToTop && `${distanceToTop - 1}px`};
+  top: ${({ distanceToTop }) => distanceToTop && `${distanceToTop}px`};
   left: ${({ dropdownDistToLeft }) =>
     dropdownDistToLeft && `${dropdownDistToLeft}px`};
   border: 1px solid ${Color.lightgray};
   border-radius: ${({ dropdownSettings }) =>
     dropdownSettings.isSearch ? "none" : "5px"};
-  box-shadow: ${({ dropdownSettings }) =>
-    dropdownSettings.isSearch ? "none" : "0 0 10px rgba(0, 0, 0, 0.3)"};
+  border-top: ${({ dropdownSettings }) =>
+    !dropdownSettings.borderTop && "none"};
+  border-top-left-radius: ${({ dropdownSettings }) =>
+    !dropdownSettings.borderTop && "0"};
+  border-top-right-radius: ${({ dropdownSettings }) =>
+    !dropdownSettings.borderTop && "0"};
+
   width: ${({ dropdownWidth, dropdownSettings }) =>
     dropdownSettings.width
       ? `${dropdownSettings.width}px`

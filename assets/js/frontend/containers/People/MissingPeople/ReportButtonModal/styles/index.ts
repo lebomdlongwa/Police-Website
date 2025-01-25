@@ -8,6 +8,7 @@ export const ReportPersonWrapper = styled.div.attrs({
   height: 164px;
   margin-top: 30px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
 
   @media (max-width: 500px) {
     width: 340px;
@@ -31,6 +32,8 @@ export const ReportPersonHeader = styled.div.attrs({
   display: flex;
   align-items: center;
   padding-left: 20px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 
   @media (max-width: 330px) {
     font-size: 20px;
@@ -46,6 +49,8 @@ export const ReportPersonBody = styled.div.attrs({
   width: 100%;
   padding: 20px;
   flex-grow: 1;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 
   @media (max-width: 330px) {
     height: 72%;

@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, ReactNode } from "react";
 import { Color } from "../colorCodes";
 import * as styled from "./styles/dropdown";
+import { isEmpty } from "lodash";
 
 export type DropdownProps = {
   maxHeight?: number;
@@ -11,9 +12,11 @@ export type DropdownProps = {
   fontSize?: number;
   fontColorOnHover?: string;
   children?: ReactNode;
-  options?: any[];
+  options?: any[] | React.JSX.Element;
   displayDropdown: boolean;
   isSearch?: boolean;
+  isOptionsList?: boolean;
+  borderTop?: boolean;
 };
 
 export const Dropdown = (props: DropdownProps) => {
@@ -29,6 +32,8 @@ export const Dropdown = (props: DropdownProps) => {
     options,
     displayDropdown = false,
     isSearch = false,
+    isOptionsList = true,
+    borderTop = true,
   } = props;
 
   const [distanceToTop, setDistToTop] = useState(0);
@@ -46,6 +51,8 @@ export const Dropdown = (props: DropdownProps) => {
     fontSize,
     displayDropdown,
     isSearch,
+    isOptionsList,
+    borderTop,
   };
 
   useEffect(() => {
@@ -86,7 +93,9 @@ export const Dropdown = (props: DropdownProps) => {
 
   return (
     <styled.DropdownContainer>
-      <styled.Children ref={childrenRef}>{children}</styled.Children>
+      <styled.Children borderTop={borderTop} ref={childrenRef}>
+        {children}
+      </styled.Children>
       <styled.DropdownWrapper
         distanceToTop={distanceToTop}
         dropdownWidth={dropdownWidth}
@@ -94,14 +103,16 @@ export const Dropdown = (props: DropdownProps) => {
         dropdownSettings={dropdownSettings}
       >
         <styled.OptionsWrapper>
-          {options &&
-            options.map((option) => (
-              <styled.OptionContainer dropdownSettings={dropdownSettings}>
-                <styled.Option dropdownSettings={dropdownSettings}>
-                  {option}
-                </styled.Option>
-              </styled.OptionContainer>
-            ))}
+          {isOptionsList
+            ? !isEmpty(options) &&
+              (options as any[]).map((option) => (
+                <styled.OptionContainer dropdownSettings={dropdownSettings}>
+                  <styled.Option dropdownSettings={dropdownSettings}>
+                    {option}
+                  </styled.Option>
+                </styled.OptionContainer>
+              ))
+            : options}
         </styled.OptionsWrapper>
       </styled.DropdownWrapper>
     </styled.DropdownContainer>
