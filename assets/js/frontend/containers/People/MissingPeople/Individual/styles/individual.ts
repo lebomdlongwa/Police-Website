@@ -133,6 +133,7 @@ export const DetailRows = styled.div.attrs<{ graybackground?: boolean }>({
   display: flex;
   align-items: center;
   padding-left: 20px;
+  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.3);
 `;
 
 export const SubjectContentWrapper = styled.div.attrs({
