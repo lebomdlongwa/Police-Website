@@ -120,18 +120,20 @@ export const IndividualComponent = () => {
         </styled.Details>
         <styled.PictureWrapper>
           <styled.Picture></styled.Picture>
-          <styled.PersonReportsWrapper>
-            <StyledLink to={`${routes.missing_person_reports}/${url_id}`}>
-              <styled.PersonReportsButton text="View Reported Cases" />
-            </StyledLink>
-          </styled.PersonReportsWrapper>
+          {/* {admin && ( */}
+          {
+            <styled.PersonReportsWrapper>
+              <StyledLink to={`${routes.missing_person_reports}/${url_id}`}>
+                <styled.PersonReportsButton text="View Reported Cases" />
+              </StyledLink>
+            </styled.PersonReportsWrapper>
+          }
         </styled.PictureWrapper>
       </styled.DetailsWrapper>
-      {isIdValid && !admin && (
-        <ReportButton handleShowModal={handleShowModal} />
-      )}
+      {/* {isIdValid && !admin && (  */}
+      {isIdValid && <ReportButton handleShowModal={handleShowModal} />}
       {showReportModal && (
-        <PeopleReportModal handleShowModal={handleShowModal} />
+        <PeopleReportModal handleShowModal={handleShowModal} id={url_id} />
       )}
       {!showSaveFooter && admin && (
         <styled.Footer>
