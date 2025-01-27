@@ -6,5 +6,5 @@ export const HomePageWrapper = styled.div.attrs({
 })`
   width: 100%;
   height: 100%;
-  background-color: ${Color.darkBlue};
+  background-color: ${Color.black};
 `;

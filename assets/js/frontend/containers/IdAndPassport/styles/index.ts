@@ -7,7 +7,7 @@ export const IdPpContainer = styled.div.attrs({
 })`
   background-color: ${Color.white};
   width: 100%;
-  min-height: 670px;
+  min-height: 100vh;
   color: ${Color.darkBlueFont};
 `;
 
