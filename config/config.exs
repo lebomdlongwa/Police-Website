@@ -34,7 +34,7 @@ config :esbuild,
   version: "0.14.29",
   default: [
     args:
-      ~w(js/app.jsx --bundle --target=es2020 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
+      ~w(js/app.jsx --bundle --target=es2020 --outdir=../priv/static/assets --external:/fonts/* --external:/images/* --loader:.svg=dataurl --loader:.png=dataurl --loader:.jpg=dataurl),
     cd: Path.expand("../assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]
