@@ -24,19 +24,20 @@ const Banner = () => {
 
   return (
     <styled.Wrapper>
-      {/* <img src={banner} /> */}
-      <styled.LinksWrapper>
-        <styled.Links onClick={handleShowModal}>Report Crime</styled.Links>
-        {showReportModal && (
-          <BannerReportModal handleShowModal={handleShowModal} />
-        )}
-        <styled.Links onClick={() => handleScrollEvent("missing")}>
-          View Missing People
-        </styled.Links>
-        <styled.Links onClick={() => handleScrollEvent("wanted")}>
-          View Wanted People
-        </styled.Links>
-      </styled.LinksWrapper>
+      <styled.BannerImage>
+        <styled.LinksWrapper>
+          <styled.Links onClick={handleShowModal}>Report Crime</styled.Links>
+          {showReportModal && (
+            <BannerReportModal handleShowModal={handleShowModal} />
+          )}
+          <styled.Links onClick={() => handleScrollEvent("missing")}>
+            View Missing People
+          </styled.Links>
+          <styled.Links onClick={() => handleScrollEvent("wanted")}>
+            View Wanted People
+          </styled.Links>
+        </styled.LinksWrapper>
+      </styled.BannerImage>
     </styled.Wrapper>
   );
 };
