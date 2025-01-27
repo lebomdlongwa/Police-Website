@@ -6,7 +6,7 @@ export const Wrapper = styled.div.attrs({
 })`
   /* height: 100vh; */
   padding: 20px 0;
-  background-color: ${Color.navyBlue};
+  background-color: ${Color.black};
 `;
 
 export const TileWrapper = styled.div.attrs({
@@ -22,13 +22,13 @@ export const Container = styled.div.attrs({
   className: "Container",
 })`
   position: relative;
-  background-color: #0f4d96;
+  background-color: ${Color.white};
   height: 100%;
   width: 30%;
   margin: 0 20px;
   padding: 20px;
   padding-bottom: 10px;
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 2px 10px rgba(255, 255, 255, 0.5);
   border-radius: 7px;
 
   &:hover {
@@ -40,7 +40,7 @@ export const Container = styled.div.attrs({
 export const Tile = styled.div.attrs({
   className: "Tile",
 })`
-  background-color: #0f4d96;
+  background-color: ${Color.white};
 `;
 
 export const TileHeader = styled.div.attrs({
@@ -48,11 +48,14 @@ export const TileHeader = styled.div.attrs({
 })`
   font-size: x-large;
   padding-bottom: 30px;
+  color: ${Color.black};
 `;
 
 export const TileBody = styled.div.attrs({
   className: "TileBody",
-})``;
+})`
+  color: ${Color.black};
+`;
 
 export const TileGap = styled.div`
   width: 20%;
@@ -62,18 +65,18 @@ export const Button = styled.div.attrs({
   className: "Button",
 })`
   position: absolute;
-  bottom: 5px;
+  bottom: 10px;
   right: 10px;
   width: 40%;
   height: 50px;
-  background-color: white;
-  border: 3px solid #0f4d96;
+  background-color: ${Color.black};
   color: black;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 7px;
   z-index: 1;
+  color: ${Color.white};
 
   &:hover {
     background-color: #0c213a;
