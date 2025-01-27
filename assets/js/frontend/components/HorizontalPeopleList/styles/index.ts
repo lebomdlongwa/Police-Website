@@ -5,7 +5,7 @@ export const ListContainer = styled.div.attrs({
   className: "ListContainer",
 })`
   width: 100%;
-  background-color: ${Color.darkBlue};
+  background-color: ${Color.black};
 `;
 
 export const MissingListWrapper = styled.div.attrs({

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { Color } from "../../components/colorCodes";
 
 export const AppContainer = styled.div.attrs({
   className: "AppContainer",
@@ -16,7 +17,7 @@ export const AppSideBar = styled.div.attrs<{ expandMenu: boolean }>({
 })`
   height: 100vh;
   width: ${({ expandMenu }) => (expandMenu ? "200px" : "60px")};
-  background-color: #0c213a;
+  background-color: ${Color.black};
   position: fixed;
 
   /* For mobile dev sake */
