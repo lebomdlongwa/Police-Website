@@ -31,7 +31,7 @@ defmodule ReportAppWeb.Api.LostIdController do
   def delete(conn, %{"id" => id}) do
     lost_id = LostId.get_lost_id!(id)
 
-    with {:ok, %Id{} = lost_id} <- LostId.delete_lost_id(lost_id) do
+    with {:ok, %Id{}} <- LostId.delete_lost_id(lost_id) do
       render(conn, "delete.json", "")
     end
   end
