@@ -33,7 +33,7 @@ defmodule ReportAppWeb.Api.ReportController do
   def delete(conn, %{"id" => id}) do
     report = Reports.get_report!(id)
 
-    with {:ok, %Report{} = report} <- Reports.delete_report(report) do
+    with {:ok, %Report{}} <- Reports.delete_report(report) do
       render(conn, "delete.json", "")
     end
   end
