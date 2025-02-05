@@ -11,7 +11,7 @@ export const ModalContainer = styled.div.attrs({
   display: flex;
   justify-content: center;
   align-items: center;
-  backdrop-filter: blur(3px);
+  background-color: rgba(0, 0, 0, 0.4);
   z-index: 3001;
 `;
 
@@ -25,8 +25,7 @@ export const Modal = styled.div.attrs<{
   background-color: ${({ backgroundColor }) =>
     backgroundColor ? backgroundColor : "white"};
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 2000px rgba(0, 0, 0, 0.5);
+  border-radius: 7px;
   width: ${({ modalWidth }) => (modalWidth ? `${modalWidth}%` : "50%")};
   height: ${({ modalHeight }) => (modalHeight ? `${modalHeight}%` : "80%")};
   max-width: 800px;

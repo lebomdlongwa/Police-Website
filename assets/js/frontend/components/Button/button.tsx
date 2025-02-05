@@ -7,7 +7,8 @@ export type ButtonProps = {
   fontOnHover?: string;
   buttonColor?: string;
   fontColor?: string;
-  // rounded?: boolean;
+  borderColor?: string;
+  rounded?: boolean;
   onClick?: any;
   className?: string;
 };
