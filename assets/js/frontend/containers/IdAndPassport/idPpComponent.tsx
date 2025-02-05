@@ -8,6 +8,7 @@ import { deleteId } from "./actions";
 import AddFormComponent from "./AddForm/addForm";
 import { useUser } from "../userContext";
 import { AvatarComponent } from "../../components/Avatar/avatar";
+import { DeleteModal } from "../../components/DeleteModal";
 
 type IdPpComponentProps = {
   item?: IdItem;
@@ -17,13 +18,15 @@ type IdPpComponentProps = {
 
 export const IdPpComponent = (props: IdPpComponentProps) => {
   const { item, setIdList } = props;
-  const { admin } = useUser();
 
   const [showAddForm, setShowAddForm] = useState(false);
-  const handleShowAddForm = () => setShowAddForm(!showAddForm);
-
   const [edit, setEdit] = useState(false);
+  const [deleteActive, setDeleteActive] = useState(false);
+
+  const { admin } = useUser();
+  const handleShowAddForm = () => setShowAddForm(!showAddForm);
   const handleSetEdit = () => setEdit(!edit);
+  const handleDeleteStatus = () => setDeleteActive(!deleteActive);
 
   const handleDeleteItem = async () => {
     const response = await deleteId(item.id);
@@ -72,7 +75,7 @@ export const IdPpComponent = (props: IdPpComponentProps) => {
                 </styled.ButtonIcon>
               </styled.Button>
               <styled.ButtonDivider />
-              <styled.Button onClick={() => handleDeleteItem()}>
+              <styled.Button onClick={handleDeleteStatus}>
                 <styled.ButtonIcon>
                   <TrashIcon h={20} w={20} />
                 </styled.ButtonIcon>
@@ -81,17 +84,21 @@ export const IdPpComponent = (props: IdPpComponentProps) => {
           )}
         </styled.ItemWrapper>
       </styled.ItemContainer>
+      {deleteActive && (
+        <DeleteModal
+          onCloseModal={handleDeleteStatus}
+          onDelete={handleDeleteItem}
+        />
+      )}
       {showAddForm && (
-        <>
-          <AddFormComponent
-            handleShowAddForm={handleShowAddForm}
-            showAddForm={showAddForm}
-            setIdList={setIdList}
-            item={item}
-            setEdit={handleSetEdit}
-            edit={edit}
-          />
-        </>
+        <AddFormComponent
+          handleShowAddForm={handleShowAddForm}
+          showAddForm={showAddForm}
+          setIdList={setIdList}
+          item={item}
+          setEdit={handleSetEdit}
+          edit={edit}
+        />
       )}
     </styled.IdPpWrapper>
   );
