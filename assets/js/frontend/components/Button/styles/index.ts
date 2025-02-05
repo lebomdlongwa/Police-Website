@@ -12,10 +12,11 @@ export const ButtonContent = styled.div.attrs<{
   buttonColor?: string;
   fontColor?: string;
   fontOnHover?: string;
+  borderColor?: string;
 }>({
   className: "ButtonContent",
 })`
-  padding: 7px 12px;
+  padding: 10px 14px;
   border-radius: 4px;
   color: ${({ fontColor }) => (fontColor ? `${fontColor}` : "white")};
   background-color: ${({ buttonColor }) =>
@@ -23,7 +24,9 @@ export const ButtonContent = styled.div.attrs<{
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 15px;
+  font-size: 16px;
+  border: ${({ borderColor }) =>
+    borderColor ? `1px solid ${borderColor}` : "none"};
 
   &:hover {
     background-color: ${Color.blue};

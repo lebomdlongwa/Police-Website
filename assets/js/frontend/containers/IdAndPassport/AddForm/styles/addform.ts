@@ -13,7 +13,7 @@ export const AddFormContainer = styled.div.attrs({
   display: flex;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(1px);
+  background-color: rgba(0, 0, 0, 0.4);
   z-index: 3001;
 `;
 
