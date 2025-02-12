@@ -13,6 +13,7 @@ import { IndividualComponent } from "./People/MissingPeople/Individual/individua
 import { PageNotFound } from "./PageNotFound";
 import { ReportCasesComponent } from "./People/ReportCases";
 import { useUser } from "./userContext";
+import { MailBox } from "./Mail";
 
 export const routes = {
   home: "/",
@@ -23,6 +24,7 @@ export const routes = {
   reports_list: "/police/reportsList",
   report: "police/report",
   chat: "police/chat",
+  mail: "police/mail",
 };
 
 const PoliceApp = () => {
@@ -38,10 +40,7 @@ const PoliceApp = () => {
           expandMenu={expandMenu}
           onMouseLeave={() => setExpandMenu(false)}
         >
-          <SideBar
-            handleExpandMenu={handleExpandMenu}
-            expandMenu={expandMenu}
-          />
+          <SideBar />
         </styled.AppSideBar>
         <styled.AppBody expandMenu={expandMenu}>
           <Routes>
@@ -73,6 +72,9 @@ const PoliceApp = () => {
           </Routes>
           <Routes>
             <Route path={routes.chat} element={<ChatAppComponent />} />
+          </Routes>
+          <Routes>
+            <Route path={routes.mail} element={<MailBox />} />
           </Routes>
           <Routes>
             <Route element={<PageNotFound />} />
