@@ -19,7 +19,7 @@ defmodule ReportAppWeb.Api.MissingReportView do
       location_last_seen: missing_report.location_last_seen,
       clothes_worn: missing_report.clothes_worn,
       brief_summary: missing_report.brief_summary,
-      person_id: missing_report.person_id
+      missing_person_id: missing_report.missing_person_id
     }
   end
 
