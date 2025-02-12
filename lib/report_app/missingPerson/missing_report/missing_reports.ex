@@ -12,7 +12,7 @@ defmodule ReportApp.MissingReports do
     else
       Repo.all(
         from mr in MissingReport,
-          where: mr.person_id == ^id,
+          where: mr.missing_person_id == ^id,
           select: mr
       )
     end

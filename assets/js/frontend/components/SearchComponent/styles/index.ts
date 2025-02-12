@@ -4,13 +4,21 @@ import { AvatarComponent } from "../../Avatar/avatar";
 
 export const SearchWrapper = styled.div.attrs<{
   searchResultsPresent: boolean;
+  height?: number;
+  width?: number;
+  background?: string;
+  border: boolean;
+  borderRadius: number;
 }>({
   className: "SearchWrapper",
 })`
-  border: 1px solid lightgray;
-  width: 450px;
-  height: 40px;
-  border-radius: 20px;
+  border: ${({ border }) => (border ? "1px solid lightgray" : "none")};
+  background-color: ${({ background }) =>
+    background ? `${background}` : `${Color.white}`};
+  width: ${({ width }) => (width ? `${width}px` : "450px")};
+  height: ${({ height }) => (height ? `${height}px` : "40px")};
+  border-radius: ${({ borderRadius }) =>
+    borderRadius ? `${borderRadius}px` : "20px"};
   border-bottom-left-radius: ${({ searchResultsPresent }) =>
     searchResultsPresent && 0};
   border-bottom-right-radius: ${({ searchResultsPresent }) =>
@@ -51,16 +59,24 @@ export const SearchIcon = styled.div.attrs({
   margin-left: 5px;
 `;
 
-export const SearchInput = styled.input.attrs({
+export const SearchInput = styled.input.attrs<{
+  iconColor: string;
+  fontSize: number;
+}>({
   className: "SearchInput",
 })`
+  background: none;
   text-decoration: none;
   width: 85%;
   color: ${Color.darkBlueFont};
-  font-size: 14px;
+  font-size: ${({ fontSize }) => (fontSize ? `${fontSize}px` : "14px")};
   font-weight: 400;
   padding: 5px;
   border: none;
+
+  &::placeholder {
+    color: ${({ iconColor }) => iconColor && `${iconColor}`};
+  }
 
   &:focus {
     outline: none;

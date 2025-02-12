@@ -29,6 +29,7 @@ defmodule ReportAppWeb.Router do
     resources "/reports", ReportController
     resources "/missing_people", MissingController
     resources "/missing_reports", MissingReportController
+    resources "/mail", MailController
   end
 
   # Enables LiveDashboard only for development

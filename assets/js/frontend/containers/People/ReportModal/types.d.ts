@@ -4,5 +4,5 @@ type MissingReportParams = {
   known_as?: string;
   clothes_worn: string;
   brief_summary?: string;
-  person_id: string;
+  missing_person_id: string;
 };
