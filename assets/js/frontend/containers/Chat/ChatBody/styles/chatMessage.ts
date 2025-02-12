@@ -5,15 +5,17 @@ import { AvatarComponent } from "../../../../components/Avatar/avatar";
 export const ChatMessageWrapper = styled.div.attrs({
   className: "ChatMessageWrapper",
 })`
-  max-width: 70%;
+  max-width: 100%;
   display: flex;
   gap: 8px;
+  margin-bottom: 7px;
+  justify-content: flex-end;
 `;
 
 export const ChatMessage = styled.div.attrs({
   className: "ChatMessage",
 })`
-  max-width: calc(100% - 40px);
+  max-width: calc(70% - 40px);
   border-radius: 15px;
   background-color: ${Color.darkBlue};
   color: ${Color.white};
