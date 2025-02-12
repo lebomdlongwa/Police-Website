@@ -4,7 +4,7 @@ import { Color } from "../../../components/colorCodes";
 import { Button } from "../../../components/Button/button";
 import { ShadowContainer } from "../../../appStyles";
 import { DatePickerComponent } from "../../../components/DateComponent";
-import { addMissingReport } from "./actions";
+import { createMail } from "../../Mail/actions";
 
 type PeopleReportModalProps = {
   handleShowModal: VoidCallBack;
@@ -12,6 +12,7 @@ type PeopleReportModalProps = {
 };
 
 type State = {
+  type: "person";
   date_last_seen: string;
   location_last_seen: string;
   clothes_worn: string;
@@ -27,6 +28,7 @@ export class PeopleReportModal extends Component<
     super(props);
 
     this.state = {
+      type: "person",
       date_last_seen: "",
       location_last_seen: "",
       clothes_worn: "",
@@ -45,9 +47,9 @@ export class PeopleReportModal extends Component<
   handleCreateReport = async () => {
     const { id } = this.props;
 
-    const response = await addMissingReport({
+    const response = await createMail({
       ...this.state,
-      person_id: id,
+      missing_person_id: id,
     });
   };
 

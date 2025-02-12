@@ -2,13 +2,13 @@ import React from "react";
 import { Color } from "../colorCodes";
 
 export const PeopleIcon = (props: IconProps) => {
-  const { h = 15, c = Color.iconGray, w = 15 } = props;
+  const { size = 15, color = Color.iconGray } = props;
 
   return (
     <svg
-      fill={c as string}
-      width={`${w}px`}
-      height={`${h}px`}
+      fill={color as string}
+      width={`${size}px`}
+      height={`${size}px`}
       viewBox="0 0 512 512"
     >
       <style type="text/css"></style>
