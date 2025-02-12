@@ -29,7 +29,6 @@ export const ChatWrapper = styled.div.attrs({
   className: "ChatWrapper",
 })`
   width: 100%;
-  height: 100%;
 `;
 
 export const UnReadChatsWrapper = styled.div.attrs({
@@ -133,6 +132,7 @@ export const Message = styled.div.attrs({
   color: gray;
   font-size: 12px;
   font-weight: 400;
-  overflow-y: hidden;
+  white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
 `;
