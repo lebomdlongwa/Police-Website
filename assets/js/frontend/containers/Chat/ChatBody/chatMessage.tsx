@@ -1,14 +1,22 @@
 import React from "react";
 import * as styled from "./styles/chatMessage";
 
-export const ChatMessageComponent = () => {
+type ChatMessageComponentProps = {
+  messages: Message[];
+};
+
+export const ChatMessageComponent = (props: ChatMessageComponentProps) => {
+  const { messages } = props;
+
   return (
-    <styled.ChatMessageWrapper>
-      <styled.ChatAvatar initials="L" avatarSize={28} fontSize={13} />
-      <styled.ChatMessage>
-        I'm coming later so cook sadza and sausage mina lingangifakeli am not
-        eating it will it cabbage
-      </styled.ChatMessage>
-    </styled.ChatMessageWrapper>
+    <>
+      {Array.isArray(messages) &&
+        messages.map((message) => (
+          <styled.ChatMessageWrapper key={message.id}>
+            <styled.ChatMessage>{message.content}</styled.ChatMessage>
+            <styled.ChatAvatar initials="L" avatarSize={28} fontSize={13} />
+          </styled.ChatMessageWrapper>
+        ))}
+    </>
   );
 };
