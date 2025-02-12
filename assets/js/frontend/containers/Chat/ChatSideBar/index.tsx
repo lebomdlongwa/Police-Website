@@ -2,42 +2,18 @@ import React, { useState } from "react";
 import * as styled from "./styles/index";
 import { AvatarComponent } from "../../../components/Avatar/avatar";
 import { UpCaretIcon } from "../../../components/icons/upCaret";
-import { Color } from "../../../components/colorCodes";
 import { DownCaretIcon } from "../../../components/icons/downCaret";
+import { get, isEmpty } from "lodash";
 
-export const ChatSideBar = () => {
+type ChatSideBarProps = {
+  messages: Message[];
+};
+
+export const ChatSideBar = (props: ChatSideBarProps) => {
+  const { messages } = props;
+
   const [unReadClicked, setUnReadClicked] = useState(false);
   const [readClicked, setReadClicked] = useState(false);
-
-  const unReadArr = [
-    {
-      avatar: "L",
-      user: "Lebohang Mdlongwa",
-      message:
-        "Somebody entered our house at night and stole all the car windows",
-      active: true,
-    },
-    {
-      avatar: "A",
-      user: "Amanda Nyoni",
-      message: "Chelsea is doing good this season and i am so happy njani",
-      active: false,
-    },
-    {
-      avatar: "G",
-      user: "Gatsheni Sibanda",
-      message:
-        "Somebody entered our house at night and stole all the car windows",
-      active: false,
-    },
-    {
-      avatar: "W",
-      user: "Willington Gumbo",
-      message:
-        "Somebody entered our house at night and stole all the car windows",
-      active: false,
-    },
-  ];
 
   const handleCarot = (type: string) => {
     if (type === "read") {
@@ -68,27 +44,30 @@ export const ChatSideBar = () => {
             <styled.CarotWrapper>{unReadMessagesCarot}</styled.CarotWrapper>
             UnRead Chats
           </styled.ChatHeader>
-          {!unReadClicked &&
-            unReadArr.map((item) => (
-              <styled.MessageContainer active={item.active}>
-                <styled.UserChatWrapper>
-                  <styled.UserChatContainer>
-                    <AvatarComponent initials={item.avatar} avatarSize={37} />
-                    <styled.UserMessageWrapper>
-                      <styled.User>{item.user}</styled.User>
-                      <styled.Message>{item.message}</styled.Message>
-                    </styled.UserMessageWrapper>
-                  </styled.UserChatContainer>
-                </styled.UserChatWrapper>
-              </styled.MessageContainer>
-            ))}
+          {!unReadClicked && (
+            // unReadArr.map((item) => (
+            <styled.MessageContainer>
+              <styled.UserChatWrapper>
+                <styled.UserChatContainer>
+                  <AvatarComponent initials="L" avatarSize={37} />
+                  <styled.UserMessageWrapper>
+                    <styled.User>Jamie Vardy</styled.User>
+                    <styled.Message>
+                      {!isEmpty(messages) && messages.slice(-1)[0].content}
+                    </styled.Message>
+                  </styled.UserMessageWrapper>
+                </styled.UserChatContainer>
+              </styled.UserChatWrapper>
+            </styled.MessageContainer>
+            // )
+          )}
         </styled.UnReadChatsWrapper>
         <styled.ReadChatsWrapper>
           <styled.ChatHeader onClick={() => handleCarot("read")}>
             <styled.CarotWrapper>{readMessagesCarot}</styled.CarotWrapper>
             Read Chats
           </styled.ChatHeader>
-          {!readClicked &&
+          {/* {!readClicked &&
             unReadArr.map((item) => (
               <styled.MessageContainer active={item.active}>
                 <styled.UserChatWrapper>
@@ -101,7 +80,7 @@ export const ChatSideBar = () => {
                   </styled.UserChatContainer>
                 </styled.UserChatWrapper>
               </styled.MessageContainer>
-            ))}
+            ))} */}
         </styled.ReadChatsWrapper>
       </styled.ChatWrapper>
     </styled.SideBarWrapper>
