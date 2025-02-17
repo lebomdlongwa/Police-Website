@@ -44,7 +44,7 @@ export class PeopleReportModal extends Component<
     });
   };
 
-  handleCreateReport = async () => {
+  handleCreateMailReport = async () => {
     const { id } = this.props;
 
     const response = await createMail({
@@ -53,10 +53,10 @@ export class PeopleReportModal extends Component<
     });
   };
 
-  handleSaveReport = () => {
+  handleSaveMailReport = () => {
     const { handleShowModal } = this.props;
 
-    this.handleCreateReport();
+    this.handleCreateMailReport();
     handleShowModal();
   };
 
@@ -125,7 +125,7 @@ export class PeopleReportModal extends Component<
               buttonColor={Color.blue}
               fontColor={Color.white}
               text="Report"
-              onClick={this.handleSaveReport}
+              onClick={this.handleSaveMailReport}
             />
           </styled.ModalButtonWrapper>
         </ShadowContainer>

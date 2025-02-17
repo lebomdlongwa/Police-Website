@@ -14,21 +14,6 @@ defmodule ReportAppWeb.Api.MissingReportController do
     render(conn, "index.json", missing_report: missing_report)
   end
 
-  def create(conn, %{"params" => params}) do
-    with {:ok, %MissingReport{} = missing_report} <- MissingReports.create_missing_report(params) do
-      render(conn, "show.json", missing_report: missing_report)
-    end
-  end
-
-  def update(conn, %{"id" => id, "params" => params}) do
-    missing_report = MissingReports.get_missing_report!(id)
-
-    with {:ok, %MissingReport{} = missing_report} <-
-           MissingReports.update_missing_report(missing_report, params) do
-      render(conn, "show.json", missing_report: missing_report)
-    end
-  end
-
   def delete(conn, %{"id" => id}) do
     missing_report = MissingReports.get_missing_report!(id)
 
