@@ -2,10 +2,11 @@ import React from "react";
 import * as styled from "./styles";
 
 export type ButtonProps = {
-  // size?: "small" | "medium" | "large";
+  size?: "small" | "medium" | "large";
   text: string;
   fontOnHover?: string;
   buttonColor?: string;
+  buttonColorOnHover?: string;
   fontColor?: string;
   borderColor?: string;
   rounded?: boolean;

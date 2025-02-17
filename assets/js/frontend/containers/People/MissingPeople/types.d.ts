@@ -10,3 +10,14 @@ type MissingPersonParams = {
   body_stature?: "skinny" | "medium" | "fat";
   skin_colour: string;
 };
+
+type UploadData = {
+  id?: string;
+  file_path: string;
+  name: string;
+  type: string;
+};
+
+type Upload = {
+  data: UploadData;
+};

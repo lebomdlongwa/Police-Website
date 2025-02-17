@@ -26,11 +26,3 @@ export const Picture = styled.div.attrs({
 export const UploadedFile = styled.div.attrs({
   className: "UploadedFile",
 })``;
-
-// export const Upload = styled(Button)`
-//   position: absolute;
-//   bottom: 20px;
-//   right: 20px;
-//   height: 20px;
-//   width: 20px;
-// `;
