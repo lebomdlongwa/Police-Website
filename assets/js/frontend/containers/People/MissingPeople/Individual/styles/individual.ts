@@ -7,9 +7,10 @@ export const Wrapper = styled.div.attrs({
 })`
   width: 100%;
   height: 100%;
+  min-width: 1250px;
+  min-height: 100vh;
   padding: 20px 30px;
   background-color: ${Color.white};
-  position: relative;
 
   @media (max-width: 500px) {
     width: 100vw;
@@ -42,6 +43,17 @@ export const CaseHeader = styled.div.attrs({
   }
 `;
 
+export const Body = styled.div.attrs({
+  className: "Body",
+})`
+  width: 100%;
+  height: calc(100% - 65px);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
 export const DetailsWrapper = styled.div.attrs({
   className: "DetailsWrapper",
 })`
@@ -59,23 +71,25 @@ export const PictureWrapper = styled.div.attrs({
   className: "PictureWrapper",
 })`
   width: 35%;
+  height: 100%;
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
+  gap: 20px;
 
   @media (max-width: 500px) {
     width: 100%;
   }
 `;
 
-export const Picture = styled.div.attrs({
+export const Picture = styled.img.attrs({
   className: "Picture",
 })`
-  height: 35vh;
-  width: 20vw;
+  height: 300px;
+  width: 300px;
   border: 1px solid lightgray;
+  border-radius: 5px;
 `;
 
 export const PersonReportsWrapper = styled.div.attrs({
@@ -83,7 +97,6 @@ export const PersonReportsWrapper = styled.div.attrs({
 })`
   display: flex;
   justify-content: flex-end;
-  width: 100%;
 `;
 
 export const PersonReportsButton = styled(Button).attrs({
@@ -178,6 +191,15 @@ export const CallPolice = styled.div.attrs({
   background-color: #073676;
   width: 25vw;
   height: 30vh;
+`;
+
+export const ButtonsWrapper = styled.div.attrs({
+  className: "ButtonsWrapper",
+})`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
 `;
 
 export const Footer = styled.div.attrs({
