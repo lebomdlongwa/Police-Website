@@ -22,18 +22,6 @@ defmodule ReportApp.MissingReports do
     Repo.get!(MissingReport, id)
   end
 
-  def create_missing_report(params) do
-    %MissingReport{}
-    |> MissingReport.changeset(params)
-    |> Repo.insert()
-  end
-
-  def update_missing_report(missing_report, params) do
-    missing_report
-    |> MissingReport.changeset(params)
-    |> Repo.update()
-  end
-
   def delete_missing_report(missing_report) do
     Repo.delete(missing_report)
   end
