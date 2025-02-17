@@ -17,12 +17,15 @@ defmodule ReportAppWeb.MessageChannel do
     case Message.changeset(%Message{}, %{content: message})
          |> Repo.insert() do
       {:ok, message} ->
-        broadcast!(socket, "new_message", %{message: MessageView.render("show.json", %{message: message})})
+        broadcast!(socket, "new_message", %{
+          message: MessageView.render("show.json", %{message: message})
+        })
+
         Logger.info("Broadcasting new message: #{inspect(message)}")
         {:noreply, socket}
 
       {:error, error} ->
-        {:reply, {:error, %{reason: "Unable to send message: #{error}",}}, socket}
+        {:reply, {:error, %{reason: "Unable to send message: #{error}"}}, socket}
     end
   end
 end

@@ -12,16 +12,19 @@ import {
   getMissingPerson,
   updateMissingPerson,
 } from "./actions";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { StyledLink } from "../../../styles/app";
 import { routes } from "../../../PoliceApp";
 import { useUser } from "../../../userContext";
 import { PeopleReportModal } from "../../ReportModal/reportModal";
+import { PictureUpload } from "../../../../components/Upload/picUpload";
+import { getLastUpload } from "../actions";
 
 export const IndividualComponent = () => {
-  const location = useLocation();
+  const { admin } = useUser();
   const { id: url_id } = useParams();
   const [showReportModal, setShowReportModal] = useState(false);
+  const [upload, setUpload] = useState<UploadData | null>(null);
   const [formInputObj, setFormInputObj] = useState<MissingPersonParams>({
     fullname: "",
     age: "",
@@ -35,17 +38,13 @@ export const IndividualComponent = () => {
     skin_colour: "",
     id: null,
   });
-  const [baseFormObj, setBaseFormObj] =
-    useState<MissingPersonParams>(formInputObj);
-  const { admin } = useUser();
 
   const isIdValid = url_id && url_id !== ":id";
   const header = isIdValid ? "Edit Missing Person" : "Case 076834-B";
-  const showSaveFooter = formInputObj != baseFormObj;
 
   useEffect(() => {
     isIdValid && handleGetMissingPerson(url_id);
-    setBaseFormObj(formInputObj);
+    getLastUpload().then((res) => setUpload(res));
   }, []);
 
   const handleShowModal = () => setShowReportModal(!showReportModal);
@@ -60,7 +59,6 @@ export const IndividualComponent = () => {
   const handleGetMissingPerson = async (id: string) => {
     const response = await getMissingPerson(id);
     setFormInputObj({ ...response });
-    setBaseFormObj({ ...response });
   };
 
   const handleAddMissingPerson = async () => {
@@ -87,56 +85,56 @@ export const IndividualComponent = () => {
   return (
     <styled.Wrapper>
       <styled.CaseHeader>{header}</styled.CaseHeader>
-      <styled.DetailsWrapper>
-        <styled.Details admin={admin}>
-          {FormDerfinition &&
-            FormDerfinition.slice(0, 5).map((item) => (
-              <DetailRowComponent
-                item={item}
-                onChange={onChange}
-                formInput={formInputObj}
-              />
-            ))}
-          <styled.DoubleDetailRowWrapper>
+      <styled.Body>
+        <styled.DetailsWrapper>
+          <styled.Details admin={admin}>
             {FormDerfinition &&
-              FormDerfinition.slice(5, 7).map((item) => (
-                <DoubleDetailRowComponent
+              FormDerfinition.slice(0, 5).map((item) => (
+                <DetailRowComponent
                   item={item}
                   onChange={onChange}
                   formInput={formInputObj}
                 />
               ))}
-          </styled.DoubleDetailRowWrapper>
-          <styled.DoubleDetailRowWrapper>
-            {FormDerfinition &&
-              FormDerfinition.slice(7, 9).map((item) => (
-                <DoubleDetailRowComponent
-                  item={item}
-                  onChange={onChange}
-                  formInput={formInputObj}
-                />
-              ))}
-          </styled.DoubleDetailRowWrapper>
-        </styled.Details>
-        <styled.PictureWrapper>
-          <styled.Picture></styled.Picture>
-          {/* {admin && ( */}
-          {
-            <styled.PersonReportsWrapper>
-              <StyledLink to={`${routes.missing_person_reports}/${url_id}`}>
-                <styled.PersonReportsButton text="View Reported Cases" />
-              </StyledLink>
-            </styled.PersonReportsWrapper>
-          }
-        </styled.PictureWrapper>
-      </styled.DetailsWrapper>
-      {/* {isIdValid && !admin && (  */}
-      {isIdValid && <ReportButton handleShowModal={handleShowModal} />}
-      {showReportModal && (
-        <PeopleReportModal handleShowModal={handleShowModal} id={url_id} />
-      )}
-      {!showSaveFooter && admin && (
-        <styled.Footer>
+            <styled.DoubleDetailRowWrapper>
+              {FormDerfinition &&
+                FormDerfinition.slice(5, 7).map((item) => (
+                  <DoubleDetailRowComponent
+                    item={item}
+                    onChange={onChange}
+                    formInput={formInputObj}
+                  />
+                ))}
+            </styled.DoubleDetailRowWrapper>
+            <styled.DoubleDetailRowWrapper>
+              {FormDerfinition &&
+                FormDerfinition.slice(7, 9).map((item) => (
+                  <DoubleDetailRowComponent
+                    item={item}
+                    onChange={onChange}
+                    formInput={formInputObj}
+                  />
+                ))}
+            </styled.DoubleDetailRowWrapper>
+          </styled.Details>
+          <styled.PictureWrapper>
+            <PictureUpload />
+            <styled.Picture src="" />
+            {/* <styled.Picture src={upload?.file_path} /> */}
+          </styled.PictureWrapper>
+        </styled.DetailsWrapper>
+        <styled.ButtonsWrapper>
+          <ReportButton handleShowModal={handleShowModal} />
+          <styled.PersonReportsWrapper>
+            <StyledLink to={`${routes.missing_person_reports}/${url_id}`}>
+              <styled.PersonReportsButton text="View Reported Cases" />
+            </StyledLink>
+          </styled.PersonReportsWrapper>
+        </styled.ButtonsWrapper>
+        {showReportModal && (
+          <PeopleReportModal handleShowModal={handleShowModal} id={url_id} />
+        )}
+        {/* <styled.Footer>
           You have made some changes
           <styled.FooterButtonsWrapper>
             <styled.FooterButton text="Cancel" />
@@ -144,8 +142,8 @@ export const IndividualComponent = () => {
               <styled.FooterButton text="Save" onClick={addOrUpdate} />
             </StyledLink>
           </styled.FooterButtonsWrapper>
-        </styled.Footer>
-      )}
+        </styled.Footer> */}
+      </styled.Body>
     </styled.Wrapper>
   );
 };

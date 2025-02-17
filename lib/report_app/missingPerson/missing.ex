@@ -9,14 +9,11 @@ defmodule ReportApp.Missing do
   end
 
   def sort_missing_persons_list do
-    data =
-      Repo.all(
-        from mp in MissingPerson,
-          order_by: [desc: mp.inserted_at],
-          select: mp
-      )
-
-    data
+    Repo.all(
+      from mp in MissingPerson,
+        order_by: [desc: mp.inserted_at],
+        select: mp
+    )
   end
 
   def get_missing_person!(id) do
