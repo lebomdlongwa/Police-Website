@@ -35,7 +35,8 @@ export const Container = styled.div.attrs({
 export const PersonTile = styled(Link).attrs({
   className: "Person_Tile",
 })`
-  background-color: ${Color.darkBlue};
+  // background-color: ${Color.darkBlue};
+  background-image: url("../../../images/police_riot.jpg");
   width: 18vw;
   min-width: 172px;
   max-width: 220px;
