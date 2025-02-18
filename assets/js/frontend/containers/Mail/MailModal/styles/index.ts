@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Color } from "../../../../components/colorCodes";
 
 export const Wrapper = styled.div.attrs({
@@ -25,7 +25,7 @@ export const TopBody = styled.div.attrs({
   className: "TopBody",
 })`
   width: 100%;
-  height: 66px;
+  height: 80px;
   padding: 10px 15px;
   display: flex;
 `;
@@ -37,12 +37,13 @@ export const LabelContentWrapper = styled.div.attrs({
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 10px;
 `;
 
 export const Label = styled.div.attrs({
   className: "Label",
 })`
+  width: 100%;
   font-size: 14px;
   font-weight: 700;
   color: ${Color.gray};
@@ -51,20 +52,21 @@ export const Label = styled.div.attrs({
 export const Content = styled.div.attrs({
   className: "Content",
 })`
+  width: 100%;
   font-size: 18px;
   font-weight: 800;
   color: ${Color.lightBlack};
 `;
 
-export const DateLastSeen = styled.div.attrs({
-  className: "DateLastSeen",
+export const TopItemOne = styled.div.attrs({
+  className: "TopItemOne",
 })`
-  width: 40%;
+  width: 100%;
   height: 100%;
 `;
 
-export const Location = styled(DateLastSeen).attrs({
-  className: "Location",
+export const TopItemTwo = styled(TopItemOne).attrs({
+  className: "TopItemTwo",
 })``;
 
 export const BottomBody = styled.div.attrs({
@@ -76,11 +78,11 @@ export const BottomBody = styled.div.attrs({
   font-size: 18px;
 `;
 
-export const NameAndClothes = styled.div.attrs({
+export const NameAndClothes = styled.div.attrs<{ isCrimeReport: boolean }>({
   className: "NameAndClothes",
 })`
   width: 100%;
-  height: 104px;
+  height: ${({ isCrimeReport }) => (isCrimeReport ? "70px" : "100px")};
   border-top: 1px solid ${Color.lightgray};
   padding-top: 10px;
   display: flex;
@@ -94,21 +96,51 @@ export const BottomContent = styled(Content).attrs({
   padding-top: 10px;
   width: 100%;
   height: 100%;
-  font-size: 15px;
 `;
 
-export const ClothesWrapper = styled.div.attrs({
-  className: "ClothesWrapper",
+export const BottomLeftItem = styled.div.attrs<{ isCrimeReport: boolean }>({
+  className: "BottomLeftItem",
 })`
-  width: 45%;
+  width: 40%;
+  max-width: 50%;
+  height: 100%;
+  flex: 1;
+  ${({ isCrimeReport }) =>
+    !isCrimeReport &&
+    `${BottomContent} {
+      font-size: 15px;
+    }`}
+`;
+
+export const BottomCenterItem = styled.div.attrs({
+  className: "BottomCenterItem",
+})`
+  width: 50%;
+  max-width: 50%;
+  height: 100%;
+  flex: 1;
+`;
+
+export const BottomRightItem = styled.div.attrs({
+  className: "BottomRightItem",
+})`
+  width: 10%;
   height: 100%;
 `;
 
-export const NameWrapper = styled.div.attrs({
-  className: "NameWrapper",
+export const BottomInput = styled.input.attrs({
+  className: "BottomInput",
 })`
-  width: 45%;
-  height: 100%;
+  width: 100%;
+  border: none;
+  height: 40px;
+  font-size: 17px;
+  font-weight: 800;
+  color: ${Color.lightBlack};
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 export const BriefSummary = styled.div.attrs({
@@ -119,6 +151,10 @@ export const BriefSummary = styled.div.attrs({
   padding-top: 10px;
   width: 100%;
   height: 150px;
+
+  ${BottomContent} {
+    font-size: 15px;
+  }
 `;
 
 export const ButtonWrapper = styled.div.attrs({

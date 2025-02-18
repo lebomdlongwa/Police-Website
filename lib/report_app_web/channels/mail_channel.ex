@@ -1,9 +1,9 @@
 defmodule ReportAppWeb.MailChannel do
   use Phoenix.Channel
 
-  alias ReportApp.Mails
-  alias ReportAppWeb.Endpoint
+  alias ReportApp.{Mail, Mails}
   alias ReportAppWeb.Api.MailView
+  alias ReportAppWeb.Endpoint
 
   def join("mail:lobby", _payload, socket) do
     {:ok, socket}
@@ -13,6 +13,20 @@ defmodule ReportAppWeb.MailChannel do
     mails = Mails.list_mails()
     broadcast!(socket, "new_mail_list", %{mails: mails})
     {:noreply, socket}
+  end
+
+  def handle_in("send_mails", %{"mail" => mail}, socket) do
+    case Mails.create_mail(mail) do
+      {:ok, %Mail{} = mail} ->
+        broadcast!(socket, "new_mail_item", %{
+          mail: MailView.render("show.json", %{mail: mail})
+        })
+
+        {:noreply, socket}
+
+      {:error, error} ->
+        {:reply, error, socket}
+    end
   end
 
   def push_out!() do
