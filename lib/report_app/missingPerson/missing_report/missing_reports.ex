@@ -18,6 +18,12 @@ defmodule ReportApp.MissingReports do
     end
   end
 
+  def create_missing_report(params) do
+    %MissingReport{}
+    |> MissingReport.changeset(params)
+    |> Repo.insert()
+  end
+
   def get_missing_report!(id) do
     Repo.get!(MissingReport, id)
   end

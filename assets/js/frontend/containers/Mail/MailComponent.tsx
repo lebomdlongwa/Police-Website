@@ -14,7 +14,9 @@ export const MailComponent = (props: MailComponentProps) => {
       <styled.Sender>
         {mail.name} {mail.surname}
       </styled.Sender>
-      <styled.BriefSummary>{mail.brief_summary}</styled.BriefSummary>
+      <styled.BriefSummary>
+        {mail.brief_summary || mail.brief_circumstance}
+      </styled.BriefSummary>
       <styled.TimeStamp>{mail.timestamp}</styled.TimeStamp>
     </styled.Wrapper>
   );
