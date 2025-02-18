@@ -41,6 +41,10 @@ export const MailBox = () => {
       console.log("Mails received", payload.mails.data);
       setMails(payload.mails.data);
     });
+
+    channel.on("new_mail_item", (payload) => {
+      setMails((prevState) => [payload.mail.data, ...prevState]);
+    });
   }, [channel]);
 
   useEffect(() => {

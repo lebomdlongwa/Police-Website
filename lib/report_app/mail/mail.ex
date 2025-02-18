@@ -24,8 +24,6 @@ defmodule ReportApp.Mail do
     :brief_circumstance
   ]
 
-  @params @person_report_params ++ @crime_report_params
-
   schema "mail" do
     field :type, :string
 
@@ -46,16 +44,16 @@ defmodule ReportApp.Mail do
     timestamps()
   end
 
-  def changeset(struct, attrs \\ %{}) do
+  def changeset(struct, %{"type" => "crime"} = attrs) do
     struct
-    |> cast(attrs, @params)
-    |> validate_required(required_params(attrs))
-    |> assoc_constraint(association(attrs))
+    |> cast(attrs, @crime_report_params)
+    |> validate_required(@crime_report_params)
   end
 
-  def required_params(%{"type" => "person"}), do: @person_report_params
-  def required_params(%{"type" => "crime"}), do: @crime_report_params
-
-  def association(%{"type" => "person"}), do: :missing_person
-  def association(_), do: nil
+  def changeset(struct, %{"type" => "person"} = attrs) do
+    struct
+    |> cast(attrs, @person_report_params)
+    |> validate_required(@person_report_params)
+    |> assoc_constraint(:missing_person)
+  end
 end

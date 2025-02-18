@@ -12,8 +12,7 @@ defmodule ReportApp.LostId do
     data =
       Repo.all(
         from i in Id,
-          order_by: [desc: i.inserted_at],
-          select: i
+          order_by: [desc: i.inserted_at]
       )
 
     data
