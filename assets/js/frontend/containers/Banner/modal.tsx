@@ -2,12 +2,16 @@ import React, { ChangeEvent, Component } from "react";
 import { Color } from "../../components/colorCodes";
 import { Button } from "../../components/Button/button";
 import * as styled from "./styles/ReportModal";
+import { socket } from "../../socket";
+import { Channel } from "phoenix";
 
 type BannerReportModalProps = {
   handleShowModal: VoidCallBack;
+  channel: Channel;
 };
 
 type State = {
+  type: "crime";
   name: string;
   surname: string;
   email: string;
@@ -23,12 +27,28 @@ export class BannerReportModal extends Component<
     super(props);
 
     this.state = {
+      type: "crime",
       name: "",
       surname: "",
       email: "",
       accused: "",
       brief_circumstance: "",
     };
+
+    this.channel = socket.channel("mail:lobby", {});
+  }
+
+  channel;
+
+  componentDidMount() {
+    this.channel
+      .join()
+      .receive("ok", (resp) => {
+        console.log("Joined successfully", resp);
+      })
+      .receive("error", (resp) => {
+        console.log("Unable to join", resp);
+      });
   }
 
   onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -36,6 +56,13 @@ export class BannerReportModal extends Component<
       ...this.state,
       [e.target.name]: e.target.value,
     });
+  };
+
+  handleSaveForm = () => {
+    const { handleShowModal } = this.props;
+
+    this.channel.push("send_mails", { mail: { ...this.state } });
+    handleShowModal();
   };
 
   render() {
@@ -108,6 +135,7 @@ export class BannerReportModal extends Component<
               buttonColor={Color.blue}
               fontColor={Color.white}
               text="Report"
+              onClick={this.handleSaveForm}
             />
           </styled.ModalButtonWrapper>
         </styled.ShadowContainer>

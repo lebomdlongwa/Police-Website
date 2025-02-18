@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import * as styled from "./styles";
 import { createReport, getMail } from "../actions";
 import { isEmpty } from "lodash";
@@ -14,6 +14,10 @@ export const MailModal = (props: MailProps) => {
   const { selectedMailId, onCloseModal, onDelete } = props;
 
   const [mail, setMail] = useState<Mail>(null);
+  const [formInput, setFormInput] = useState({
+    grade: "",
+    officer: "",
+  });
 
   useEffect(() => {
     const fetchMail = async () => {
@@ -24,43 +28,89 @@ export const MailModal = (props: MailProps) => {
     fetchMail();
   }, []);
 
+  const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setFormInput({
+      ...formInput,
+      [e.target.name]: e.target.value,
+    });
+
   const handleAcceptMail = () => {
-    createReport(selectedMailId);
+    createReport({
+      id: selectedMailId,
+      officer: formInput.officer,
+      grade: formInput.grade,
+    });
     onCloseModal(null);
   };
 
   if (!isEmpty(mail)) {
+    const isCrimeReport = mail.type === "crime";
+    const topLeftItemLabel = isCrimeReport ? "NAME" : "DATE SEEN";
+    const topLeftItemContent = isCrimeReport ? mail.name : mail.date_last_seen;
+    const topRightItemLabel = isCrimeReport ? "SURNAME" : "LOCATION";
+    const topRightContent = isCrimeReport
+      ? mail.surname
+      : mail.location_last_seen;
+    const bottomLeftItemLabel = isCrimeReport
+      ? "ACCUSED"
+      : "CLOTHES SEEN WEARING";
+    const bottomLeftItemContent = isCrimeReport
+      ? mail.accused
+      : mail.clothes_worn;
+    const bottomCenterItemLabel = isCrimeReport ? "OFFICER" : "SUSPECT NAME";
+    const bottomCenterItemContent = isCrimeReport ? null : mail.known_as;
+
     return (
       <styled.Wrapper>
         <styled.ModalContainer>
           <styled.TopBody>
-            <styled.DateLastSeen>
+            <styled.TopItemOne>
               <styled.LabelContentWrapper>
-                <styled.Label>DATE SEEN</styled.Label>
-                <styled.Content>{mail.date_last_seen}</styled.Content>
+                <styled.Label>{topLeftItemLabel}</styled.Label>
+                <styled.Content>{topLeftItemContent}</styled.Content>
               </styled.LabelContentWrapper>
-            </styled.DateLastSeen>
-            <styled.Location>
+            </styled.TopItemOne>
+            <styled.TopItemTwo>
               <styled.LabelContentWrapper>
-                <styled.Label>LOCATION</styled.Label>
-                <styled.Content>{mail.location_last_seen}</styled.Content>
+                <styled.Label>{topRightItemLabel}</styled.Label>
+                <styled.Content>{topRightContent}</styled.Content>
               </styled.LabelContentWrapper>
-            </styled.Location>
+            </styled.TopItemTwo>
           </styled.TopBody>
           <styled.BottomBody>
-            <styled.NameAndClothes>
-              <styled.ClothesWrapper>
-                <styled.Label>CLOTHES SEEN WEARING</styled.Label>
-                <styled.BottomContent>{mail.clothes_worn}</styled.BottomContent>
-              </styled.ClothesWrapper>
-              <styled.NameWrapper>
-                <styled.Label>NAME KNOWN AS</styled.Label>
-                <styled.BottomContent>{mail.known_as}</styled.BottomContent>
-              </styled.NameWrapper>
+            <styled.NameAndClothes isCrimeReport={isCrimeReport}>
+              <styled.BottomLeftItem isCrimeReport={isCrimeReport}>
+                <styled.Label>{bottomLeftItemLabel}</styled.Label>
+                <styled.BottomContent>
+                  {bottomLeftItemContent}
+                </styled.BottomContent>
+              </styled.BottomLeftItem>
+              <styled.BottomCenterItem>
+                <styled.Label>{bottomCenterItemLabel}</styled.Label>
+                {!isCrimeReport ? (
+                  <styled.BottomContent>
+                    {bottomCenterItemContent}
+                  </styled.BottomContent>
+                ) : (
+                  <styled.BottomInput
+                    placeholder="Enter officer name..."
+                    value={formInput.officer}
+                    name="officer"
+                    onChange={onChange}
+                  />
+                )}
+              </styled.BottomCenterItem>
+              {isCrimeReport && (
+                <styled.BottomRightItem>
+                  <styled.Label>GRADE</styled.Label>
+                </styled.BottomRightItem>
+              )}
             </styled.NameAndClothes>
             <styled.BriefSummary>
               <styled.Label>BRIEF SUMMARY</styled.Label>
-              <styled.BottomContent>{mail.brief_summary}</styled.BottomContent>
+              <styled.BottomContent>
+                {mail.brief_summary || mail.brief_circumstance}
+              </styled.BottomContent>
             </styled.BriefSummary>
           </styled.BottomBody>
           <styled.ButtonWrapper>

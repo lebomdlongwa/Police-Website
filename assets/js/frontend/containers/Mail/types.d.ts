@@ -14,3 +14,9 @@ type Mail = {
   brief_circumstance?: string;
   timestamp?: string;
 };
+
+type CreateReportParams = {
+  id: string;
+  officer: string;
+  grade?: string;
+};

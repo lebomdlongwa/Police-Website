@@ -61,7 +61,7 @@ export class SortByComponent extends Component<SortByComponentProps, State> {
             >
               Officer
               <styled.XIcon active={this.state.officer}>
-                <XIcon h={30} w={30} c={Color.white} />
+                <XIcon size={30} color={Color.white} />
               </styled.XIcon>
             </styled.Options>
             <styled.Options
@@ -70,7 +70,7 @@ export class SortByComponent extends Component<SortByComponentProps, State> {
             >
               Grade
               <styled.XIcon active={this.state.grade}>
-                <XIcon h={30} w={30} c={Color.white} />
+                <XIcon size={30} color={Color.white} />
               </styled.XIcon>
             </styled.Options>
           </styled.OptionsWrapper>

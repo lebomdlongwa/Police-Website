@@ -14,8 +14,8 @@ defmodule ReportAppWeb.Api.MailController do
     render(conn, "show.json", mail: mail)
   end
 
-  def create(conn, %{"params" => %{"id" => id}}) do
-    case Mails.create_report(id) do
+  def create(conn, %{"params" => %{"id" => _} = params}) do
+    case Mails.create_report(params) do
       {:ok, _} ->
         send_resp(conn, :no_content, "")
 
