@@ -36,9 +36,9 @@ class AddFormComponent extends Component<AddFormComponentProps, State> {
 
     this.setState({
       ...this.state,
-      ...item
-    })
-  };
+      ...item,
+    });
+  }
 
   handleFetchedData = (data: IdPpParams) => {
     this.setState({
@@ -62,11 +62,11 @@ class AddFormComponent extends Component<AddFormComponentProps, State> {
     const response = await updateId(item.id, { ...this.state });
     setIdList(response);
   };
-  
-  onUpdateOrAdd = () => {
-    const { edit } = this.props
 
-    edit ? this.handleUpdateItem() : this.handleAddItem()
+  onUpdateOrAdd = () => {
+    const { edit } = this.props;
+
+    edit ? this.handleUpdateItem() : this.handleAddItem();
   };
 
   onChange = (e: ChangeEvent<HTMLInputElement>) => {

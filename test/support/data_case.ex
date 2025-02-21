@@ -1,4 +1,6 @@
 defmodule ReportApp.DataCase do
+  use ExUnit.CaseTemplate
+
   @moduledoc """
   This module defines the setup for tests requiring
   access to the application's data layer.
@@ -28,7 +30,12 @@ defmodule ReportApp.DataCase do
   end
 
   setup tags do
-    ReportApp.DataCase.setup_sandbox(tags)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(ReportApp.Repo)
+
+    unless tags[:async] do
+      Ecto.Adapters.SQL.Sandbox.mode(ReportApp.Repo, {:shared, self()})
+    end
+
     :ok
   end
 
