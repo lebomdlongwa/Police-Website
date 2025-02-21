@@ -3,7 +3,7 @@ import * as styled from "./styles";
 import { Button } from "../../components/Button/button";
 import { Color } from "../../components/colorCodes";
 import { login, signUp } from "./actions";
-import google_logo from "../../../../../priv/static/images/google_logo.jpg";
+import google_logo from "../../images/google_logo.jpg";
 import { BackIcon } from "../../components/icons/back";
 
 type SignInProps = {
