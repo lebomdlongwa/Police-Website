@@ -7,6 +7,7 @@ import { fetchData } from "../requests";
 import { fetchIds } from "./actions";
 import { SearchComponent } from "../../components/SearchComponent/search";
 import { SearchedResultComponent } from "../../components/SearchedResult";
+import { isEmpty } from "lodash";
 
 export const IdPassportPage = () => {
   const { admin } = useUser();
@@ -52,6 +53,7 @@ export const IdPassportPage = () => {
         />
       )}
       {!searchedId &&
+        !isEmpty(idList) &&
         idList.map((item) => {
           return (
             <IdPpComponent key={item.id} item={item} setIdList={setIdList} />
