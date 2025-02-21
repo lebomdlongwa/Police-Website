@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Color } from "../../../components/colorCodes";
+import banner from "../../../images/police_riot.jpg";
 
 export const Wrapper = styled.div.attrs({
   className: "Wrapper",
@@ -23,7 +24,7 @@ export const Wrapper = styled.div.attrs({
 export const BannerImage = styled.div`
   width: 100%;
   height: 100vh;
-  background-image: url("../../../images/police_riot.jpg");
+  background-image: url(${banner});
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
