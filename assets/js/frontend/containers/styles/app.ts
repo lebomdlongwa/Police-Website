@@ -12,11 +12,11 @@ export const AppContainer = styled.div.attrs({
   display: flex;
 `;
 
-export const AppSideBar = styled.div.attrs<{ expandMenu: boolean }>({
+export const AppSideBar = styled.div.attrs({
   className: "AppSideBar",
 })`
   height: 100vh;
-  width: ${({ expandMenu }) => (expandMenu ? "200px" : "60px")};
+  width: 60px;
   background-color: ${Color.black};
   position: fixed;
 
@@ -28,12 +28,12 @@ export const AppSideBar = styled.div.attrs<{ expandMenu: boolean }>({
   } */
 `;
 
-export const AppBody = styled.div.attrs<{ expandMenu: boolean }>({
+export const AppBody = styled.div.attrs({
   className: "AppBody",
 })`
   width: calc(100vw - 60px);
   overflow: auto;
-  margin-left: ${({ expandMenu }) => (expandMenu ? "200px" : "60px")};
+  margin-left: 60px;
 `;
 
 export const StyledLink = styled(Link).attrs({

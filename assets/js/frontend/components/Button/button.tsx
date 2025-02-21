@@ -1,4 +1,4 @@
-import React from "react";
+import React, { CSSProperties } from "react";
 import * as styled from "./styles";
 
 export type ButtonProps = {
@@ -12,13 +12,16 @@ export type ButtonProps = {
   rounded?: boolean;
   onClick?: any;
   className?: string;
+  paddingSides?: number;
+  paddingTopBottom?: number;
+  customStyles?: CSSProperties | undefined;
 };
 
 export const Button = (props: ButtonProps) => {
-  const { text } = props;
+  const { text, customStyles } = props;
 
   return (
-    <styled.Wrapper>
+    <styled.Wrapper style={customStyles}>
       <styled.ButtonContent {...props}>{text}</styled.ButtonContent>
     </styled.Wrapper>
   );
