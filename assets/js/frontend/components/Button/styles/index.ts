@@ -11,13 +11,13 @@ export const Wrapper = styled.div`
 const buttonSizeMixin = (size: string) => {
   switch (size) {
     case "small":
-      return "padding: 7px 14px; font-size: 14px;";
+      return `padding: 7px 14px; font-size: 14px;`;
     case "medium":
-      return "padding: 10px 14px; font-size: 16px;";
+      return `padding: 10px 14px; font-size: 16px;`;
     case "large":
-      return "padding: 15px 20px; font-size: 18px;";
+      return `padding: 15px 20px; font-size: 18px;`;
     default:
-      return "padding: 10px 14px; font-size: 16px;";
+      return `padding: 10px 14px; font-size: 16px;`;
   }
 };
 
@@ -28,6 +28,8 @@ export const ButtonContent = styled.div.attrs<{
   borderColor?: string;
   buttonColorOnHover?: string;
   size?: string;
+  paddingSides?: number;
+  paddingTopBottom?: number;
 }>({
   className: "ButtonContent",
 })`
@@ -41,6 +43,12 @@ export const ButtonContent = styled.div.attrs<{
   align-items: center;
   border: ${({ borderColor }) =>
     borderColor ? `1px solid ${borderColor}` : "none"};
+  ${({ paddingTopBottom }) =>
+    paddingTopBottom &&
+    `padding-top: ${paddingTopBottom}; padding-bottom: ${paddingTopBottom}`};
+  ${({ paddingSides }) =>
+    paddingSides &&
+    `padding-left: ${paddingSides}px; padding-right: ${paddingSides}px`};
 
   &:hover {
     background-color: ${({ buttonColorOnHover }) =>

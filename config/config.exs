@@ -29,6 +29,10 @@ config :report_app, ReportApp.Mailer, adapter: Swoosh.Adapters.Local
 # Swoosh API client is needed for adapters other than SMTP.
 config :swoosh, :api_client, false
 
+config :report_app, ReportApp.Guardian.Guardian,
+  issuer: "report_app",
+  secret_key: "t4/jeJm11JmOlQfZetBpWF/sanJozmAGIVnS4Jxy5yYOIRW6LqMAakS6/Djka7TP"
+
 # Configure esbuild (the version is required)
 config :esbuild,
   version: "0.14.29",

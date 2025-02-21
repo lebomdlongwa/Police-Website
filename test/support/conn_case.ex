@@ -26,13 +26,21 @@ defmodule ReportAppWeb.ConnCase do
 
       alias ReportAppWeb.Router.Helpers, as: Routes
 
+      import Ecto.Query, only: [from: 2]
+      import Enroll.Factory
+
       # The default endpoint for testing
       @endpoint ReportAppWeb.Endpoint
     end
   end
 
   setup tags do
-    ReportApp.DataCase.setup_sandbox(tags)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(ReportApp.Repo)
+
+    unless tags[:async] do
+      Ecto.Adapters.SQL.Sandbox.mode(ReportApp.Repo, {:shared, self()})
+    end
+
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 end

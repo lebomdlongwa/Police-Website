@@ -10,12 +10,21 @@ defmodule ReportAppWeb.Router do
     plug :put_secure_browser_headers
   end
 
+  pipeline :auth do
+    plug ReportApp.Guardian.AuthPipeline
+  end
+
+  pipeline :ensure_auth do
+    plug Guardian.Plug.EnsureAuthenticated
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
 
   scope "/", ReportAppWeb do
     pipe_through :browser
+    pipe_through :auth
 
     get "/", PageController, :index
     get "/police/*path", PageController, :index
@@ -23,7 +32,10 @@ defmodule ReportAppWeb.Router do
 
   # Other scopes may use custom stacks.
   scope "/api", ReportAppWeb.Api, as: :api do
-    pipe_through :api
+    pipe_through [:api]
+
+    # SHOULD IMPLEMENT THIS
+    # pipe_through [:api, :auth, :ensure_auth]
 
     resources "/lost_ids", LostIdController
     resources "/reports", ReportController
@@ -31,6 +43,10 @@ defmodule ReportAppWeb.Router do
     resources "/missing_reports", MissingReportController
     resources "/mail", MailController
     resources "/uploads", UploadController
+    get "/register", UserController, :new
+    post "/register", UserController, :create
+    post "/login", SessionController, :login
+    post "/logout", SessionController, :logout
   end
 
   # Enables LiveDashboard only for development
