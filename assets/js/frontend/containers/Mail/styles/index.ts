@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Color } from "../../../components/colorCodes";
+import mailBackground from "../../../images/police_riot.jpg";
 
 export const Wrapper = styled.div.attrs({
   className: "Wrapper",
@@ -13,7 +14,7 @@ export const BackgroundPic = styled.div.attrs({
 })`
   width: 100%;
   height: 100%;
-  background-image: url("../../../images/police_classic.jpg");
+  background-image: url(${mailBackground});
   background-size: cover;
   background-position: center;
   padding-bottom: 20px;
