@@ -117,6 +117,16 @@ export const BlueText = styled.span.attrs({
   text-decoration: underline;
 `;
 
+export const SignInButtonsWrapper = styled.div.attrs<{ notSignedIn: boolean }>({
+  className: "SignInButtonsWrapper",
+})`
+  width: 100%;
+  display: flex;
+  flex-direction: ${({ notSignedIn }) => (notSignedIn ? "column" : "row")};
+  margin-top: 10px;
+  align-items: center;
+`;
+
 export const SignInText = styled.div.attrs({
   className: "SignInText",
 })`
@@ -129,21 +139,26 @@ export const SignInText = styled.div.attrs({
   line-height: 40px;
 `;
 
-export const GoogleButtonWrapper = styled.div.attrs({
+export const GoogleButtonWrapper = styled.div.attrs<{ notSignedIn: boolean }>({
   className: "GoogleButton",
 })`
-  width: 100%;
-  border-top: 1px solid ${Color.grayLighter};
-  padding-top: 20px;
-  margin-top: 20px;
+  width: ${({ notSignedIn }) => (notSignedIn ? "100%" : "40%")};
+  ${({ notSignedIn }) =>
+    notSignedIn
+      ? `border-top: 1px solid ${Color.grayLighter}; padding-top: 15px;`
+      : `border-left: 2px solid ${Color.grayLighter}; padding-left: 10px; margin-left: 10px`};
+  margin-top: ${({ notSignedIn }) => (notSignedIn ? "15px" : "0")};
 `;
 
-export const GoogleButton = styled.div.attrs({
+export const GoogleButton = styled.div.attrs<{ notSignedIn: boolean }>({
   className: "GoogleButton",
 })`
-  width: 100%;
+  width: ${({ notSignedIn }) =>
+    notSignedIn ? "100%" : "220px; padding-right: 10px"};
   height: 45px;
-  font-size: 18px;
+  height: ${({ notSignedIn }) => (notSignedIn ? "45px" : "40px")};
+  font-size: ${({ notSignedIn }) => (notSignedIn ? "20px" : "14px")};
+  :18px ;
   font-weight: 800;
   color: ${Color.gray};
   border: 1px solid ${Color.lightgray};

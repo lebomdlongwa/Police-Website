@@ -8,6 +8,7 @@ defmodule ReportAppWeb.Router do
     plug :put_root_layout, {ReportAppWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug ReportApp.Plugs.SetUser
   end
 
   pipeline :auth do
@@ -20,6 +21,7 @@ defmodule ReportAppWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug :fetch_session
   end
 
   scope "/", ReportAppWeb do
@@ -28,6 +30,14 @@ defmodule ReportAppWeb.Router do
 
     get "/", PageController, :index
     get "/police/*path", PageController, :index
+  end
+
+  scope "/auth", ReportAppWeb do
+    pipe_through :browser
+
+    get "/google", GoogleAuthController, :request
+    get "/google/callback", GoogleAuthController, :callback
+    get "/logout", GoogleAuthController, :signout
   end
 
   # Other scopes may use custom stacks.
@@ -43,7 +53,7 @@ defmodule ReportAppWeb.Router do
     resources "/missing_reports", MissingReportController
     resources "/mail", MailController
     resources "/uploads", UploadController
-    get "/register", UserController, :new
+    get "/register", UserController, :get_user
     post "/register", UserController, :create
     post "/login", SessionController, :login
     post "/logout", SessionController, :logout

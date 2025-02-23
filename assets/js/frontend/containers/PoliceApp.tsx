@@ -3,7 +3,6 @@ import SideBar from "./NavBar";
 import { MissingList } from "./People/MissingPeople";
 import * as styled from "./styles/app";
 import { IdPassportPage } from "./IdAndPassport";
-import { LostItems } from "../components/LostItem/lostItem";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import { HomePage } from "./HomePage";
 import { ReportList } from "./ReportList/reportList";
@@ -15,6 +14,7 @@ import { ReportCasesComponent } from "./People/ReportCases";
 import { useUser } from "./userContext";
 import { MailBox } from "./Mail";
 import { SignIn } from "./Authentication";
+import { getUser } from "./Authentication/actions";
 
 export const routes = {
   home: "/",
@@ -31,9 +31,19 @@ export const routes = {
 const PoliceApp = () => {
   const { admin } = useUser();
   const [authenticated, setAuthenticated] = useState(false);
+  const [user, setUser] = useState({});
 
   const handleAuthentication = () => setAuthenticated(!authenticated);
   const loggedIn = Boolean(sessionStorage.getItem("authenticated"));
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const response = await getUser();
+      setUser(response);
+    };
+
+    fetchUser();
+  }, []);
 
   return (
     <>

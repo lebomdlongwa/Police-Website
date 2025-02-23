@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:4000/api";
+export const baseUrl = "http://localhost:4000/api";
 const headers = { "Content-Type": "application/json" };
 
 export const fetchData = async (getRequestFn: any, stateUpdateFn: any) => {

@@ -14,7 +14,10 @@ defmodule ReportAppWeb.Api.UserView do
   def render("user.json", %{user: user}) do
     %{
       id: user.id,
+      name: user.name,
+      surname: user.surname,
       username: user.username,
+      avatar: user.avatar,
       inserted_at: user.inserted_at,
       updated_at: user.updated_at
     }
