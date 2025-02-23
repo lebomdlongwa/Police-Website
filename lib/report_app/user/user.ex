@@ -5,8 +5,9 @@ defmodule ReportApp.User do
 
   import Ecto.Changeset
 
-  @required_params [:username, :password]
-  @params @required_params ++ [:name, :surname, :email]
+  @manual_params [:username, :password]
+  @google_params [:email, :name, :surname]
+  @params @google_params ++ @manual_params
 
   schema "user" do
     field :name, :string
@@ -14,23 +15,34 @@ defmodule ReportApp.User do
     field :username, :string
     field :email, :string
     field :password, :string
+    field :avatar, :string
 
     timestamps()
   end
 
-  def changeset(struct, attrs) do
+  def changeset(struct, %{email: email} = attrs) when is_binary(email) do
     struct
     |> cast(attrs, @params)
-    |> validate_required(@required_params)
+    |> validate_required(@google_params)
     |> unique_constraint(:email)
-    |> validate_format(:email, ~r/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/)
+  end
+
+  def changeset(struct, %{password: password} = attrs) when is_binary(password) do
+    struct
+    |> cast(attrs, @params)
+    |> validate_required(@manual_params)
     |> put_password_hash()
   end
 
   defp put_password_hash(
-         %Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset
-       ) do
-    change(changeset, password: Argon2.hash_pwd_salt(password))
+         %Ecto.Changeset{valid?: true, changes: %{password: password, username: username}} =
+           changeset
+       )
+       when is_binary(password) do
+    change(changeset,
+      password: Argon2.hash_pwd_salt(password),
+      avatar: "#{String.first(username)}"
+    )
   end
 
   defp put_password_hash(changeset), do: changeset

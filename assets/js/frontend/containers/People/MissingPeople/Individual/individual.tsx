@@ -12,17 +12,19 @@ import {
   getMissingPerson,
   updateMissingPerson,
 } from "./actions";
-import { useLocation, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { StyledLink } from "../../../styles/app";
 import { routes } from "../../../PoliceApp";
 import { useUser } from "../../../userContext";
 import { PeopleReportModal } from "../../ReportModal/reportModal";
 import { PictureUpload } from "../../../../components/Upload/picUpload";
 import { getLastUpload } from "../actions";
+import { Button } from "../../../../components/Button/button";
 
 export const IndividualComponent = () => {
   const { admin } = useUser();
   const { id: url_id } = useParams();
+  const navigate = useNavigate();
   const [showReportModal, setShowReportModal] = useState(false);
   const [upload, setUpload] = useState<UploadData | null>(null);
   const [formInputObj, setFormInputObj] = useState<MissingPersonParams>({
@@ -44,7 +46,7 @@ export const IndividualComponent = () => {
 
   useEffect(() => {
     isIdValid && handleGetMissingPerson(url_id);
-    getLastUpload().then((res) => setUpload(res));
+    // getLastUpload().then((res) => setUpload(res));
   }, []);
 
   const handleShowModal = () => setShowReportModal(!showReportModal);
@@ -82,6 +84,12 @@ export const IndividualComponent = () => {
     }
   };
 
+  const customStyles = {
+    position: "absolute",
+    bottom: "0",
+    right: "0",
+  };
+
   return (
     <styled.Wrapper>
       <styled.CaseHeader>{header}</styled.CaseHeader>
@@ -116,6 +124,11 @@ export const IndividualComponent = () => {
                   />
                 ))}
             </styled.DoubleDetailRowWrapper>
+            <Button
+              customStyles={customStyles}
+              text="Upload Person"
+              onClick={handleAddMissingPerson}
+            />
           </styled.Details>
           <styled.PictureWrapper>
             <PictureUpload />

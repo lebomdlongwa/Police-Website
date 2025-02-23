@@ -30,11 +30,12 @@ export const ButtonContent = styled.div.attrs<{
   size?: string;
   paddingSides?: number;
   paddingTopBottom?: number;
+  radius?: number;
 }>({
   className: "ButtonContent",
 })`
   ${({ size }) => buttonSizeMixin(size)};
-  border-radius: 4px;
+  border-radius: ${({ radius }) => (radius ? `${radius}px` : "4px")};
   color: ${({ fontColor }) => (fontColor ? `${fontColor}` : "white")};
   background-color: ${({ buttonColor }) =>
     buttonColor ? buttonColor : `${Color.navyBlueLighter}`};

@@ -10,6 +10,7 @@ export type ButtonProps = {
   fontColor?: string;
   borderColor?: string;
   rounded?: boolean;
+  radius?: number;
   onClick?: any;
   className?: string;
   paddingSides?: number;

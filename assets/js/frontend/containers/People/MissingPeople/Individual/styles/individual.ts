@@ -110,6 +110,7 @@ export const PersonReportsButton = styled(Button).attrs({
 export const Details = styled.div.attrs<{ admin: boolean }>({
   className: "Details",
 })`
+  position: relative;
   width: 65%;
   padding-bottom: 30px;
   border-bottom: ${({ admin }) => (admin ? "none" : "1px solid lightgray")};

@@ -2,7 +2,7 @@ import React, { ChangeEvent, useState } from "react";
 import * as styled from "./styles";
 import { Button } from "../../components/Button/button";
 import { Color } from "../../components/colorCodes";
-import { login, signUp } from "./actions";
+import { login, signUp, signUpWithGoogle } from "./actions";
 import google_logo from "../../images/google_logo.jpg";
 import { BackIcon } from "../../components/icons/back";
 
@@ -28,6 +28,7 @@ export const SignIn = (props: SignInProps) => {
     });
 
   const signText = notSignedIn ? "Sign Up" : "Sign In";
+  const googleSignText = `SIGN ${notSignedIn ? "UP" : "IN"} WITH GOOGLE`;
 
   const handleSubmitCredentials = async () => {
     let response;
@@ -90,25 +91,29 @@ export const SignIn = (props: SignInProps) => {
             />
           </styled.Section>
         </styled.InputWrapper>
-        <Button
-          text={signText}
-          buttonColor={Color.darkBlue}
-          paddingSides={70}
-          onClick={handleSubmitCredentials}
-        />
-        {notSignedIn && (
-          <styled.GoogleButtonWrapper>
-            <styled.GoogleButton>
+        <styled.SignInButtonsWrapper notSignedIn={notSignedIn}>
+          <Button
+            text={signText}
+            buttonColor={Color.darkBlue}
+            paddingSides={70}
+            onClick={handleSubmitCredentials}
+            radius={20}
+          />
+          <styled.GoogleButtonWrapper notSignedIn={notSignedIn}>
+            <styled.GoogleButton
+              onClick={signUpWithGoogle}
+              notSignedIn={notSignedIn}
+            >
               <styled.GoogleIcon src={google_logo} />
-              SIGN UP WITH GOOGLE
+              {googleSignText}
             </styled.GoogleButton>
           </styled.GoogleButtonWrapper>
-        )}
+        </styled.SignInButtonsWrapper>
         {!notSignedIn && (
           <styled.SignInText>
             If you dont have an account you can{" "}
             <styled.BlueText onClick={() => setNotSignedIn(!notSignedIn)}>
-              login here
+              sign up here
             </styled.BlueText>
           </styled.SignInText>
         )}
