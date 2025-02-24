@@ -1,20 +1,30 @@
-import React, { ReactNode, createContext, useContext } from "react";
+import React, { ReactNode, createContext, useContext, useState } from "react";
 
 const UserContext = createContext(undefined);
 
 type UserProviderProps = {
   children: ReactNode;
-  value?: User;
 };
 
-export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
-  const user = {
-    fullname: "Lebohang Mdlongwa",
-    email: "lebomdlongwa@.gmail.com",
+export const UserProvider: React.FC<UserProviderProps> = (props) => {
+  const { children } = props;
+  const [user, setUser] = useState<UserObject>({
+    name: null,
+    surname: null,
+    username: null,
+    avatar: null,
+    email: null,
     admin: true,
-  };
+  });
 
-  return <UserContext.Provider value={user}>{children}</UserContext.Provider>;
+  const updateUser = (newObject: UserObject) =>
+    setUser((prevState) => ({ ...prevState, ...newObject }));
+
+  return (
+    <UserContext.Provider value={{ user, updateUser, admin: user.admin }}>
+      {children}
+    </UserContext.Provider>
+  );
 };
 
 export const useUser = () => useContext(UserContext);

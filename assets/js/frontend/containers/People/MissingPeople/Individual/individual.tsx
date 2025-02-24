@@ -65,6 +65,7 @@ export const IndividualComponent = () => {
 
   const handleAddMissingPerson = async () => {
     const response = await addMissingPerson(formInputObj);
+    navigate(routes.missing);
   };
 
   const handleUpdateMissingPerson = async () => {

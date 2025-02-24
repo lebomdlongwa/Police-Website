@@ -20,14 +20,14 @@ defmodule ReportApp.User do
     timestamps()
   end
 
-  def changeset(struct, %{email: email} = attrs) when is_binary(email) do
+  def changeset(struct, %{"email" => email} = attrs) when is_binary(email) do
     struct
     |> cast(attrs, @params)
     |> validate_required(@google_params)
     |> unique_constraint(:email)
   end
 
-  def changeset(struct, %{password: password} = attrs) when is_binary(password) do
+  def changeset(struct, %{"password" => password} = attrs) when is_binary(password) do
     struct
     |> cast(attrs, @params)
     |> validate_required(@manual_params)
