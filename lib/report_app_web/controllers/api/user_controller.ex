@@ -10,17 +10,11 @@ defmodule ReportAppWeb.Api.UserController do
   end
 
   def create(conn, %{"credentials" => user_params}) do
-    changeset = User.changeset(%User{}, user_params)
-
-    case Repo.insert(changeset) do
-      {:ok, user} ->
-        conn
-        |> Guardian.Plug.sign_in(user)
-        |> put_status(:created)
-        |> render(UserView, "show.json", %{user: user})
-
-      {:error, changeset} ->
-        {:error, changeset}
+    with {:ok, user} <- Users.create_user(user_params) do
+      conn
+      |> Guardian.Plug.sign_in(user)
+      |> put_status(:created)
+      |> render(UserView, "show.json", %{user: user})
     end
   end
 

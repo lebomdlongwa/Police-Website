@@ -3,6 +3,7 @@ import * as styled from "./styles/sortBy";
 import { Color } from "../../components/colorCodes";
 import { XIcon } from "../../components/icons/xIcon";
 import { SearchComponent } from "../../components/SearchComponent/search";
+import { Tooltip } from "../../components/Tooltip";
 
 type SortByComponentProps = {
   handleGetReports: (params?: SortByType) => Promise<void>;
@@ -64,15 +65,17 @@ export class SortByComponent extends Component<SortByComponentProps, State> {
                 <XIcon size={30} color={Color.white} />
               </styled.XIcon>
             </styled.Options>
-            <styled.Options
-              onClick={() => this.handleClickOption("grade")}
-              active={this.state.grade}
-            >
-              Grade
-              <styled.XIcon active={this.state.grade}>
-                <XIcon size={30} color={Color.white} />
-              </styled.XIcon>
-            </styled.Options>
+            <Tooltip content="Sort Report list by grade" position="S">
+              <styled.Options
+                onClick={() => this.handleClickOption("grade")}
+                active={this.state.grade}
+              >
+                Grade
+                <styled.XIcon active={this.state.grade}>
+                  <XIcon size={30} color={Color.white} />
+                </styled.XIcon>
+              </styled.Options>
+            </Tooltip>
           </styled.OptionsWrapper>
         </styled.SortByWrapper>
         <SearchComponent
