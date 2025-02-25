@@ -18,14 +18,17 @@ defmodule ReportAppWeb.Api.UserController do
     end
   end
 
-  def get_user(conn, _params) do
-    user_id = get_session(conn, :user_id)
+  def get_user(conn, params) do
+    user =
+      case Map.get(params, "id") do
+        id when is_binary(id) ->
+          Users.get_user!(id)
 
-    if user_id == nil do
-      json(conn, "")
-    else
-      user = Users.get_user!(user_id)
-      render(conn, "show.json", %{user: user})
-    end
+        _ ->
+          get_session(conn, :user_id)
+          |> Users.get_user!()
+      end
+
+    render(conn, "show.json", %{user: user})
   end
 end

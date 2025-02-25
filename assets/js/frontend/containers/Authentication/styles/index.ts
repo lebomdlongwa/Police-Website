@@ -12,19 +12,40 @@ export const Wrapper = styled.div.attrs({
   align-items: center;
 `;
 
+export const BlueBackground = styled.div.attrs({
+  className: "BlueBackground",
+})`
+  width: 50%;
+  height: 100%;
+  background: ${Color.darkBlue};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const WhiteBackground = styled.div.attrs({
+  className: "WhiteBackground",
+})`
+  width: 50%;
+  height: 100%;
+  background: ${Color.white};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const FormWrapper = styled.div.attrs<{ notSignedIn: boolean }>({
   className: "FormWrapper",
 })`
   position: relative;
   width: 500px;
-  height: ${({ notSignedIn }) => (notSignedIn ? "580px" : "440px")};
+  height: 100%;
   background-color: white;
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
   padding: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 `;
 
 export const BackButton = styled.div.attrs({

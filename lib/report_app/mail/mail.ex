@@ -12,7 +12,9 @@ defmodule ReportApp.Mail do
     :known_as,
     :clothes_worn,
     :brief_summary,
-    :missing_person_id
+    :missing_person_id,
+    :name,
+    :surname
   ]
 
   @crime_report_params [
@@ -32,7 +34,6 @@ defmodule ReportApp.Mail do
     field :known_as, :string
     field :clothes_worn, :string
     field :brief_summary, :string
-
     field :name, :string
     field :surname, :string
     field :email, :string

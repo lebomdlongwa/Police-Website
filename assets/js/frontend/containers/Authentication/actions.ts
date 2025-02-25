@@ -13,7 +13,7 @@ export const signUp = async (credentials: Credentials) => {
     const responseJSON = await response.json();
 
     if (responseJSON.data) {
-      sessionStorage.setItem("authenticated", "true");
+      sessionStorage.setItem("user_id", `${responseJSON.id}`);
     } else {
       throw Error("Failed to Login");
     }
@@ -24,15 +24,17 @@ export const signUp = async (credentials: Credentials) => {
   }
 };
 
-export const getUser = async () => {
+export const getUser = async (id?: string) => {
   try {
-    const response = await fetch("http://localhost:4000/api/register", {
-      method: "GET",
+    const response = await fetch("http://localhost:4000/api/fetch_user", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id }),
     });
     const responseJSON = await response.json();
 
     if (responseJSON.data) {
-      sessionStorage.setItem("authenticated", "true");
+      sessionStorage.setItem("user_id", `${responseJSON.id}`);
     } else {
       throw Error("Failed to Login");
     }
@@ -53,7 +55,7 @@ export const login = async (credentials: Credentials) => {
     const responseJSON = await response.json();
 
     if (responseJSON.data) {
-      sessionStorage.setItem("authenticated", "true");
+      sessionStorage.setItem("user_id", `${responseJSON.id}`);
     } else {
       throw Error("Failed to Login");
     }
@@ -73,7 +75,7 @@ export const logout = async () => {
     const responseJSON = await response.json();
 
     if (response.ok) {
-      sessionStorage.setItem("authenticated", "false");
+      sessionStorage.removeItem("user_id");
     } else {
       throw Error("Failed to Logout");
     }

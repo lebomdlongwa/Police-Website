@@ -14,7 +14,8 @@ export const UserProvider: React.FC<UserProviderProps> = (props) => {
     username: null,
     avatar: null,
     email: null,
-    admin: true,
+    admin: false,
+    // admin: true,
   });
 
   const updateUser = (newObject: UserObject) =>

@@ -27,7 +27,6 @@ defmodule ReportAppWeb.GoogleAuthController do
 
       {:error, _} ->
         conn
-        |> put_session(:user_id, nil)
         |> redirect(to: "/")
     end
   end

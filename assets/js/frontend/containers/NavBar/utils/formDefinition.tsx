@@ -18,6 +18,7 @@ export const FormDefinition = [
     route: "/police/reportsList",
     icon: <ClipboardIcon color={Color.white} size={25} />,
     text: "Reports",
+    admin: true,
   },
   {
     route: "/police/missing_list",
@@ -38,5 +39,6 @@ export const FormDefinition = [
     route: "police/mail",
     icon: <MailboxIcon color={Color.white} size={40} />,
     text: "Mailbox",
+    // admin: true,
   },
 ];

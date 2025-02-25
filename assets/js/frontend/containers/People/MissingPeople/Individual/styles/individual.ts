@@ -97,6 +97,9 @@ export const PersonReportsWrapper = styled.div.attrs({
 })`
   display: flex;
   justify-content: flex-end;
+  position: absolute;
+  bottom: 0;
+  left: 0;
 `;
 
 export const PersonReportsButton = styled(Button).attrs({
