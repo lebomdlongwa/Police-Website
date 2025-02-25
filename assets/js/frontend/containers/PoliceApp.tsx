@@ -29,26 +29,30 @@ export const routes = {
 };
 
 const PoliceApp = () => {
-  const { admin } = useUser();
+  const { admin, updateUser } = useUser();
   const [authenticated, setAuthenticated] = useState(false);
-  const [user, setUser] = useState({});
+  const [currentUser, setCurrentUser] = useState(null);
 
   const handleAuthentication = () => setAuthenticated(!authenticated);
-  const loggedIn = Boolean(sessionStorage.getItem("authenticated"));
+  const handleCurrentUser = (user: UserObject) => setCurrentUser(user);
+  const userId = Boolean(sessionStorage.getItem("user_id"));
 
   useEffect(() => {
     const fetchUser = async () => {
       const response = await getUser();
-      setUser(response);
+      updateUser(response);
     };
 
     fetchUser();
-  }, []);
+  }, [currentUser]);
 
   return (
     <>
-      {!loggedIn ? (
-        <SignIn onAuthenticate={handleAuthentication} />
+      {!userId ? (
+        <SignIn
+          onAuthenticate={handleAuthentication}
+          onCurrentUser={handleCurrentUser}
+        />
       ) : (
         <BrowserRouter>
           <styled.AppContainer>
@@ -78,7 +82,10 @@ const PoliceApp = () => {
                 />
               </Routes>
               <Routes>
-                <Route path={routes.reports_list} element={<ReportList />} />
+                <Route
+                  path={routes.reports_list}
+                  element={admin ? <ReportList /> : <Link to="/" />}
+                />
               </Routes>
               <Routes>
                 <Route path={`${routes.report}/:id`} element={<Report />} />
@@ -87,7 +94,11 @@ const PoliceApp = () => {
                 <Route path={routes.chat} element={<ChatAppComponent />} />
               </Routes>
               <Routes>
-                <Route path={routes.mail} element={<MailBox />} />
+                <Route
+                  path={routes.mail}
+                  // element={admin ? <MailBox /> : <Link to="/" />}
+                  element={<MailBox />}
+                />
               </Routes>
               <Routes>
                 <Route element={<PageNotFound />} />

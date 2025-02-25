@@ -1,11 +1,15 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import * as styled from "./styles/picture";
 import { uploadFile } from "../../containers/People/MissingPeople/actions";
 import { Button } from "../Button/button";
+import { imgDB } from "./firebaseConfig";
+import { v4 } from "uuid";
+import { ref } from "firebase/storage";
 
 type PictureUploadProps = {};
 
 export const PictureUpload = (props: PictureUploadProps) => {
+  const [image, setImage] = useState("");
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleUploadClick = () => {
@@ -14,9 +18,7 @@ export const PictureUpload = (props: PictureUploadProps) => {
     }
   };
 
-  const handleFileChange = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const onUploadImg = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       console.log("Uploaded file:", file);
@@ -29,7 +31,7 @@ export const PictureUpload = (props: PictureUploadProps) => {
       <styled.InputPhoto>Select file to upload...</styled.InputPhoto>
       <styled.FileUploader>
         <Button text="Select" onClick={handleUploadClick} size="small" />
-        <styled.UploadInput ref={fileInputRef} onChange={handleFileChange} />
+        <styled.UploadInput ref={fileInputRef} onChange={onUploadImg} />
       </styled.FileUploader>
     </styled.Wrapper>
   );

@@ -53,7 +53,7 @@ defmodule ReportAppWeb.Router do
     resources "/missing_reports", MissingReportController
     resources "/mail", MailController
     resources "/uploads", UploadController
-    get "/register", UserController, :get_user
+    post "/fetch_user", UserController, :get_user
     post "/register", UserController, :create
     post "/login", SessionController, :login
     post "/logout", SessionController, :logout

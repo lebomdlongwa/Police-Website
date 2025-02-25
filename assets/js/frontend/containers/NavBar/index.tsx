@@ -4,24 +4,45 @@ import { Color } from "../../components/colorCodes";
 import { MenuIcon } from "../../components/icons/menu";
 import { Tooltip } from "../../components/Tooltip";
 import { FormDefinition } from "./utils/formDefinition";
+import { isEmpty } from "lodash";
+import { useUser } from "../userContext";
 
 const SideBar = () => {
+  const { admin } = useUser();
+
+  const adminNavBarOptions =
+    !isEmpty(FormDefinition) &&
+    FormDefinition.filter((option) => option?.admin !== false);
+
+  const citizenNavBarOptions =
+    !isEmpty(FormDefinition) &&
+    FormDefinition.filter((option) => option?.admin !== true);
+
   return (
     <styled.NavWrapper>
       <styled.NavMenu>
         <MenuIcon c={Color.white} h={30} w={30} />
       </styled.NavMenu>
       <styled.NavOptions>
-        {FormDefinition &&
-          FormDefinition.map((item) => (
-            <styled.StyledLink to={item.route}>
-              <Tooltip key={item.text} content={item.text} position="E">
-                <styled.OptionsWrapper>
-                  <styled.OptionIcon>{item.icon}</styled.OptionIcon>
-                </styled.OptionsWrapper>
-              </Tooltip>
-            </styled.StyledLink>
-          ))}
+        {admin
+          ? adminNavBarOptions.map((item) => (
+              <styled.StyledLink to={item.route}>
+                <Tooltip key={item.text} content={item.text} position="E">
+                  <styled.OptionsWrapper>
+                    <styled.OptionIcon>{item.icon}</styled.OptionIcon>
+                  </styled.OptionsWrapper>
+                </Tooltip>
+              </styled.StyledLink>
+            ))
+          : citizenNavBarOptions.map((item) => (
+              <styled.StyledLink to={item.route}>
+                <Tooltip key={item.text} content={item.text} position="E">
+                  <styled.OptionsWrapper>
+                    <styled.OptionIcon>{item.icon}</styled.OptionIcon>
+                  </styled.OptionsWrapper>
+                </Tooltip>
+              </styled.StyledLink>
+            ))}
       </styled.NavOptions>
     </styled.NavWrapper>
   );

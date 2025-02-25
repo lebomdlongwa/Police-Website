@@ -22,7 +22,7 @@ import { getLastUpload } from "../actions";
 import { Button } from "../../../../components/Button/button";
 
 export const IndividualComponent = () => {
-  const { admin } = useUser();
+  const { admin, user } = useUser();
   const { id: url_id } = useParams();
   const navigate = useNavigate();
   const [showReportModal, setShowReportModal] = useState(false);
@@ -42,7 +42,7 @@ export const IndividualComponent = () => {
   });
 
   const isIdValid = url_id && url_id !== ":id";
-  const header = isIdValid ? "Edit Missing Person" : "Case 076834-B";
+  const header = admin ? "Edit Missing Person" : "Case 076834-B";
 
   useEffect(() => {
     isIdValid && handleGetMissingPerson(url_id);
@@ -125,28 +125,36 @@ export const IndividualComponent = () => {
                   />
                 ))}
             </styled.DoubleDetailRowWrapper>
-            <Button
-              customStyles={customStyles}
-              text="Upload Person"
-              onClick={handleAddMissingPerson}
-            />
+            {admin && (
+              <Button
+                customStyles={customStyles}
+                text={isIdValid ? "Edit Person" : "Upload Person"}
+                onClick={addOrUpdate}
+              />
+            )}
+            {admin && (
+              <styled.PersonReportsWrapper>
+                <StyledLink to={`${routes.missing_person_reports}/${url_id}`}>
+                  <styled.PersonReportsButton text="View Reported Cases" />
+                </StyledLink>
+              </styled.PersonReportsWrapper>
+            )}
           </styled.Details>
           <styled.PictureWrapper>
-            <PictureUpload />
+            {admin && <PictureUpload />}
             <styled.Picture src="" />
             {/* <styled.Picture src={upload?.file_path} /> */}
           </styled.PictureWrapper>
         </styled.DetailsWrapper>
         <styled.ButtonsWrapper>
-          <ReportButton handleShowModal={handleShowModal} />
-          <styled.PersonReportsWrapper>
-            <StyledLink to={`${routes.missing_person_reports}/${url_id}`}>
-              <styled.PersonReportsButton text="View Reported Cases" />
-            </StyledLink>
-          </styled.PersonReportsWrapper>
+          {!admin && <ReportButton handleShowModal={handleShowModal} />}
         </styled.ButtonsWrapper>
         {showReportModal && (
-          <PeopleReportModal handleShowModal={handleShowModal} id={url_id} />
+          <PeopleReportModal
+            handleShowModal={handleShowModal}
+            id={url_id}
+            user={user}
+          />
         )}
         {/* <styled.Footer>
           You have made some changes

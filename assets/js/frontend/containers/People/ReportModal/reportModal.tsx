@@ -9,6 +9,7 @@ import { createMail } from "../../Mail/actions";
 type PeopleReportModalProps = {
   handleShowModal: VoidCallBack;
   id: string;
+  user: UserObject;
 };
 
 type State = {
@@ -18,6 +19,8 @@ type State = {
   clothes_worn: string;
   known_as: string;
   brief_summary: string;
+  name: string;
+  surname: string;
 };
 
 export class PeopleReportModal extends Component<
@@ -34,6 +37,8 @@ export class PeopleReportModal extends Component<
       clothes_worn: "",
       known_as: "",
       brief_summary: "",
+      name: "",
+      surname: "",
     };
   }
 
@@ -45,11 +50,13 @@ export class PeopleReportModal extends Component<
   };
 
   handleCreateMailReport = async () => {
-    const { id } = this.props;
+    const { id, user } = this.props;
 
     const response = await createMail({
       ...this.state,
       missing_person_id: id,
+      name: user.name,
+      surname: user.surname,
     });
   };
 

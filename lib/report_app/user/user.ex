@@ -5,7 +5,7 @@ defmodule ReportApp.User do
 
   import Ecto.Changeset
 
-  @manual_params [:username, :password]
+  @manual_params [:name, :surname, :username, :password]
   @google_params [:email, :name, :surname]
   @params @google_params ++ @manual_params
 

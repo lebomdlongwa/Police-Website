@@ -36,8 +36,8 @@ export const TooltipWrapper = styled.div.attrs<{
 }>({
   className: "tooltipWrapper",
 })`
-  display: ${({ displayTooltip }) => (displayTooltip ? "flex" : "none")};
-  // display: none;
+  // display: ${({ displayTooltip }) => (displayTooltip ? "flex" : "none")};
+  display: none;
   z-index: 10000000;
   min-height: 30px;
   border-radius: 5px;

@@ -38,6 +38,8 @@ defmodule ReportAppWeb.Api.MailView do
       %{
         id: mail.id,
         type: mail.type,
+        name: mail.name,
+        surname: mail.surname,
         date_last_seen: mail.date_last_seen,
         location_last_seen: mail.location_last_seen,
         known_as: mail.known_as,
