@@ -7,7 +7,7 @@ import { Channel } from "phoenix";
 
 type BannerReportModalProps = {
   handleShowModal: VoidCallBack;
-  channel: Channel;
+  user: UserObject;
 };
 
 type State = {
@@ -59,9 +59,11 @@ export class BannerReportModal extends Component<
   };
 
   handleSaveForm = () => {
-    const { handleShowModal } = this.props;
+    const { handleShowModal, user } = this.props;
 
-    this.channel.push("send_mails", { mail: { ...this.state } });
+    this.channel.push("send_mails", {
+      mail: { ...this.state, name: user.name, surname: user.surname },
+    });
     handleShowModal();
   };
 

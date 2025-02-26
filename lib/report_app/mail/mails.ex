@@ -29,6 +29,12 @@ defmodule ReportApp.Mails do
     |> Repo.insert()
   end
 
+  def update_mail(%Mail{} = mail, attrs) do
+    mail
+    |> Mail.changeset(attrs)
+    |> Repo.update()
+  end
+
   def delete_mail(%Mail{} = mail) do
     Repo.delete(mail)
   end

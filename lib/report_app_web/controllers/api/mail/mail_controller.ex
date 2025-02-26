@@ -30,6 +30,14 @@ defmodule ReportAppWeb.Api.MailController do
     end
   end
 
+  def update(conn, %{"id" => id, "params" => mail_params}) do
+    mail = Mails.get_mail(id)
+
+    with {:ok, %Mail{} = mail} <- Mails.update_mail(mail, mail_params) do
+      render(conn, "show.json", mail: mail)
+    end
+  end
+
   def delete(conn, %{"id" => id}) do
     mail = Mails.get_mail(id)
 

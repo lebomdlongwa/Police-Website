@@ -7,7 +7,7 @@ defmodule ReportAppWeb.MessageChannel do
 
   require Logger
 
-  def join("chats:lobby", _params, socket) do
+  def join("chats:" <> user_id, _params, socket) do
     resp = %{messages: MessageView.render("index.json", %{messages: Repo.all(Message)})}
 
     {:ok, resp, socket}

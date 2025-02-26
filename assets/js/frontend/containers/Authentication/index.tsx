@@ -37,9 +37,11 @@ export const SignIn = (props: SignInProps) => {
     if (notSignedIn) {
       response = await signUp(formObject);
       onCurrentUser(response);
+      // window.location.reload;
     } else {
       response = await login(formObject);
       onCurrentUser(response);
+      // window.location.reload;
     }
 
     if (response?.username?.length > 0) {

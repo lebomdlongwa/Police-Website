@@ -1,7 +1,7 @@
 defmodule ReportAppWeb.Api.UserController do
   use ReportAppWeb, :controller
 
-  alias ReportApp.{Repo, User, Users}
+  alias ReportApp.{Users}
   alias ReportApp.Guardian.Guardian
   alias ReportAppWeb.Api.UserView
 

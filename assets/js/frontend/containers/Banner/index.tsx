@@ -7,7 +7,7 @@ type EventProps = "report" | "missing" | "wanted";
 
 const Banner = () => {
   const [showReportModal, setShowReportModal] = useState(false);
-  const { admin } = useUser();
+  const { admin, user } = useUser();
 
   const handleShowModal = () => setShowReportModal(!showReportModal);
 
@@ -31,7 +31,10 @@ const Banner = () => {
           <styled.LinksWrapper>
             <styled.Links onClick={handleShowModal}>Report Crime</styled.Links>
             {showReportModal && (
-              <BannerReportModal handleShowModal={handleShowModal} />
+              <BannerReportModal
+                handleShowModal={handleShowModal}
+                user={user}
+              />
             )}
             <styled.Links onClick={() => handleScrollEvent("missing")}>
               View Missing People
