@@ -80,12 +80,12 @@ export const Tab = styled.div.attrs<{ active: boolean }>({
   align-items: center;
   color: ${Color.gray};
   gap: 15px;
+  border-bottom: ${({ active }) =>
+    active ? `4px solid ${Color.darkBlue}` : "none"};
 
-  // Change when zesa comes back
-
-  &:first-child {
-    border-bottom: ${({ active }) =>
-      active ? `4px solid ${Color.darkBlue}` : "none"};
+  &:hover {
+    transition: 0.2s ease-in;
+    cursor: pointer;
   }
 `;
 

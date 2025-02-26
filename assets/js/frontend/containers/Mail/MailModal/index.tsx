@@ -8,10 +8,11 @@ type MailProps = {
   selectedMailId: string;
   onCloseModal: (id: string) => void;
   onDelete: (id: string) => void;
+  onReject: (id: string) => void;
 };
 
 export const MailModal = (props: MailProps) => {
-  const { selectedMailId, onCloseModal, onDelete } = props;
+  const { selectedMailId, onCloseModal, onDelete, onReject } = props;
 
   const [mail, setMail] = useState<Mail>(null);
   const [formInput, setFormInput] = useState({
@@ -114,7 +115,13 @@ export const MailModal = (props: MailProps) => {
             </styled.BriefSummary>
           </styled.BottomBody>
           <styled.ButtonWrapper>
-            <Button text="Reject" onClick={() => onCloseModal(null)} />
+            <Button
+              text={mail.rejected ? "Delete" : "Reject"}
+              onClick={() => {
+                onCloseModal(null);
+                onReject(mail.id);
+              }}
+            />
             <Button text="Accept" onClick={handleAcceptMail} />
           </styled.ButtonWrapper>
         </styled.ModalContainer>

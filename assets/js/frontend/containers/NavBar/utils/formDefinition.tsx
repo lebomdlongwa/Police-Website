@@ -39,6 +39,6 @@ export const FormDefinition = [
     route: "police/mail",
     icon: <MailboxIcon color={Color.white} size={40} />,
     text: "Mailbox",
-    // admin: true,
+    admin: true,
   },
 ];

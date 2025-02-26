@@ -32,6 +32,7 @@ defmodule ReportAppWeb.Api.MailView do
         email: mail.email,
         accused: mail.accused,
         brief_circumstance: mail.brief_circumstance,
+        rejected: mail.rejected,
         timestamp: date_time(mail.inserted_at)
       }
     else
@@ -46,6 +47,7 @@ defmodule ReportAppWeb.Api.MailView do
         clothes_worn: mail.clothes_worn,
         brief_summary: mail.brief_summary,
         missing_person_id: mail.missing_person_id,
+        rejected: mail.rejected,
         timestamp: date_time(mail.inserted_at)
       }
     end

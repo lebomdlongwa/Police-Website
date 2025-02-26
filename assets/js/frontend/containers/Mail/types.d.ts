@@ -1,6 +1,6 @@
 type Mail = {
   id?: string;
-  type: string;
+  type: "crime" | "person";
   date_last_seen?: string;
   location_last_seen?: string;
   known_as?: string;
@@ -13,10 +13,12 @@ type Mail = {
   accused?: string;
   brief_circumstance?: string;
   timestamp?: string;
+  rejected?: boolean;
 };
 
 type CreateReportParams = {
   id: string;
   officer: string;
   grade?: string;
+  rejected?: boolean;
 };

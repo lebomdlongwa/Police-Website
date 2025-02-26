@@ -6,7 +6,7 @@ import { isEmpty } from "lodash";
 import { SearchComponent } from "../../components/SearchComponent/search";
 import { Color } from "../../components/colorCodes";
 import OnClickOutside from "../../components/OnClickOutside";
-import { deleteMail, getMails } from "./actions";
+import { deleteMail, getMails, rejectMail } from "./actions";
 import { fetchData } from "../requests";
 import { MailModal } from "./MailModal";
 import { TabsFormDefinition } from "./utils/tabsFormDef";
@@ -15,15 +15,36 @@ import { socket } from "../../socket";
 export const MailBox = () => {
   const [mails, setMails] = useState<Mail[]>([]);
   const [searchClicked, setSearchClicked] = useState(false);
-  const [active, setActive] = useState(true);
   const [selectedMailId, setSelectedMailId] = useState(null);
+
+  const [currentTab, setCurrentTab] = useState("All Mails");
   const navigate = useNavigate();
+
+  const renderMailList = () => {
+    switch (currentTab) {
+      case "All Mails":
+        return mails.filter((mail) => mail.rejected !== true);
+      case "Crime Reports":
+        return mails.filter((mail) => mail.type === "crime");
+      case "Missing/Wanted Reports":
+        return mails.filter((mail) => mail.type === "person");
+      case "Rejected Reports":
+        return mails.filter((mail) => mail.rejected === true);
+    }
+  };
 
   const handleDeleteMail = async (id: string) => {
     const response = await deleteMail(id);
     setMails(response);
   };
+
+  const handleRejectMail = async (id: string) => {
+    const response = await rejectMail(id, { rejected: true });
+    setMails(response);
+  };
+
   const handleSelectedMailId = (id: string) => setSelectedMailId(id);
+  const handleCurrentTab = (label: string) => setCurrentTab(label);
 
   const channel = socket.channel("mail:lobby", {});
 
@@ -100,19 +121,23 @@ export const MailBox = () => {
             <styled.MailsHeader>
               <styled.TabsWrapper>
                 {TabsFormDefinition.map((tab) => (
-                  // Change url when different tabs are clicked, then filter mail list according to the tab active
-                  <styled.Tab key={tab.label} active>
+                  <styled.Tab
+                    key={tab.label}
+                    active={currentTab === tab.label}
+                    onClick={() => {
+                      handleCurrentTab(tab.label);
+                      setSelectedMailId(null);
+                    }}
+                  >
                     <>{tab.icon}</>
-                    <styled.TabLabel active={active}>
-                      {tab.label}
-                    </styled.TabLabel>
+                    <styled.TabLabel>{tab.label}</styled.TabLabel>
                   </styled.Tab>
                 ))}
               </styled.TabsWrapper>
             </styled.MailsHeader>
             <styled.MailsWrapper>
               {!selectedMailId && !isEmpty(mails) ? (
-                mails.map((mail) => (
+                renderMailList().map((mail) => (
                   <MailComponent
                     key={mail.id}
                     mail={mail}
@@ -127,6 +152,7 @@ export const MailBox = () => {
                   onCloseModal={handleSelectedMailId}
                   selectedMailId={selectedMailId}
                   onDelete={handleDeleteMail}
+                  onReject={handleRejectMail}
                 />
               )}
             </styled.MailsWrapper>
