@@ -29,9 +29,9 @@ defmodule ReportAppWeb.Api.MailView do
         type: mail.type,
         name: mail.name,
         surname: mail.surname,
-        email: mail.email,
         accused: mail.accused,
         brief_circumstance: mail.brief_circumstance,
+        location: mail.location,
         rejected: mail.rejected,
         timestamp: date_time(mail.inserted_at)
       }

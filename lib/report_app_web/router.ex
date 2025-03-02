@@ -57,6 +57,7 @@ defmodule ReportAppWeb.Router do
     post "/register", UserController, :create
     post "/login", SessionController, :login
     post "/logout", SessionController, :logout
+    post "/gemini", GeminiController, :send_gemini_request
   end
 
   # Enables LiveDashboard only for development

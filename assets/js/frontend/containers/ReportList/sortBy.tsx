@@ -57,7 +57,9 @@ export class SortByComponent extends Component<SortByComponentProps, State> {
           <styled.SortByLabel>Sort By:</styled.SortByLabel>
           <styled.OptionsWrapper>
             <styled.Options
-              onClick={() => this.handleClickOption("officer")}
+              onClick={() => {
+                this.handleClickOption("officer");
+              }}
               active={this.state.officer}
             >
               Officer

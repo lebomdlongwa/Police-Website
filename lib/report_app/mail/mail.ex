@@ -17,7 +17,6 @@ defmodule ReportApp.Mail do
 
   @crime_report_params [
     :type,
-    :email,
     :accused,
     :brief_circumstance
   ]
@@ -33,10 +32,10 @@ defmodule ReportApp.Mail do
     field :brief_summary, :string
     field :name, :string
     field :surname, :string
-    field :email, :string
     field :accused, :string
     field :brief_circumstance, :string
     field :rejected, :boolean
+    field :location, :map
 
     belongs_to :missing_person, MissingPerson
 
