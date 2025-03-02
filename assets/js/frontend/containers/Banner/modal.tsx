@@ -3,18 +3,22 @@ import { Color } from "../../components/colorCodes";
 import { Button } from "../../components/Button/button";
 import * as styled from "./styles/ReportModal";
 import { socket } from "../../socket";
-import { Channel } from "phoenix";
+import { geoLocation } from "../../geoLocation";
 
 type BannerReportModalProps = {
   handleShowModal: VoidCallBack;
   user: UserObject;
+  onSetLocation: (location: GeoLocation) => void;
+  onSetImgUrl: (url: string) => void;
+  location: GeoLocation;
+  imgUrl: string;
+  submitForm: boolean;
 };
 
 type State = {
   type: "crime";
   name: string;
   surname: string;
-  email: string;
   accused: string;
   brief_circumstance: string;
 };
@@ -30,7 +34,6 @@ export class BannerReportModal extends Component<
       type: "crime",
       name: "",
       surname: "",
-      email: "",
       accused: "",
       brief_circumstance: "",
     };
@@ -59,16 +62,25 @@ export class BannerReportModal extends Component<
   };
 
   handleSaveForm = () => {
-    const { handleShowModal, user } = this.props;
+    const { onSetImgUrl, onSetLocation } = this.props;
 
-    this.channel.push("send_mails", {
-      mail: { ...this.state, name: user.name, surname: user.surname },
-    });
-    handleShowModal();
+    geoLocation(onSetImgUrl, onSetLocation);
   };
 
   render() {
-    const { handleShowModal } = this.props;
+    const { handleShowModal, user, imgUrl, location, submitForm } = this.props;
+
+    if (submitForm) {
+      this.channel.push("send_mails", {
+        mail: {
+          ...this.state,
+          name: user.name,
+          surname: user.surname,
+          location: { ...location, imgUrl },
+        },
+      });
+      handleShowModal();
+    }
 
     return (
       <styled.ReportModalWrapper
@@ -78,35 +90,6 @@ export class BannerReportModal extends Component<
       >
         <styled.ShadowContainer>
           <styled.FormWrapper>
-            <styled.ReporterDetails>
-              <styled.Name>
-                <styled.InputLabel>Name</styled.InputLabel>
-                <styled.FormInput
-                  placeholder="Enter a name..."
-                  onChange={this.onChange}
-                  value={this.state.name}
-                  name="name"
-                />
-              </styled.Name>
-              <styled.Surname>
-                <styled.InputLabel>Surname</styled.InputLabel>
-                <styled.FormInput
-                  placeholder="Enter a surname..."
-                  onChange={this.onChange}
-                  value={this.state.surname}
-                  name="surname"
-                />
-              </styled.Surname>
-            </styled.ReporterDetails>
-            <styled.Email>
-              <styled.InputLabel>Email Address</styled.InputLabel>
-              <styled.FormInput
-                placeholder="johnDoe@gmail.com"
-                onChange={this.onChange}
-                value={this.state.email}
-                name="email"
-              />
-            </styled.Email>
             <styled.SuspectName>
               <styled.InputLabel>Suspect Name</styled.InputLabel>
               <styled.FormInput

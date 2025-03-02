@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as styled from "./styles/index";
 import { BannerReportModal } from "./modal";
 import { useUser } from "../userContext";
@@ -7,9 +7,20 @@ type EventProps = "report" | "missing" | "wanted";
 
 const Banner = () => {
   const [showReportModal, setShowReportModal] = useState(false);
+  const [submitForm, setSubmitForm] = useState(false);
+  const [imgUrl, setImgUrl] = useState(null);
+  const [location, setLocation] = useState({
+    lat: null,
+    lon: null,
+    location_name: null,
+    boundingbox: null,
+    place_id: null,
+  });
   const { admin, user } = useUser();
 
   const handleShowModal = () => setShowReportModal(!showReportModal);
+  const onSetImgUrl = (url: string) => setImgUrl(url);
+  const onSetLocation = (location: GeoLocation) => setLocation(location);
 
   const handleScrollEvent = (event: EventProps) => {
     if (event === "report") {
@@ -24,16 +35,31 @@ const Banner = () => {
     }
   };
 
+  useEffect(() => {
+    const locationValid = Object.values(location).every(
+      (value) => value !== null
+    );
+
+    if (locationValid && imgUrl) {
+      setSubmitForm(true);
+    }
+  }, [location, imgUrl]);
+
   return (
     <styled.Wrapper>
       <styled.BannerImage>
-        {!admin && (
+        {admin && (
           <styled.LinksWrapper>
             <styled.Links onClick={handleShowModal}>Report Crime</styled.Links>
             {showReportModal && (
               <BannerReportModal
                 handleShowModal={handleShowModal}
                 user={user}
+                onSetImgUrl={onSetImgUrl}
+                onSetLocation={onSetLocation}
+                imgUrl={imgUrl}
+                location={location}
+                submitForm={submitForm}
               />
             )}
             <styled.Links onClick={() => handleScrollEvent("missing")}>

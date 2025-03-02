@@ -18,7 +18,6 @@ import { routes } from "../../../PoliceApp";
 import { useUser } from "../../../userContext";
 import { PeopleReportModal } from "../../ReportModal/reportModal";
 import { PictureUpload } from "../../../../components/Upload/picUpload";
-import { getLastUpload } from "../actions";
 import { Button } from "../../../../components/Button/button";
 
 export const IndividualComponent = () => {
@@ -27,6 +26,7 @@ export const IndividualComponent = () => {
   const navigate = useNavigate();
   const [showReportModal, setShowReportModal] = useState(false);
   const [upload, setUpload] = useState<UploadData | null>(null);
+
   const [formInputObj, setFormInputObj] = useState<MissingPersonParams>({
     fullname: "",
     age: "",
@@ -46,7 +46,6 @@ export const IndividualComponent = () => {
 
   useEffect(() => {
     isIdValid && handleGetMissingPerson(url_id);
-    // getLastUpload().then((res) => setUpload(res));
   }, []);
 
   const handleShowModal = () => setShowReportModal(!showReportModal);
