@@ -24,20 +24,14 @@ export const signUp = async (credentials: Credentials) => {
   }
 };
 
-export const getUser = async (id?: string) => {
+export const getUser = async (token: string) => {
   try {
     const response = await fetch("http://localhost:4000/api/fetch_user", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id }),
+      body: JSON.stringify({ token }),
     });
     const responseJSON = await response.json();
-
-    if (responseJSON.data) {
-      sessionStorage.setItem("user_id", `${responseJSON.id}`);
-    } else {
-      throw Error("Failed to Login");
-    }
 
     return responseJSON.data || [];
   } catch (error) {
@@ -55,7 +49,7 @@ export const login = async (credentials: Credentials) => {
     const responseJSON = await response.json();
 
     if (responseJSON.data) {
-      sessionStorage.setItem("user_id", `${responseJSON.id}`);
+      sessionStorage.setItem("token", `${responseJSON.data.token}`);
     } else {
       throw Error("Failed to Login");
     }

@@ -42,7 +42,7 @@ defmodule ReportAppWeb.Router do
 
   # Other scopes may use custom stacks.
   scope "/api", ReportAppWeb.Api, as: :api do
-    pipe_through [:api]
+    pipe_through [:api, :auth]
 
     # SHOULD IMPLEMENT THIS
     # pipe_through [:api, :auth, :ensure_auth]

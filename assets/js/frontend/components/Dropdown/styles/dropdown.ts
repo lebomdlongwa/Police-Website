@@ -46,11 +46,12 @@ export const DropdownWrapper = styled.div.attrs<{
       ? `${dropdownSettings.width}px`
       : `${dropdownWidth}px`};
   max-height: ${({ dropdownSettings }) =>
-    dropdownSettings.maxHeight && `${dropdownSettings.width}px`};
+    dropdownSettings.maxHeight ? `${dropdownSettings.width}px` : "400px"};
   color: ${({ dropdownSettings }) =>
     dropdownSettings.fontColor && `${dropdownSettings.fontColor}`};
   font-size: ${({ dropdownSettings }) =>
     dropdownSettings.fontSize && `${dropdownSettings.fontSize}`};
+  overflow-y: scroll;
 `;
 
 export const OptionsWrapper = styled.div.attrs({

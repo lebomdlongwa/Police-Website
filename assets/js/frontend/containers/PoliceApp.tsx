@@ -35,21 +35,22 @@ const PoliceApp = () => {
 
   const handleAuthentication = () => setAuthenticated(!authenticated);
   const handleCurrentUser = (user: UserObject) => setCurrentUser(user);
-  const userId = sessionStorage.getItem("user_id") || null;
+  const token = sessionStorage.getItem("token") || null;
 
   useEffect(() => {
-    // const fetchUser = async () => {
-    //   const response = await getUser();
-    //   updateUser(response);
-    // };
+    const fetchUser = async () => {
+      const response = await getUser(token);
+      updateUser(response);
+    };
 
-    // fetchUser();
-    updateUser(currentUser)
+    if (!currentUser) {
+      fetchUser();
+    }
   }, [currentUser]);
 
   return (
     <>
-      {!userId ? (
+      {!token ? (
         <SignIn
           onAuthenticate={handleAuthentication}
           onCurrentUser={handleCurrentUser}

@@ -21,11 +21,13 @@ export const UserProvider: React.FC<UserProviderProps> = (props) => {
   const updateUser = (newObject: UserObject) =>
     setUser((prevState) => ({ ...prevState, ...newObject }));
 
-  return (
-    <UserContext.Provider value={{ user, updateUser, admin: user.admin }}>
-      {children}
-    </UserContext.Provider>
-  );
+  const value = {
+    user,
+    updateUser,
+    admin: user.admin,
+  };
+
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
 
 export const useUser = () => useContext(UserContext);
