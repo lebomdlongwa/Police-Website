@@ -35,9 +35,11 @@ defmodule ReportAppWeb.Api.SessionController do
   # docs are not applicable here.
 
   defp login_reply({:ok, user}, conn) do
+    {:ok, jwt, _full_claims} = Guardian.encode_and_sign(user)
+
     conn
     |> Guardian.Plug.sign_in(user)
-    |> render(UserView, "show.json", %{user: user})
+    |> render(UserView, "show.json", %{user: Map.put(user, :token, jwt)})
   end
 
   defp login_reply({:error, reason}, conn) do
