@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
+
+import { useUser } from "../userContext";
+
 import * as styled from "./styles/index";
 import { BannerReportModal } from "./modal";
-import { useUser } from "../userContext";
 
 type EventProps = "report" | "missing" | "wanted";
 
-const Banner = () => {
+const Banner = ({ admin }: { admin: boolean }) => {
   const [showReportModal, setShowReportModal] = useState(false);
   const [submitForm, setSubmitForm] = useState(false);
   const [imgUrl, setImgUrl] = useState(null);
@@ -16,7 +18,7 @@ const Banner = () => {
     boundingbox: null,
     place_id: null,
   });
-  const { admin, user } = useUser();
+  const { user } = useUser();
 
   const handleShowModal = () => setShowReportModal(!showReportModal);
   const onSetImgUrl = (url: string) => setImgUrl(url);

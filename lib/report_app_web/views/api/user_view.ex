@@ -19,6 +19,7 @@ defmodule ReportAppWeb.Api.UserView do
       username: user.username,
       avatar: user.avatar,
       token: user.token,
+      admin: user.admin,
       inserted_at: user.inserted_at,
       updated_at: user.updated_at
     }

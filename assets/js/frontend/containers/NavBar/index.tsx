@@ -1,15 +1,15 @@
 import React from "react";
-import * as styled from "./style/index";
+
+import { isEmpty } from "lodash";
+
 import { Color } from "../../components/colorCodes";
 import { MenuIcon } from "../../components/icons/menu";
 import { Tooltip } from "../../components/Tooltip";
 import { FormDefinition } from "./utils/formDefinition";
-import { isEmpty } from "lodash";
-import { useUser } from "../userContext";
 
-const SideBar = () => {
-  const { admin } = useUser();
+import * as styled from "./style/index";
 
+const SideBar = ({ admin }: { admin: boolean }) => {
   const adminNavBarOptions =
     !isEmpty(FormDefinition) &&
     FormDefinition.filter((option) => option?.admin !== false);

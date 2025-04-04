@@ -8,9 +8,12 @@ defmodule ReportAppWeb.MessageChannel do
   require Logger
 
   def join("chats:" <> user_id, _params, socket) do
-    resp = %{messages: MessageView.render("index.json", %{messages: Repo.all(Message)})}
-
-    {:ok, resp, socket}
+    if user_id == to_string(socket.assigns.user_id) do
+      resp = %{messages: MessageView.render("index.json", %{messages: Repo.all(Message)})}
+      {:ok, resp, socket}
+    else
+      {:error, %{reason: :invalid_user}}
+    end
   end
 
   def handle_in("send_message", %{"message" => message}, socket) do

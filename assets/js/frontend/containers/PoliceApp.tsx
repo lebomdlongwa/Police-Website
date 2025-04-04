@@ -31,7 +31,7 @@ export const routes = {
 };
 
 const PoliceApp = () => {
-  const { admin, updateUser } = useUser();
+  const { updateUser } = useUser();
   const [currentUser, setCurrentUser] = useState(null);
 
   const handleCurrentUser = (user: UserObject) => setCurrentUser(user);
@@ -58,11 +58,14 @@ const PoliceApp = () => {
         <BrowserRouter>
           <styled.AppContainer>
             <styled.AppSideBar>
-              <SideBar />
+              <SideBar admin={currentUser?.admin} />
             </styled.AppSideBar>
             <styled.AppBody>
               <Routes>
-                <Route path={routes.home} element={<HomePage />} />
+                <Route
+                  path={routes.home}
+                  element={<HomePage admin={currentUser?.admin} />}
+                />
               </Routes>
               <Routes>
                 <Route path={routes.missing} element={<MissingList />} />
@@ -79,13 +82,21 @@ const PoliceApp = () => {
               <Routes>
                 <Route
                   path={`${routes.missing_person_reports}/:id`}
-                  element={admin ? <ReportCasesComponent /> : <Link to="/" />}
+                  element={
+                    currentUser?.admin ? (
+                      <ReportCasesComponent />
+                    ) : (
+                      <Link to="/" />
+                    )
+                  }
                 />
               </Routes>
               <Routes>
                 <Route
                   path={routes.reports_list}
-                  element={admin ? <ReportList /> : <Link to="/" />}
+                  element={
+                    currentUser?.admin ? <ReportList /> : <Link to="/" />
+                  }
                 />
               </Routes>
               <Routes>
@@ -97,7 +108,7 @@ const PoliceApp = () => {
               <Routes>
                 <Route
                   path={routes.mail}
-                  // element={admin ? <MailBox /> : <Link to="/" />}
+                  // element={currentUser.admin ? <MailBox /> : <Link to="/" />}
                   element={<MailBox />}
                 />
               </Routes>

@@ -18,7 +18,7 @@ defmodule ReportAppWeb.Api.UserController do
     with {:ok, user} <- Users.create_user(user_params),
          {:ok, jwt, _claims} <- Guardian.encode_and_sign(user) do
       conn
-      |> render(UserView, "show.json", %{user: user})
+      |> render(UserView, "show.json", %{user: Map.put(user, :token, jwt)})
     end
   end
 
