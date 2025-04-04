@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+
 import SideBar from "./NavBar";
 import { MissingList } from "./People/MissingPeople";
-import * as styled from "./styles/app";
 import { IdPassportPage } from "./IdAndPassport";
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import { HomePage } from "./HomePage";
 import { ReportList } from "./ReportList/reportList";
 import { Report } from "./ReportList/report/report";
@@ -15,6 +16,7 @@ import { useUser } from "./userContext";
 import { MailBox } from "./Mail";
 import { SignIn } from "./Authentication";
 import { getUser } from "./Authentication/actions";
+import * as styled from "./styles/app";
 
 export const routes = {
   home: "/",
@@ -30,10 +32,8 @@ export const routes = {
 
 const PoliceApp = () => {
   const { admin, updateUser } = useUser();
-  const [authenticated, setAuthenticated] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
 
-  const handleAuthentication = () => setAuthenticated(!authenticated);
   const handleCurrentUser = (user: UserObject) => setCurrentUser(user);
   const token = sessionStorage.getItem("token") || null;
 
@@ -41,6 +41,7 @@ const PoliceApp = () => {
     const fetchUser = async () => {
       const response = await getUser(token);
       updateUser(response);
+      setCurrentUser(response);
     };
 
     if (!currentUser) {
@@ -49,12 +50,10 @@ const PoliceApp = () => {
   }, [currentUser]);
 
   return (
-    <>
+    <div>
+      <ToastContainer />
       {!token ? (
-        <SignIn
-          onAuthenticate={handleAuthentication}
-          onCurrentUser={handleCurrentUser}
-        />
+        <SignIn onCurrentUser={handleCurrentUser} />
       ) : (
         <BrowserRouter>
           <styled.AppContainer>
@@ -109,7 +108,7 @@ const PoliceApp = () => {
           </styled.AppContainer>
         </BrowserRouter>
       )}
-    </>
+    </div>
   );
 };
 

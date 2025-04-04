@@ -16,8 +16,8 @@ defmodule ReportAppWeb.Api.MailController do
 
   def create(conn, %{"params" => %{"id" => _} = params}) do
     case Mails.create_report(params) do
-      {:ok, _} ->
-        send_resp(conn, :no_content, "")
+      {:ok, report} ->
+        render(conn, "delete.json", %{})
 
       {:error, error} ->
         send_resp(conn, :unprocessable_entity, error)
@@ -33,8 +33,9 @@ defmodule ReportAppWeb.Api.MailController do
   def update(conn, %{"id" => id, "params" => mail_params}) do
     mail = Mails.get_mail(id)
 
-    with {:ok, %Mail{} = mail} <- Mails.update_mail(mail, mail_params) do
-      render(conn, "show.json", mail: mail)
+    with {:ok, %Mail{}} <- Mails.update_mail(mail, mail_params) do
+      mails = Mails.list_mails()
+      render(conn, "index.json", mails: mails)
     end
   end
 

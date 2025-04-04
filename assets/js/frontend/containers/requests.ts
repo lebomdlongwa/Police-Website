@@ -1,3 +1,5 @@
+import { toast } from "react-toastify";
+
 export const baseUrl = "http://localhost:4000/api";
 const headers = { "Content-Type": "application/json" };
 
@@ -14,68 +16,105 @@ export const httpGet = async (
   path: string,
   params?: string | Record<string, string>
 ) => {
-  try {
-    let queryString = "";
+  let queryString = "";
 
-    if (params) {
-      const searchParams = new URLSearchParams(params);
-      queryString = `?${searchParams.toString()}`;
+  if (params) {
+    const searchParams = new URLSearchParams(params);
+    queryString = `?${searchParams.toString()}`;
+  }
+
+  return new Promise((resolve, reject) =>
+    fetch(`${baseUrl}${path}${queryString}`)
+      .then((response) => response.json())
+      .then((responseJSON) => resolve(responseJSON.data))
+      .catch((error) => reject(error))
+  );
+};
+
+type ToastMessages = {
+  successMessage: string;
+  errorMessage: string;
+};
+
+export const httpPost = async (
+  path: string,
+  params: object,
+  toastMessages?: ToastMessages
+) =>
+  toast.promise(
+    new Promise((resolve, reject) =>
+      fetch(`${baseUrl}${path}`, {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify({ params }),
+      })
+        .then((response) => response.json())
+        .then((responseJSON) => resolve(responseJSON.data))
+        .catch((error) => reject(error))
+    ),
+    {
+      success: toastMessages.successMessage,
+      error: toastMessages.errorMessage,
+    },
+    {
+      position: "bottom-left",
     }
-
-    const response = await fetch(`${baseUrl}${path}${queryString}`);
-    const responseJSON = await response.json();
-
-    return responseJSON.data || [];
-  } catch (err) {
-    console.error("Error retrieving data: ", err);
-  }
-};
-
-export const httpPost = async (path: string, params: object) => {
-  try {
-    const response = await fetch(`${baseUrl}${path}`, {
-      method: "POST",
-      headers: headers,
-      body: JSON.stringify({ params }),
-    });
-
-    return httpGet(path);
-  } catch (err) {
-    console.error("Error posting data: ", err);
-  }
-};
+  );
 
 type UrlObject = {
   id: string;
   params: object;
 };
 
-export const httpPut = async (path: string, url_object: UrlObject) => {
+export const httpPut = async (
+  path: string,
+  url_object: UrlObject,
+  toastMessages?: ToastMessages
+) => {
   const { id, params } = url_object;
 
-  try {
-    const response = await fetch(`${baseUrl}${path}/${id}`, {
-      method: "PUT",
-      headers: headers,
-      body: JSON.stringify({ id, params }),
-    });
-
-    return httpGet(path);
-  } catch (err) {
-    console.error("Error updating data: ", err);
-  }
+  return toast.promise(
+    new Promise((resolve, reject) =>
+      fetch(`${baseUrl}${path}/${id}`, {
+        method: "PUT",
+        headers: headers,
+        body: JSON.stringify({ id, params }),
+      })
+        .then((response) => response.json())
+        .then((responseJSON) => resolve(responseJSON.data))
+        .catch((error) => reject(error))
+    ),
+    {
+      success: toastMessages.successMessage,
+      error: toastMessages.errorMessage,
+    },
+    {
+      position: "bottom-left",
+    }
+  );
 };
 
-export const httpDelete = async (path: string, id: string) => {
-  try {
-    const response = await fetch(`${baseUrl}${path}/${id}`, {
-      method: "DELETE",
-      headers: headers,
-      body: JSON.stringify({ id }),
-    });
-
-    return httpGet(path);
-  } catch (err) {
-    console.error("Error deleting data: ", err);
-  }
-};
+export const httpDelete = async (
+  path: string,
+  id: string,
+  toastMessages?: ToastMessages
+) =>
+  toast.promise(
+    new Promise((resolve, reject) =>
+      fetch(`${baseUrl}${path}/${id}`, {
+        method: "DELETE",
+        headers: headers,
+        body: JSON.stringify({ id }),
+      })
+        .then((response) => response.json())
+        .then((responseJSON) => resolve(responseJSON.data))
+        .catch((error) => reject(error))
+    ),
+    {
+      success: toastMessages.successMessage,
+      error: toastMessages.errorMessage,
+    },
+    {
+      position: "bottom-left",
+    }
+  );

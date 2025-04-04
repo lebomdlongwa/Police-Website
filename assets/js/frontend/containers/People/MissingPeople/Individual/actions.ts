@@ -11,17 +11,34 @@ export const getMissingPerson = async (
 
 export const addMissingPerson = async (
   params: MissingPersonParams
-): Promise<void> => await httpPost(path, params);
+): Promise<void> => {
+  const toastMessages = {
+    successMessage: "Missing Person succesfully created",
+    errorMessage: "Error while creating Missing Person",
+  };
+
+  return await httpPost(path, params, toastMessages);
+};
 
 export const updateMissingPerson = async (
   id: string,
   params: MissingPersonParams
 ): Promise<MissingPersonParams> => {
   const url_object = { id, params };
-  const response = await httpPut(path, url_object);
 
-  return response;
+  const toastMessages = {
+    successMessage: "Missing Person succesfully updated",
+    errorMessage: "Error while updating Missing Person",
+  };
+
+  return await httpPut(path, url_object, toastMessages);
 };
 
-export const deleteMissingPerson = async (id: string): Promise<void> =>
-  await httpDelete(path, id);
+export const deleteMissingPerson = async (id: string): Promise<void> => {
+  const toastMessages = {
+    successMessage: "Missing Person succesfully deleted",
+    errorMessage: "Error while deleting Missing Person",
+  };
+
+  return await httpDelete(path, id);
+};

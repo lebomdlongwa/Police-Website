@@ -15,16 +15,18 @@ defmodule ReportAppWeb.Api.LostIdController do
   end
 
   def create(conn, %{"params" => lost_id_params}) do
-    with {:ok, %Id{} = lost_id} <- LostId.create_lost_id(lost_id_params) do
-      render(conn, "show.json", lost_id: lost_id)
+    with {:ok, %Id{}} <- LostId.create_lost_id(lost_id_params) do
+      lost_ids = LostId.list_lost_ids()
+      render(conn, "index.json", lost_ids: lost_ids)
     end
   end
 
   def update(conn, %{"id" => id, "params" => lost_id_params}) do
     lost_id = LostId.get_lost_id!(id)
 
-    with {:ok, %Id{} = lost_id} <- LostId.update_lost_id(lost_id, lost_id_params) do
-      render(conn, "show.json", lost_id: lost_id)
+    with {:ok, %Id{}} <- LostId.update_lost_id(lost_id, lost_id_params) do
+      lost_ids = LostId.list_lost_ids()
+      render(conn, "index.json", lost_ids: lost_ids)
     end
   end
 
@@ -32,7 +34,8 @@ defmodule ReportAppWeb.Api.LostIdController do
     lost_id = LostId.get_lost_id!(id)
 
     with {:ok, %Id{}} <- LostId.delete_lost_id(lost_id) do
-      render(conn, "delete.json", "")
+      lost_ids = LostId.list_lost_ids()
+      render(conn, "index.json", lost_ids: lost_ids)
     end
   end
 end

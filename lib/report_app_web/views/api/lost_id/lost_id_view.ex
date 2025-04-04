@@ -20,11 +20,4 @@ defmodule ReportAppWeb.Api.LostIdView do
       dateLost: Date.to_string(lost_id.inserted_at)
     }
   end
-
-  def render("delete.json", _) do
-    %{
-      success: true,
-      message: "ID deleted successfully"
-    }
-  end
 end

@@ -7,12 +7,11 @@ import google_logo from "../../images/google_logo.jpg";
 import { BackIcon } from "../../components/icons/back";
 
 type SignInProps = {
-  onAuthenticate: VoidCallBack;
   onCurrentUser: (user: UserObject) => void;
 };
 
 export const SignIn = (props: SignInProps) => {
-  const { onAuthenticate, onCurrentUser } = props;
+  const { onCurrentUser } = props;
 
   const [notSignedIn, setNotSignedIn] = useState(false);
   const [formObject, setFormObject] = useState({
@@ -40,10 +39,6 @@ export const SignIn = (props: SignInProps) => {
     } else {
       response = await login(formObject);
       onCurrentUser(response);
-    }
-
-    if (response?.username?.length > 0) {
-      onAuthenticate();
     }
   };
 

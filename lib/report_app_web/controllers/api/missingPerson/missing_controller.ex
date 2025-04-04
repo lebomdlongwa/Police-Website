@@ -15,17 +15,19 @@ defmodule ReportAppWeb.Api.MissingController do
   end
 
   def create(conn, %{"params" => params}) do
-    with {:ok, %MissingPerson{} = missing_person} <- Missing.create_missing_person(params) do
-      render(conn, "show.json", missing_person: missing_person)
+    with {:ok, %MissingPerson{}} <- Missing.create_missing_person(params) do
+      missing_persons = Missing.list_missing_persons()
+      render(conn, "index.json", missing_persons: missing_persons)
     end
   end
 
   def update(conn, %{"id" => id, "params" => params}) do
     missing_person = Missing.get_missing_person!(id)
 
-    with {:ok, %MissingPerson{} = missing_person} <-
+    with {:ok, %MissingPerson{}} <-
            Missing.update_missing_person(missing_person, params) do
-      render(conn, "show.json", missing_person: missing_person)
+      missing_persons = Missing.list_missing_persons()
+      render(conn, "index.json", missing_persons: missing_persons)
     end
   end
 
@@ -33,7 +35,8 @@ defmodule ReportAppWeb.Api.MissingController do
     missing_person = Missing.get_missing_person!(id)
 
     with {:ok, %MissingPerson{}} <- Missing.delete_missing_person(missing_person) do
-      render(conn, "delete.json", "")
+      missing_persons = Missing.list_missing_persons()
+      render(conn, "index.json", missing_persons: missing_persons)
     end
   end
 end
