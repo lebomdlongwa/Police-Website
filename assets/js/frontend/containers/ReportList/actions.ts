@@ -8,17 +8,34 @@ export const getReports = async (params?: {
 
 export const createReport = async (
   params: ReportParams
-): Promise<ReportItem[]> => await httpPost(path, params);
+): Promise<ReportItem[]> => {
+  const toastMessages = {
+    successMessage: "Report Item succesfully created",
+    errorMessage: "Error while creating Report Item",
+  };
+
+  return await httpPost(path, params, toastMessages);
+};
 
 export const updateReport = async (
   id: string,
   params: Partial<ReportParams>
 ): Promise<ReportItem[]> => {
   const url_object = { id, params };
-  const response = await httpPut(path, url_object);
 
-  return response;
+  const toastMessages = {
+    successMessage: "Report List succesfully updated",
+    errorMessage: "Error while updating Report List",
+  };
+
+  return await httpPut(path, url_object, toastMessages);
 };
 
-export const deleteReport = async (id: string): Promise<ReportItem[]> =>
-  await httpDelete(path, id);
+export const deleteReport = async (id: string): Promise<ReportItem[]> => {
+  const toastMessages = {
+    successMessage: "Report Item succesfully deleted",
+    errorMessage: "Error while deleting Report Item",
+  };
+
+  return await httpDelete(path, id, toastMessages);
+};

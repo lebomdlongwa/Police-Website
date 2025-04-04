@@ -25,11 +25,4 @@ defmodule ReportAppWeb.Api.ReportView do
       report_date: Date.to_string(report.inserted_at)
     }
   end
-
-  def render("delete.json", _) do
-    %{
-      success: true,
-      message: "Report deleted successfully"
-    }
-  end
 end

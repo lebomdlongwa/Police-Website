@@ -17,16 +17,18 @@ defmodule ReportAppWeb.Api.ReportController do
   end
 
   def create(conn, %{"params" => params}) do
-    with {:ok, %Report{} = report} <- Reports.create_report(params) do
-      render(conn, "show.json", report: report)
+    with {:ok, %Report{}} <- Reports.create_report(params) do
+      reports = Reports.list_reports()
+      render(conn, "index.json", reports: reports)
     end
   end
 
   def update(conn, %{"id" => id, "params" => params}) do
     report = Reports.get_report!(id)
 
-    with {:ok, %Report{} = report} <- Reports.update_report(report, params) do
-      render(conn, "show.json", report: report)
+    with {:ok, %Report{}} <- Reports.update_report(report, params) do
+      reports = Reports.list_reports()
+      render(conn, "index.json", reports: reports)
     end
   end
 
@@ -34,7 +36,8 @@ defmodule ReportAppWeb.Api.ReportController do
     report = Reports.get_report!(id)
 
     with {:ok, %Report{}} <- Reports.delete_report(report) do
-      render(conn, "delete.json", "")
+      reports = Reports.list_reports()
+      render(conn, "index.json", reports: reports)
     end
   end
 end

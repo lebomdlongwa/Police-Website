@@ -1,83 +1,91 @@
+import { toast } from "react-toastify";
+
 type Credentials = {
   username: string;
   password: string;
 };
 
-export const signUp = async (credentials: Credentials) => {
-  try {
-    const response = await fetch("http://localhost:4000/api/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ credentials }),
-    });
-    const responseJSON = await response.json();
-
-    if (responseJSON.data) {
-      sessionStorage.setItem("user_id", `${responseJSON.id}`);
-    } else {
-      throw Error("Failed to Login");
+export const signUp = (credentials: Credentials) => {
+  return toast.promise(
+    new Promise((resolve, reject) =>
+      fetch("http://localhost:4000/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ credentials }),
+      })
+        .then((response) => response.json())
+        .then((responseJSON) => {
+          sessionStorage.setItem("token", `${responseJSON.data.token}`);
+          resolve(responseJSON.data);
+        })
+        .catch((error) => reject(error))
+    ),
+    {
+      success: "Logged in successfull",
+      error: "Invalid credentials",
+    },
+    {
+      position: "bottom-left",
     }
-
-    return responseJSON.data || [];
-  } catch (error) {
-    console.error("There was an error when executing login: ", error);
-  }
+  );
 };
 
-export const getUser = async (token: string) => {
-  try {
-    const response = await fetch("http://localhost:4000/api/fetch_user", {
+export const getUser = async (token: string) =>
+  new Promise((resolve, reject) =>
+    fetch("http://localhost:4000/api/fetch_user", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ token }),
-    });
-    const responseJSON = await response.json();
+    })
+      .then((response) => response.json())
+      .then((responseJSON) => resolve(responseJSON.data))
+      .catch((error) => reject(error))
+  );
 
-    return responseJSON.data || [];
-  } catch (error) {
-    console.error("There was an error executing email login: ", error);
-  }
+export const login = (credentials: Credentials) => {
+  return toast.promise(
+    new Promise((resolve, reject) =>
+      fetch("http://localhost:4000/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ credentials }),
+      })
+        .then((response) => response.json())
+        .then((responseJSON) => {
+          sessionStorage.setItem("token", `${responseJSON.data.token}`);
+          resolve(responseJSON.data);
+        })
+        .catch((error) => reject(error))
+    ),
+    {
+      success: "Logged in successfull",
+      error: "Invalid credentials",
+    },
+    {
+      position: "bottom-left",
+    }
+  );
 };
 
-export const login = async (credentials: Credentials) => {
-  try {
-    const response = await fetch("http://localhost:4000/api/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ credentials }),
-    });
-    const responseJSON = await response.json();
-
-    if (responseJSON.data) {
-      sessionStorage.setItem("token", `${responseJSON.data.token}`);
-    } else {
-      throw Error("Failed to Login");
+export const logout = () => {
+  return toast.promise(
+    new Promise((resolve, reject) =>
+      fetch("http://localhost:4000/api/logout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((response) => response.json())
+        .then((responseJSON) => {
+          sessionStorage.removeItem("token");
+          resolve(responseJSON.data || []);
+        })
+        .catch((error) => reject(error))
+    ),
+    {
+      success: "Logged out successfull",
+      error: "Error logging out",
     }
-
-    return responseJSON.data || [];
-  } catch (error) {
-    console.error("There was an error when executing login: ", error);
-  }
-};
-
-export const logout = async () => {
-  try {
-    const response = await fetch("http://localhost:4000/api/logout", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-    });
-    const responseJSON = await response.json();
-
-    if (response.ok) {
-      sessionStorage.removeItem("user_id");
-    } else {
-      throw Error("Failed to Logout");
-    }
-
-    return responseJSON.data || [];
-  } catch (error) {
-    console.error("There was an error when executing logout: ", error);
-  }
+  );
 };
 
 export const signUpWithGoogle = () => {

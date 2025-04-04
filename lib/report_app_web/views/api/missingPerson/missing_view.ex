@@ -26,11 +26,4 @@ defmodule ReportAppWeb.Api.MissingView do
       # report_date: Date.to_string(missing_person.inserted_at)
     }
   end
-
-  def render("delete.json", _) do
-    %{
-      success: true,
-      message: "Missing Person deleted successfully"
-    }
-  end
 end

@@ -29,6 +29,22 @@ export const MailModal = (props: MailProps) => {
     fetchMail();
   }, []);
 
+  const isCrimeReport = mail?.type === "crime";
+  const topLeftItemLabel = isCrimeReport ? "NAME" : "DATE SEEN";
+  const topLeftItemContent = isCrimeReport ? mail?.name : mail?.date_last_seen;
+  const topRightItemLabel = isCrimeReport ? "SURNAME" : "LOCATION";
+  const topRightContent = isCrimeReport
+    ? mail?.surname
+    : mail?.location_last_seen;
+  const bottomLeftItemLabel = isCrimeReport
+    ? "ACCUSED"
+    : "CLOTHES SEEN WEARING";
+  const bottomLeftItemContent = isCrimeReport
+    ? mail?.accused
+    : mail?.clothes_worn;
+  const bottomCenterItemLabel = isCrimeReport ? "OFFICER" : "SUSPECT NAME";
+  const bottomCenterItemContent = isCrimeReport ? null : mail?.known_as;
+
   const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setFormInput({
       ...formInput,
@@ -36,31 +52,18 @@ export const MailModal = (props: MailProps) => {
     });
 
   const handleAcceptMail = () => {
-    createReport({
-      id: selectedMailId,
-      officer: formInput.officer,
-      grade: formInput.grade,
-    });
+    createReport(
+      {
+        id: selectedMailId,
+        officer: formInput.officer,
+        grade: formInput.grade,
+      },
+      isCrimeReport
+    );
     onCloseModal(null);
   };
 
   if (!isEmpty(mail)) {
-    const isCrimeReport = mail.type === "crime";
-    const topLeftItemLabel = isCrimeReport ? "NAME" : "DATE SEEN";
-    const topLeftItemContent = isCrimeReport ? mail.name : mail.date_last_seen;
-    const topRightItemLabel = isCrimeReport ? "SURNAME" : "LOCATION";
-    const topRightContent = isCrimeReport
-      ? mail.surname
-      : mail.location_last_seen;
-    const bottomLeftItemLabel = isCrimeReport
-      ? "ACCUSED"
-      : "CLOTHES SEEN WEARING";
-    const bottomLeftItemContent = isCrimeReport
-      ? mail.accused
-      : mail.clothes_worn;
-    const bottomCenterItemLabel = isCrimeReport ? "OFFICER" : "SUSPECT NAME";
-    const bottomCenterItemContent = isCrimeReport ? null : mail.known_as;
-
     return (
       <styled.Wrapper>
         <styled.ModalContainer>

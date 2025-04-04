@@ -5,13 +5,17 @@ defmodule ReportApp.Reports do
   import Ecto.Query
 
   def list_reports(params) do
-    case Map.get(params, "type", nil) do
+    case Map.get(params, "type") do
       "grade" ->
         sort_report_by_grade()
 
       _ ->
         sort_report_list()
     end
+  end
+
+  def list_reports() do
+    sort_report_list()
   end
 
   def sort_report_list() do

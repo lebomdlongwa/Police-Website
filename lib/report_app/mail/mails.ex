@@ -57,7 +57,7 @@ defmodule ReportApp.Mails do
         |> delete_mail()
 
         MailChannel.push_out!()
-        {:ok, "Report created and respective mail deleted"}
+        {:ok, report_creation}
 
       {:error, changeset} ->
         {:error, changeset}
