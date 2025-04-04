@@ -8,15 +8,7 @@ type UserProviderProps = {
 
 export const UserProvider: React.FC<UserProviderProps> = (props) => {
   const { children } = props;
-  const [user, setUser] = useState<UserObject>({
-    name: null,
-    surname: null,
-    username: null,
-    avatar: null,
-    email: null,
-    // admin: false,
-    admin: true,
-  });
+  const [user, setUser] = useState<UserObject>();
 
   const updateUser = (newObject: UserObject) =>
     setUser((prevState) => ({ ...prevState, ...newObject }));
@@ -24,7 +16,7 @@ export const UserProvider: React.FC<UserProviderProps> = (props) => {
   const value = {
     user,
     updateUser,
-    admin: user.admin,
+    admin: user?.admin,
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;

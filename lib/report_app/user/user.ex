@@ -16,6 +16,7 @@ defmodule ReportApp.User do
     field :email, :string
     field :password, :string
     field :avatar, :string
+    field :admin, :boolean, default: true
 
     timestamps()
   end

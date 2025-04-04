@@ -1,9 +1,11 @@
 import React, { ChangeEvent, Component } from "react";
+
 import { Color } from "../../components/colorCodes";
 import { Button } from "../../components/Button/button";
-import * as styled from "./styles/ReportModal";
 import { socket } from "../../socket";
 import { geoLocation } from "../../geoLocation";
+
+import * as styled from "./styles/ReportModal";
 
 type BannerReportModalProps = {
   handleShowModal: VoidCallBack;

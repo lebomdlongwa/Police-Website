@@ -1,15 +1,14 @@
 import React from "react";
-import * as styled from "./styles/homePage";
+
 import { HorizontalPeopleList } from "../components/HorizontalPeopleList/horizontal";
+
+import * as styled from "./styles/homePage";
 import Banner from "./Banner";
-import { useUser } from "./userContext";
 
-export const HomePage = () => {
-  const { admin } = useUser();
-
+export const HomePage = ({ admin }: { admin: boolean }) => {
   return (
     <styled.HomePageWrapper>
-      <Banner />
+      <Banner admin={admin} />
       {/* <TilePageLinks /> */}
       {!admin && <HorizontalPeopleList />}
     </styled.HomePageWrapper>
