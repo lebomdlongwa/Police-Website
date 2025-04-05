@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { MailComponent } from "./MailComponent";
-import * as styled from "./styles/index";
+
 import { isEmpty } from "lodash";
+
+import { MailComponent } from "./MailComponent";
+import { MailModal } from "./MailModal";
+import { deleteMail, getMails, rejectMail } from "./actions";
+import { TabsFormDefinition } from "./utils/tabsFormDef";
+import * as styled from "./styles/index";
+
 import { SearchComponent } from "../../components/SearchComponent/search";
 import { Color } from "../../components/colorCodes";
 import OnClickOutside from "../../components/OnClickOutside";
-import { deleteMail, getMails, rejectMail } from "./actions";
 import { fetchData } from "../requests";
-import { MailModal } from "./MailModal";
-import { TabsFormDefinition } from "./utils/tabsFormDef";
 import { socket } from "../../socket";
+import { Spinner } from "../../components/Spinner";
 
 export const MailBox = () => {
   const [mails, setMails] = useState<Mail[]>([]);
@@ -136,24 +140,30 @@ export const MailBox = () => {
               </styled.TabsWrapper>
             </styled.MailsHeader>
             <styled.MailsWrapper>
-              {!selectedMailId && !isEmpty(mails) ? (
-                renderMailList().map((mail) => (
-                  <MailComponent
-                    key={mail.id}
-                    mail={mail}
-                    onClick={() => {
-                      handleSelectedMailId(mail.id);
-                      updateUrlWithMail(`?mailId=${mail.id}`);
-                    }}
-                  />
-                ))
+              {isEmpty(mails) ? (
+                <Spinner size={25} />
               ) : (
-                <MailModal
-                  onCloseModal={handleSelectedMailId}
-                  selectedMailId={selectedMailId}
-                  onDelete={handleDeleteMail}
-                  onReject={handleRejectMail}
-                />
+                <>
+                  {!selectedMailId && !isEmpty(mails) ? (
+                    renderMailList().map((mail) => (
+                      <MailComponent
+                        key={mail.id}
+                        mail={mail}
+                        onClick={() => {
+                          handleSelectedMailId(mail.id);
+                          updateUrlWithMail(`?mailId=${mail.id}`);
+                        }}
+                      />
+                    ))
+                  ) : (
+                    <MailModal
+                      onCloseModal={handleSelectedMailId}
+                      selectedMailId={selectedMailId}
+                      onDelete={handleDeleteMail}
+                      onReject={handleRejectMail}
+                    />
+                  )}
+                </>
               )}
             </styled.MailsWrapper>
           </styled.MailsContainer>
