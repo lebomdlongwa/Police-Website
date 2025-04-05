@@ -1,6 +1,11 @@
 import React from "react";
+
+import { isEmpty } from "lodash";
+
 import * as styled from "./styles";
+
 import { routes } from "../../containers/PoliceApp";
+import { Spinner } from "../Spinner";
 
 type PeopleListComponentProps = {
   peopleList: MissingPersonParams[];
@@ -11,9 +16,11 @@ export const PeopleListComponent = (props: PeopleListComponentProps) => {
 
   return (
     <styled.VerticalListWrapper>
-      <styled.Container>
-        {peopleList &&
-          peopleList?.map((person) => (
+      {isEmpty(peopleList) ? (
+        <Spinner size={30} />
+      ) : (
+        <styled.Container>
+          {peopleList?.map((person) => (
             <styled.PersonTile to={`${routes.missing}/${person.id}`}>
               <styled.TileContent>
                 <styled.Details>
@@ -24,7 +31,8 @@ export const PeopleListComponent = (props: PeopleListComponentProps) => {
               </styled.TileContent>
             </styled.PersonTile>
           ))}
-      </styled.Container>
+        </styled.Container>
+      )}
     </styled.VerticalListWrapper>
   );
 };

@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
+
+import { isEmpty } from "lodash";
+
 import * as styled from "./styles";
-import { IdPpComponent } from "./idPpComponent";
-import { useUser } from "../userContext";
 import AddFormComponent from "./AddForm/addForm";
-import { fetchData } from "../requests";
+import { IdPpComponent } from "./idPpComponent";
 import { fetchIds } from "./actions";
+
+import { useUser } from "../userContext";
+import { fetchData } from "../requests";
 import { SearchComponent } from "../../components/SearchComponent/search";
 import { SearchedResultComponent } from "../../components/SearchedResult";
-import { isEmpty } from "lodash";
+import { Spinner } from "../../components/Spinner";
 
 export const IdPassportPage = () => {
   const { admin } = useUser();
@@ -42,32 +46,43 @@ export const IdPassportPage = () => {
           />
         </styled.BottomSubHeader>
       </styled.HeaderContainer>
-      {searchedId && idList && (
-        <SearchedResultComponent
-          list={idList}
-          listName="ID"
-          setSearchedIdNull={handleSetSearchIdNull}
-          searchedId={searchedId}
-          SearchedComponent={IdPpComponent}
-          itemName="item"
-        />
-      )}
-      {!searchedId &&
-        !isEmpty(idList) &&
-        idList.map((item) => {
-          return (
-            <IdPpComponent key={item.id} item={item} setIdList={setIdList} />
-          );
-        })}
-      {showAddForm && (
-        <>
-          <AddFormComponent
-            handleShowAddForm={handleShowAddForm}
-            showAddForm={showAddForm}
-            setIdList={setIdList}
-          />
-        </>
-      )}
+      <styled.BodyContainer center={isEmpty(idList)}>
+        {isEmpty(idList) ? (
+          <Spinner size={30} />
+        ) : (
+          <>
+            {searchedId && (
+              <SearchedResultComponent
+                list={idList}
+                listName="ID"
+                setSearchedIdNull={handleSetSearchIdNull}
+                searchedId={searchedId}
+                SearchedComponent={IdPpComponent}
+                itemName="item"
+              />
+            )}
+            {!searchedId &&
+              idList.map((item) => {
+                return (
+                  <IdPpComponent
+                    key={item.id}
+                    item={item}
+                    setIdList={setIdList}
+                  />
+                );
+              })}
+            {showAddForm && (
+              <>
+                <AddFormComponent
+                  handleShowAddForm={handleShowAddForm}
+                  showAddForm={showAddForm}
+                  setIdList={setIdList}
+                />
+              </>
+            )}
+          </>
+        )}
+      </styled.BodyContainer>
     </styled.IdPpContainer>
   );
 };

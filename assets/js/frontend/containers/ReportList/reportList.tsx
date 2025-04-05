@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
-import * as styled from "./styles";
+
+import { isEmpty } from "lodash";
+
 import { Report } from "./report/report";
+import * as styled from "./styles";
 import { ReportModalComponent } from "./ReportModal/reportModal";
 import {
   createReport,
@@ -8,9 +11,11 @@ import {
   getReports,
   updateReport,
 } from "./actions";
-import { fetchData } from "../requests";
 import { SortByComponent } from "./sortBy";
+
+import { fetchData } from "../requests";
 import { SearchedResultComponent } from "../../components/SearchedResult";
+import { Spinner } from "../../components/Spinner";
 
 export const ReportList = () => {
   const [reportList, setReportList] = useState([]);
@@ -70,31 +75,39 @@ export const ReportList = () => {
           />
         </styled.BottomSubHeader>
       </styled.HeaderContainer>
-      {showReportList &&
-        reportList.map((report) => (
-          <Report
-            report={report}
-            onUpdate={handleUpdateReport}
-            onDelete={handleDeleteReport}
-          />
-        ))}
-      {searchedReportId && (
-        <SearchedResultComponent
-          list={reportList}
-          listName="Report"
-          setSearchedIdNull={handleSetSearchIdNull}
-          searchedId={searchedReportId}
-          SearchedComponent={Report}
-          itemName="report"
-        />
-      )}
-      {showReportModal && (
-        <ReportModalComponent
-          handleShowReportModal={handleShowReportModal}
-          onCreate={handleAddReport}
-          onUpdate={handleUpdateReport}
-        />
-      )}
+      <styled.BodyContainer center={isEmpty(reportList)}>
+        {isEmpty(reportList) ? (
+          <Spinner size={30} />
+        ) : (
+          <>
+            {showReportList &&
+              reportList.map((report) => (
+                <Report
+                  report={report}
+                  onUpdate={handleUpdateReport}
+                  onDelete={handleDeleteReport}
+                />
+              ))}
+            {searchedReportId && (
+              <SearchedResultComponent
+                list={reportList}
+                listName="Report"
+                setSearchedIdNull={handleSetSearchIdNull}
+                searchedId={searchedReportId}
+                SearchedComponent={Report}
+                itemName="report"
+              />
+            )}
+            {showReportModal && (
+              <ReportModalComponent
+                handleShowReportModal={handleShowReportModal}
+                onCreate={handleAddReport}
+                onUpdate={handleUpdateReport}
+              />
+            )}
+          </>
+        )}
+      </styled.BodyContainer>
     </styled.ListWrapper>
   );
 };

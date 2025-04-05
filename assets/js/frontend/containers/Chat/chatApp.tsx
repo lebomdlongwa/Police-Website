@@ -7,6 +7,7 @@ import * as styled from "./styles/chatApp";
 
 import { socket } from "../../socket";
 import { useUser } from "../userContext";
+import { Spinner } from "../../components/Spinner";
 
 export const ChatAppComponent = () => {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -14,11 +15,12 @@ export const ChatAppComponent = () => {
   const { user } = useUser();
 
   const handleShowPersonDetails = () => setShowPersonDetails(false);
+  const isLoading = !user?.id;
 
   const channel = socket.channel(`chats:${user?.id}`);
 
   useEffect(() => {
-    if (user?.id) {
+    if (!isLoading) {
       channel
         .join()
         .receive("ok", (resp) => {
@@ -42,10 +44,16 @@ export const ChatAppComponent = () => {
 
   return (
     <styled.ChatAppWrapper>
-      <ChatSideBar messages={messages} />
-      <ChatBody messages={messages} channel={channel} />
-      {showPersonDetails && (
-        <ChatEndBar ShowPersonDetails={handleShowPersonDetails} />
+      {isLoading ? (
+        <Spinner size={30} />
+      ) : (
+        <>
+          <ChatSideBar messages={messages} />
+          <ChatBody messages={messages} channel={channel} />
+          {showPersonDetails && (
+            <ChatEndBar ShowPersonDetails={handleShowPersonDetails} />
+          )}
+        </>
       )}
     </styled.ChatAppWrapper>
   );

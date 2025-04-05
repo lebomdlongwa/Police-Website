@@ -5,6 +5,8 @@ import { Button as ButtonBase } from "../../../components/Button/button";
 export const IdPpContainer = styled.div.attrs({
   className: "IdPpContainer",
 })`
+  display: flex; /* Make it a flex container */
+  flex-direction: column; /* Stack children vertically */
   background-color: ${Color.white};
   width: 100%;
   min-height: 100vh;
@@ -22,6 +24,17 @@ export const HeaderContainer = styled.div.attrs({
   border-bottom: 1px solid lightgray;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   margin-bottom: 20px;
+`;
+
+export const BodyContainer = styled.div.attrs<{ center: boolean }>({
+  className: "BodyContainer",
+})`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  flex-grow: 1;
+  justify-content: ${({ center }) => (center ? "center" : "flex-start")};
 `;
 
 export const TopSubHeader = styled.div.attrs({

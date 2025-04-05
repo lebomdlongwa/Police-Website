@@ -5,6 +5,8 @@ import { Button as ButtonBase } from "../../../components/Button/button";
 export const ListWrapper = styled.div.attrs({
   className: "ListWrapper",
 })`
+  display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100%;
   min-height: 100vh;
@@ -21,6 +23,17 @@ export const HeaderContainer = styled.div.attrs({
   border-bottom: 1px solid lightgray;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   margin-bottom: 30px;
+`;
+
+export const BodyContainer = styled.div.attrs<{ center: boolean }>({
+  className: "BodyContainer",
+})`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  flex-grow: 1;
+  justify-content: ${({ center }) => (center ? "center" : "flex-start")};
 `;
 
 export const SortByHeader = styled.div.attrs({
