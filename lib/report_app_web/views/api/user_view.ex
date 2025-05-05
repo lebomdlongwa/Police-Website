@@ -18,7 +18,7 @@ defmodule ReportAppWeb.Api.UserView do
       surname: user.surname,
       username: user.username,
       avatar: user.avatar,
-      token: user.token,
+      token: Map.get(user, :token, nil),
       admin: user.admin,
       inserted_at: user.inserted_at,
       updated_at: user.updated_at

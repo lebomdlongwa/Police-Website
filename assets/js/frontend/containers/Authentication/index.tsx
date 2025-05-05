@@ -19,6 +19,7 @@ export const SignIn = (props: SignInProps) => {
     password: null,
     name: null,
     surname: null,
+    admin: null,
   });
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) =>
@@ -30,15 +31,22 @@ export const SignIn = (props: SignInProps) => {
   const signText = notSignedIn ? "Sign Up" : "Sign In";
   const googleSignText = `SIGN ${notSignedIn ? "UP" : "IN"} WITH GOOGLE`;
 
-  const handleSubmitCredentials = async () => {
-    let response;
+  const handleSubmitCredentials = async (admin: boolean) => {
+    setFormObject({
+      ...formObject,
+      admin: admin,
+    });
 
-    if (notSignedIn) {
-      response = await signUp(formObject);
-      onCurrentUser(response);
-    } else {
-      response = await login(formObject);
-      onCurrentUser(response);
+    let response: UserObject;
+
+    if (formObject.admin !== null) {
+      if (notSignedIn) {
+        response = await signUp(formObject);
+        onCurrentUser(response);
+      } else {
+        response = await login(formObject);
+        onCurrentUser(response);
+      }
     }
   };
 
@@ -92,13 +100,24 @@ export const SignIn = (props: SignInProps) => {
             </styled.Section>
           </styled.InputWrapper>
           <styled.SignInButtonsWrapper notSignedIn={notSignedIn}>
-            <Button
-              text={signText}
-              buttonColor={Color.darkBlue}
-              paddingSides={70}
-              onClick={handleSubmitCredentials}
-              radius={20}
-            />
+            <styled.DefaultSignInWrapper notSignedIn={notSignedIn}>
+              <Button
+                text={signText}
+                buttonColor={Color.darkBlue}
+                paddingSides={notSignedIn ? 78 : 70}
+                onClick={() => handleSubmitCredentials(false)}
+                radius={20}
+              />
+              {notSignedIn && (
+                <Button
+                  text="Admin Sign Up"
+                  buttonColor={Color.darkBlue}
+                  paddingSides={55}
+                  onClick={() => handleSubmitCredentials(true)}
+                  radius={20}
+                />
+              )}
+            </styled.DefaultSignInWrapper>
             <styled.GoogleButtonWrapper notSignedIn={notSignedIn}>
               <styled.GoogleButton
                 onClick={signUpWithGoogle}

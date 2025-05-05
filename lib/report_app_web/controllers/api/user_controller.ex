@@ -5,20 +5,20 @@ defmodule ReportAppWeb.Api.UserController do
   alias ReportApp.Guardian.Guardian
   alias ReportAppWeb.Api.UserView
 
-  def new(conn, _params) do
-    render(conn, "new.html")
+  def index(conn, _params) do
+    users = Users.list_users()
+    render(conn, "index.json", %{users: users})
   end
 
   def show(conn, _params) do
     user = Guardian.Plug.current_resource(conn)
-    conn |> render(UserView, "show.json", %{user: user})
+    render(conn, "show.json", %{user: user})
   end
 
   def create(conn, %{"credentials" => user_params}) do
     with {:ok, user} <- Users.create_user(user_params),
          {:ok, jwt, _claims} <- Guardian.encode_and_sign(user) do
-      conn
-      |> render(UserView, "show.json", %{user: Map.put(user, :token, jwt)})
+      render(conn, "show.json", %{user: Map.put(user, :token, jwt)})
     end
   end
 
@@ -26,7 +26,10 @@ defmodule ReportAppWeb.Api.UserController do
     case Guardian.decode_and_verify(token) do
       {:ok, claims} ->
         {:ok, user} = Guardian.resource_from_claims(claims)
-        render(conn, "show.json", %{user: Map.put(user, :token, token)})
+
+        conn
+        |> put_session(:user_id, user.id)
+        |> render("show.json", %{user: Map.put(user, :token, token)})
 
       {:error, reason} ->
         {:error, reason}

@@ -15,6 +15,9 @@ defmodule ReportAppWeb.Api.MessageView do
     %{
       id: message.id,
       content: message.content,
+      recipient_id: message.recipient_id,
+      author_id: message.author_id,
+      thread_id: message.thread_id,
       inserted_at: message.inserted_at,
       updated_at: message.updated_at
     }

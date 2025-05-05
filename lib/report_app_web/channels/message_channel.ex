@@ -2,23 +2,17 @@ defmodule ReportAppWeb.MessageChannel do
   use Phoenix.Channel
 
   alias ReportAppWeb.Api.MessageView
-  alias ReportApp.Messages.Message
-  alias ReportApp.Repo
+  alias ReportApp.Messenger.Messages
 
   require Logger
 
-  def join("chats:" <> user_id, _params, socket) do
-    if user_id == to_string(socket.assigns.user_id) do
-      resp = %{messages: MessageView.render("index.json", %{messages: Repo.all(Message)})}
-      {:ok, resp, socket}
-    else
-      {:error, %{reason: :invalid_user}}
-    end
+  def join("chats:" <> thread_id, _params, socket) do
+    Logger.info("User joined chat thread #{thread_id}")
+    {:ok, socket}
   end
 
   def handle_in("send_message", %{"message" => message}, socket) do
-    case Message.changeset(%Message{}, %{content: message})
-         |> Repo.insert() do
+    case Messages.insert_message_into_thread(message) do
       {:ok, message} ->
         broadcast!(socket, "new_message", %{
           message: MessageView.render("show.json", %{message: message})
