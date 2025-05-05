@@ -1,11 +1,12 @@
 defmodule ReportApp.User do
   use Ecto.Schema
 
-  alias Argon2
-
   import Ecto.Changeset
 
-  @manual_params [:name, :surname, :username, :password]
+  alias Argon2
+  alias ReportApp.Messenger.Schemas.{Thread, ThreadUser, Message}
+
+  @manual_params [:name, :surname, :username, :password, :admin]
   @google_params [:email, :name, :surname]
   @params @google_params ++ @manual_params
 
@@ -16,7 +17,10 @@ defmodule ReportApp.User do
     field :email, :string
     field :password, :string
     field :avatar, :string
-    field :admin, :boolean, default: true
+    field :admin, :boolean
+
+    many_to_many :threads, Thread, join_through: ThreadUser
+    has_many :messages, Message, foreign_key: :author_id
 
     timestamps()
   end

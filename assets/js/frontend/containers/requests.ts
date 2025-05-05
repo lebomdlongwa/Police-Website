@@ -36,7 +36,7 @@ type ToastMessages = {
   errorMessage: string;
 };
 
-export const httpPost = async (
+export const httpPost = (
   path: string,
   params: object,
   toastMessages?: ToastMessages

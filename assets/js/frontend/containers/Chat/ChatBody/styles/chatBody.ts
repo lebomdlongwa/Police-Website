@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Color } from "../../../../components/colorCodes";
 
 export const ChatBodyWrapper = styled.div.attrs({
@@ -41,7 +41,7 @@ export const MessagesBody = styled.div.attrs({
   align-items: center;
 `;
 
-export const Chats = styled.div.attrs({
+export const Chats = styled.div.attrs<{ isMessagesValid: boolean }>({
   className: "Chats",
 })`
   width: 100%;
@@ -49,7 +49,15 @@ export const Chats = styled.div.attrs({
   overflow-y: scroll;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  padding: 0 10px;
+  padding: 5px 10px 0 10px;
+
+  ${({ isMessagesValid }) =>
+    isMessagesValid &&
+    css`
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    `}
 `;
 
 export const MessageBoxContainer = styled.div.attrs({

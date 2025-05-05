@@ -53,7 +53,9 @@ defmodule ReportApp.MixProject do
       {:cors_plug, "~> 3.0"},
       {:guardian, "~> 2.0"},
       {:argon2_elixir, "~> 3.0"},
-      {:ueberauth_google, "~> 0.10"}
+      {:ueberauth_google, "~> 0.10"},
+      {:shortuuid, "~> 2.1"},
+      {:uuid, "~> 1.1"}
     ]
   end
 

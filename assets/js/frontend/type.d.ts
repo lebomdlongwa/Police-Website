@@ -6,6 +6,7 @@ declare global {
   type VoidCallBack = () => void;
 
   type UserObject = {
+    id: string;
     name: string;
     surname: string;
     username?: string;

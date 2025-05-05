@@ -160,6 +160,15 @@ export const SignInText = styled.div.attrs({
   line-height: 40px;
 `;
 
+export const DefaultSignInWrapper = styled.div.attrs<{ notSignedIn: boolean }>({
+  className: "DefaultSignInWrapper",
+})`
+  ${({ notSignedIn }) => notSignedIn && "width: 100%"};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 export const GoogleButtonWrapper = styled.div.attrs<{ notSignedIn: boolean }>({
   className: "GoogleButton",
 })`

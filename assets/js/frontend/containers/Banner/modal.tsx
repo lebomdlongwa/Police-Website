@@ -41,19 +41,24 @@ export class BannerReportModal extends Component<
     };
 
     this.channel = socket.channel("mail:lobby", {});
+    this.channelJoined = false;
   }
 
-  channel;
+  channel = socket.channel("mail:lobby", {});
+  channelJoined = false;
 
   componentDidMount() {
-    this.channel
-      .join()
-      .receive("ok", (resp) => {
-        console.log("Joined successfully", resp);
-      })
-      .receive("error", (resp) => {
-        console.log("Unable to join", resp);
-      });
+    if (!this.channelJoined) {
+      this.channel
+        .join()
+        .receive("ok", (resp) => {
+          console.log("Joined successfully", resp);
+          this.channelJoined = true;
+        })
+        .receive("error", (resp) => {
+          console.log("Unable to join", resp);
+        });
+    }
   }
 
   onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -71,13 +76,15 @@ export class BannerReportModal extends Component<
 
   render() {
     const { handleShowModal, user, imgUrl, location, submitForm } = this.props;
+    console.log("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK", user?.name);
 
     if (submitForm) {
+      console.log("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
       this.channel.push("send_mails", {
         mail: {
           ...this.state,
-          name: user.name,
-          surname: user.surname,
+          name: user?.name,
+          surname: user?.surname,
           location: { ...location, imgUrl },
         },
       });

@@ -5,7 +5,7 @@ type Credentials = {
   password: string;
 };
 
-export const signUp = (credentials: Credentials) => {
+export const signUp = (credentials: Credentials): Promise<UserObject> => {
   return toast.promise(
     new Promise((resolve, reject) =>
       fetch("http://localhost:4000/api/register", {
@@ -42,7 +42,7 @@ export const getUser = async (token: string) =>
       .catch((error) => reject(error))
   );
 
-export const login = (credentials: Credentials) => {
+export const login = (credentials: Credentials): Promise<UserObject> => {
   return toast.promise(
     new Promise((resolve, reject) =>
       fetch("http://localhost:4000/api/login", {
