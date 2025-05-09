@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { DropdownProps } from "../dropdown";
 import { Color } from "../../colorCodes";
+import { HideScrollBarMixin } from "../../../appStyles";
 
 export const DropdownContainer = styled.div.attrs({
   className: "DropdownContainer",
@@ -19,7 +20,7 @@ export const DropdownWrapper = styled.div.attrs<{
   distanceToTop: number;
   dropdownWidth: number;
   dropdownDistToLeft: number;
-  dropdownSettings: DropdownProps;
+  dropdownSettings: Partial<DropdownProps>;
 }>({
   className: "DropdownWrapper",
 })`
@@ -51,7 +52,8 @@ export const DropdownWrapper = styled.div.attrs<{
     dropdownSettings.fontColor && `${dropdownSettings.fontColor}`};
   font-size: ${({ dropdownSettings }) =>
     dropdownSettings.fontSize && `${dropdownSettings.fontSize}`};
-  overflow-y: scroll;
+
+  ${HideScrollBarMixin}
 `;
 
 export const OptionsWrapper = styled.div.attrs({
@@ -67,7 +69,7 @@ export const OptionsWrapper = styled.div.attrs({
 `;
 
 export const OptionContainer = styled.div.attrs<{
-  dropdownSettings: DropdownProps;
+  dropdownSettings: Partial<DropdownProps>;
 }>({
   className: "OptionContainer",
 })`
@@ -83,14 +85,17 @@ export const OptionContainer = styled.div.attrs<{
   }
 `;
 
-export const Option = styled.div.attrs<{ dropdownSettings: DropdownProps }>({
+export const Option = styled.div.attrs<{
+  dropdownSettings: Partial<DropdownProps>;
+}>({
   className: "Option",
 })`
   height: 100%;
   margin: auto;
-  width: 95%;
+  width: 90%;
   display: flex;
   align-items: center;
   color: ${({ dropdownSettings }) => dropdownSettings.fontColor};
+  font-size: ${({ dropdownSettings }) => `${dropdownSettings.fontSize}px`};
   border-bottom: 1px solid ${Color.grayLighter};
 `;

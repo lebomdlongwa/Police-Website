@@ -6,8 +6,8 @@ export const ExpandedItemWrapper = styled.div.attrs({
 })`
   /* min-height: 100px; */
   /* max-height: 30vh; */
-  height: 50vh;
   width: 100%;
+  height: 100%;
   border-top: 1px solid lightgray;
   display: flex;
   flex-direction: column;
@@ -30,15 +30,15 @@ export const IconLabel = styled.div.attrs({
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 400;
-  font-size: 15px;
-  color: #989898;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
 `;
 
-export const Content = styled.div.attrs({
+export const Content = styled.div.attrs<{ isSolvedField: boolean }>({
   className: "Content",
 })`
-  /* height: 60%; */
+  padding-top: ${({ isSolvedField }) => (isSolvedField ? "2px" : "5px")};
   display: flex;
   align-items: center;
   color: ${Color.darkBlueFont};
@@ -48,19 +48,28 @@ export const Content = styled.div.attrs({
 export const TopItemWrapper = styled.div.attrs({
   className: "TopItemWrapper",
 })`
-  max-height: 60%;
-  padding-top: 5px;
+  height: 70%;
   width: 97%;
   display: flex;
   align-items: center;
   border-bottom: 1px solid lightgray;
 `;
 
-export const BriefCircumstance = styled.div.attrs({
-  className: "BriefCircumstance",
+export const TopItems = styled.div.attrs({
+  className: "TopItems",
 })`
   width: 100%;
-  padding: 0px 20px 5px 0;
+  height: 100%;
+  padding-top: 10px;
+`;
+
+export const TopItemsDivider = styled.div.attrs({
+  className: "TopItemsDivider",
+})`
+  width: 1px;
+  height: 80%;
+  border-left: 1px solid ${Color.lightgray};
+  padding: 0 10px;
 `;
 
 export const BriefCircumstanceHeader = styled.div.attrs({
@@ -72,7 +81,8 @@ export const BriefCircumstanceHeader = styled.div.attrs({
   display: flex;
   justify-content: center;
   align-items: center;
-  font-weight: 600;
+  font-weight: 800;
+  font-size: 15px;
 `;
 
 export const BriefCircumstanceContent = styled.div.attrs({
@@ -82,7 +92,7 @@ export const BriefCircumstanceContent = styled.div.attrs({
   color: ${Color.darkBlueFont};
   display: flex;
   align-items: center;
-  font-weight: 400;
+  font-weight: 600;
   margin-top: 10px;
   overflow-x: hidden;
 `;
@@ -91,11 +101,12 @@ export const BottomItemWrapper = styled.div.attrs({
   className: "BottomItemWrapper",
 })`
   padding-top: 5px;
-  height: 40%;
+  height: 30%;
   width: 97%;
   border-top: 0;
   color: ${Color.darkBlueFont};
   display: flex;
+  justify-content: space-between;
 `;
 
 export const SceneAttendance = styled.div.attrs({
@@ -124,4 +135,5 @@ export const Accussed = styled.div.attrs({
   color: ${Color.darkBlueFont};
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;

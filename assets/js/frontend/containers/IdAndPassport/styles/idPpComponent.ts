@@ -5,7 +5,6 @@ export const IdPpWrapper = styled.div.attrs({
   className: "IdPpWrapper",
 })`
   padding: 10px 0;
-  flex-grow: 1;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -16,7 +15,6 @@ export const ItemContainer = styled.div.attrs({
   className: "ItemContainer",
 })`
   width: 85%;
-  flex-grow: 1;
   border: 1px solid lightgray;
   margin-top: 13px;
   cursor: pointer;

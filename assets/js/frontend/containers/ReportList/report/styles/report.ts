@@ -5,7 +5,7 @@ export const ReportWrapper = styled.div.attrs<{ expand: boolean }>({
   className: "ReportWrapper",
 })`
   width: 100%;
-  height: ${({ expand }) => (expand ? "355px" : "75px")};
+  height: ${({ expand }) => (expand ? "270px" : "75px")};
   padding: 5px 50px;
 `;
 
@@ -120,6 +120,16 @@ export const Icon = styled.div.attrs<{ class?: string }>({
   align-items: center;
 `;
 
+export const IconImage = styled.img.attrs({
+  className: "IconImage",
+})`
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const IconLabel = styled.div.attrs({
   className: "IconLabel",
 })`
@@ -128,9 +138,9 @@ export const IconLabel = styled.div.attrs({
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 400;
-  font-size: 15px;
-  color: #989898;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
 `;
 
 export const Content = styled.div.attrs({

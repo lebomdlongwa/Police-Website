@@ -20,7 +20,7 @@ export const createReport = async (
 export const updateReport = async (
   id: string,
   params: Partial<ReportParams>
-): Promise<ReportItem[]> => {
+): Promise<ReportItem> => {
   const url_object = { id, params };
 
   const toastMessages = {

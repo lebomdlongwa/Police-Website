@@ -79,44 +79,35 @@ export const SearchComponent = (props: SearchComponentProps) => {
     ));
 
   return (
-    <OnClickOutside onClickOutsideFn={clearSearchTerm}>
-      <Dropdown
-        isSearch
-        options={options}
-        displayDropdown={searchResultsPresent}
+    <Dropdown isSearch options={options} displayDropdown={searchResultsPresent}>
+      <styled.SearchWrapper
+        ref={searchbarRef}
+        searchResultsPresent={searchResultsPresent}
+        height={height}
+        width={width}
+        background={background}
+        border={border}
+        borderRadius={borderRadius}
+        {...props}
       >
-        <styled.SearchWrapper
-          ref={searchbarRef}
-          searchResultsPresent={searchResultsPresent}
-          height={height}
-          width={width}
-          background={background}
-          border={border}
-          borderRadius={borderRadius}
-          {...props}
-        >
-          <styled.SearchBox
-            ref={searchRef}
-            onClick={() => setSearchActive(true)}
-          >
-            <styled.InputWrapper>
-              <styled.SearchIcon>
-                <SearchIcon
-                  size={23}
-                  color={iconColor ? iconColor : Color.iconGray}
-                />
-              </styled.SearchIcon>
-              <styled.SearchInput
-                fontSize={fontSize}
-                iconColor={iconColor}
-                placeholder="Type some text to search..."
-                value={searchTerm}
-                onChange={(e) => setsearchTerm(e.target.value)}
+        <styled.SearchBox ref={searchRef} onClick={() => setSearchActive(true)}>
+          <styled.InputWrapper>
+            <styled.SearchIcon>
+              <SearchIcon
+                size={23}
+                color={iconColor ? iconColor : Color.iconGray}
               />
-            </styled.InputWrapper>
-          </styled.SearchBox>
-        </styled.SearchWrapper>
-      </Dropdown>
-    </OnClickOutside>
+            </styled.SearchIcon>
+            <styled.SearchInput
+              fontSize={fontSize}
+              iconColor={iconColor}
+              placeholder="Type some text to search..."
+              value={searchTerm}
+              onChange={(e) => setsearchTerm(e.target.value)}
+            />
+          </styled.InputWrapper>
+        </styled.SearchBox>
+      </styled.SearchWrapper>
+    </Dropdown>
   );
 };

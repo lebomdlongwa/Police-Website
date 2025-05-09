@@ -19,10 +19,12 @@ defmodule ReportAppWeb.Api.ReportView do
       officer: report.officer,
       grade: report.grade,
       brief_circumstance: report.brief_circumstance,
-      # attendance: report.attendance,
-      # action_taken: report.action_taken,
+      attendance: report.attendance,
+      action_taken: report.action_taken,
       accused: report.accused,
-      report_date: Date.to_string(report.inserted_at)
+      report_date: Date.to_string(report.inserted_at),
+      crime_type: report.crime_type,
+      solved: report.solved
     }
   end
 end

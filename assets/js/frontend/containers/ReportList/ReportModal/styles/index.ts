@@ -68,13 +68,19 @@ export const ReporterDetails = styled.div.attrs({
 })`
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex: 1;
 `;
+
+export const SuspectAndCrimeType = styled(ReporterDetails).attrs({
+  className: "SuspectAndCrimeType",
+})``;
 
 export const Name = styled.div.attrs({
   className: "Name",
 })`
-  width: 48%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -82,16 +88,9 @@ export const Name = styled.div.attrs({
   margin-bottom: 15px;
 `;
 
-export const Surname = styled.div.attrs({
+export const Surname = styled(Name).attrs({
   className: "Surname",
-})`
-  width: 48%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 15px;
-`;
+})``;
 
 export const OfficerGradeWrapper = styled.div.attrs({
   className: "OfficerGradeWrapper",
@@ -124,16 +123,13 @@ export const Grade = styled.div.attrs({
   align-items: center;
 `;
 
-export const SuspectName = styled.div.attrs({
+export const SuspectName = styled(Name).attrs({
   className: "SuspectName",
-})`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 15px;
-`;
+})``;
+
+export const CrimeType = styled(SuspectName).attrs({
+  className: "CrimeType",
+})``;
 
 export const BriefCircumstance = styled.div.attrs({
   className: "BriefCircumstance",
