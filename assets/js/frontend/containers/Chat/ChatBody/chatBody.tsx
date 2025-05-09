@@ -12,7 +12,7 @@ import { FlyingEnvelopeIcon } from "../../../components/icons/flyingEnvelope";
 import { ChatIcon } from "../../../components/icons/chat";
 
 type ChatBodyProps = {
-  channel: Channel;
+  currentChannel: Channel;
   isMessagesValid: boolean;
   threadsObject: ThreadsObject;
   activeRecipientId: string;
@@ -23,7 +23,7 @@ type ChatBodyProps = {
 
 export const ChatBody = (props: ChatBodyProps) => {
   const {
-    channel,
+    currentChannel,
     isMessagesValid,
     threadsObject,
     activeRecipientId,
@@ -42,7 +42,7 @@ export const ChatBody = (props: ChatBodyProps) => {
   });
 
   const handleSendMessage = () => {
-    channel.push("send_message", {
+    currentChannel.push("send_message", {
       message: {
         content: input,
         author_id: userId,
@@ -70,36 +70,37 @@ export const ChatBody = (props: ChatBodyProps) => {
           </styled.HeaderOptions>
         </styled.Header>
 
-        <styled.MessagesBody>
-          <styled.Chats
-            ref={chatsRef}
-            isMessagesValid={!isMessagesValid || !currentThreadId}
-          >
-            {!isMessagesValid || !currentThreadId ? (
-              <ChatIcon size={200} color={Color.gray} />
-            ) : (
-              <ChatMessageComponent
-                messages={thread?.messages}
-                recipients={recipients}
-                activeRecipientId={activeRecipientId}
-              />
-            )}
-          </styled.Chats>
-          <styled.MessageBoxContainer>
-            <styled.MessageBoxWrapper>
-              <styled.MessageBox
-                placeholder="Type a message..."
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-              />
-              <styled.ButtonWrapper>
-                <ClipIcon size={15} color={Color.gray} />
-                <styled.SendButton onClick={handleSendMessage}>
-                  <FlyingEnvelopeIcon size={15} />
-                </styled.SendButton>
-              </styled.ButtonWrapper>
-            </styled.MessageBoxWrapper>
-          </styled.MessageBoxContainer>
+        <styled.MessagesBody
+          isMessagesValid={!isMessagesValid || !currentThreadId}
+        >
+          {!isMessagesValid || !currentThreadId ? (
+            <ChatIcon size={200} color={Color.gray} />
+          ) : (
+            <>
+              <styled.Chats ref={chatsRef}>
+                <ChatMessageComponent
+                  messages={thread?.messages}
+                  recipients={recipients}
+                  activeRecipientId={activeRecipientId}
+                />
+              </styled.Chats>
+              <styled.MessageBoxContainer>
+                <styled.MessageBoxWrapper>
+                  <styled.MessageBox
+                    placeholder="Type a message..."
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                  />
+                  <styled.ButtonWrapper>
+                    <ClipIcon size={15} color={Color.gray} />
+                    <styled.SendButton onClick={handleSendMessage}>
+                      <FlyingEnvelopeIcon size={15} />
+                    </styled.SendButton>
+                  </styled.ButtonWrapper>
+                </styled.MessageBoxWrapper>
+              </styled.MessageBoxContainer>
+            </>
+          )}
         </styled.MessagesBody>
       </styled.ChatBodyWrapper>
     );

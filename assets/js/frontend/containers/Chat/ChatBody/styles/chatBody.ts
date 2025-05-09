@@ -31,7 +31,7 @@ export const HeaderOptions = styled.div.attrs({
   right: 15px;
 `;
 
-export const MessagesBody = styled.div.attrs({
+export const MessagesBody = styled.div.attrs<{ isMessagesValid: boolean }>({
   className: "MessagesBody",
 })`
   width: 100%;
@@ -39,17 +39,6 @@ export const MessagesBody = styled.div.attrs({
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-export const Chats = styled.div.attrs<{ isMessagesValid: boolean }>({
-  className: "Chats",
-})`
-  width: 100%;
-  height: 100%;
-  overflow-y: scroll;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  padding: 5px 10px 0 10px;
 
   ${({ isMessagesValid }) =>
     isMessagesValid &&
@@ -58,6 +47,17 @@ export const Chats = styled.div.attrs<{ isMessagesValid: boolean }>({
       align-items: center;
       justify-content: center;
     `}
+`;
+
+export const Chats = styled.div.attrs({
+  className: "Chats",
+})`
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 5px 10px 0 10px;
 `;
 
 export const MessageBoxContainer = styled.div.attrs({

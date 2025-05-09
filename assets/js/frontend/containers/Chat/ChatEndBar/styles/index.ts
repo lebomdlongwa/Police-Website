@@ -37,7 +37,7 @@ export const Button = styled.div.attrs<{ active?: boolean }>({
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: ${({ active }) => active && `4px solid ${Color.darkBlue}`};
+  border-bottom: ${({ active }) => active && `4px solid ${Color.veryDarkBlue}`};
 `;
 
 export const DetailsWrapper = styled.div.attrs({

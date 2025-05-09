@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { isEmpty } from "lodash";
+import { Channel } from "phoenix";
 
 import { ChatSideBar } from "./ChatSideBar";
 import { ChatBody } from "./ChatBody/chatBody";
@@ -11,7 +12,6 @@ import * as styled from "./styles/chatApp";
 import { socket } from "../../socket";
 import { useUser } from "../userContext";
 import { Spinner } from "../../components/Spinner";
-import { fetchData } from "../requests";
 
 export const ChatAppComponent = () => {
   const [showPersonDetails, setShowPersonDetails] = useState(true);
@@ -21,64 +21,71 @@ export const ChatAppComponent = () => {
     recipients: [],
     threads: [],
   });
+  const channelsRef = useRef<Record<string, Channel>>({});
   const { user } = useUser();
 
   const handleShowPersonDetails = () => setShowPersonDetails(false);
   const handleSetActiveRecipientId = (id: string) => setActiveRecipientId(id);
   const handleSetCurrentThreadId = (id: string) => setCurrentThreadId(id);
 
-  const isLoading = !user?.id;
+  const isLoading = !user?.id || isEmpty(threadsObject.threads);
   const isMessagesValid = true;
-
-  const channel = socket.channel(`chats:threadId-${currentThreadId}`);
-
-  useEffect(() => {
-    fetchData(fetchUserThreads, setThreadsObject);
-  }, []);
+  const currentChannel = channelsRef.current[currentThreadId];
 
   useEffect(() => {
-    if (currentThreadId) {
-      channel
-        .join()
-        .receive("ok", () => {
-          console.log(`Joined chats:threadId-${currentThreadId} successfully`);
-        })
-        .receive("error", (resp) => console.log("Unable to join", resp));
+    fetchUserThreads().then((res: ThreadsObject) => {
+      setThreadsObject(res);
 
-      return () => {
-        channel.leave();
-      };
-    }
-  }, [channel]);
+      res.threads.forEach((thread) => {
+        const channel = socket.channel(`chats:threadId-${thread.id}`);
 
-  useEffect(() => {
-    channel.on("new_message", (payload) => {
-      const messageObject = payload.message.data;
-      console.log("New message received", messageObject);
-      // if (currentThreadId === messageObject.thread_id) {
-      // }
+        channel
+          .join()
+          .receive("ok", () => {
+            console.log(`Joined chats:threadId-${thread.id} successfully`);
+          })
+          .receive("error", (resp) => console.log("Unable to join", resp));
 
-      const updatedThreads = threadsObject.threads.map((thread) => {
-        if (thread.id === messageObject.thread_id) {
-          return {
-            ...thread,
-            messages: [...thread.messages, messageObject],
-          };
-        } else {
-          return thread;
-        }
+        channelsRef.current[thread.id] = channel;
+
+        channel.on("new_message", (payload) => {
+          const messageObject = payload.message.data;
+          console.log(
+            "New message received",
+            messageObject,
+            threadsObject.threads,
+            res
+          );
+
+          const updatedThreads = res.threads.map((thread) => {
+            if (thread.id === messageObject.thread_id) {
+              return {
+                ...thread,
+                messages: [...thread.messages, messageObject],
+              };
+            } else {
+              return thread;
+            }
+          });
+
+          setThreadsObject((prev) => ({
+            ...prev,
+            threads: updatedThreads,
+          }));
+        });
       });
-
-      setThreadsObject((prev) => ({
-        ...prev,
-        threads: updatedThreads,
-      }));
     });
-  }, [channel]);
+
+    return () => {
+      Object.values(channelsRef.current).forEach((channel: Channel) =>
+        channel.leave()
+      );
+    };
+  }, []);
 
   return (
     <styled.ChatAppWrapper>
-      {isLoading && isEmpty(threadsObject) ? (
+      {isLoading ? (
         <Spinner size={30} />
       ) : (
         <>
@@ -90,7 +97,7 @@ export const ChatAppComponent = () => {
             onSetCurrentThreadId={handleSetCurrentThreadId}
           />
           <ChatBody
-            channel={channel}
+            currentChannel={currentChannel}
             isMessagesValid={isMessagesValid}
             threadsObject={threadsObject}
             activeRecipientId={activeRecipientId}
