@@ -7,37 +7,38 @@ import { PeopleIcon } from "../../../components/icons/people";
 import { PassportIcon } from "../../../components/icons/passport";
 import { ChatIcon } from "../../../components/icons/chat";
 import { MailboxIcon } from "../../../components/icons/mailbox";
+import { Icon } from "../../../components/icons";
 
 export const FormDefinition = [
   {
     route: "/",
-    icon: <HomeIcon color={Color.white} size={40} />,
+    icon: <Icon name="home" size={27} />,
     text: "Home",
   },
   {
     route: "/police/reportsList",
-    icon: <ClipboardIcon color={Color.white} size={25} />,
+    icon: <Icon name="list" size={30} />,
     text: "Reports",
     admin: true,
   },
   {
     route: "/police/missing_list",
-    icon: <PeopleIcon color={Color.white} size={25} />,
+    icon: <Icon name="missing" size={27} />,
     text: "Missing People",
   },
   {
     route: "/police/lost_id_pp",
-    icon: <PassportIcon color={Color.white} size={25} />,
+    icon: <Icon name="passport" size={27} />,
     text: "Passports and Ids",
   },
   {
     route: "police/chat",
-    icon: <ChatIcon color={Color.white} size={25} />,
+    icon: <Icon name="roundChat" size={25} />,
     text: "Chat Room",
   },
   {
     route: "police/mail",
-    icon: <MailboxIcon color={Color.white} size={40} />,
+    icon: <Icon name="mails" size={29} />,
     text: "Mailbox",
     admin: true,
   },

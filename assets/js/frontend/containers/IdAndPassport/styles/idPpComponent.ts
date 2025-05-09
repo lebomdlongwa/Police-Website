@@ -19,7 +19,7 @@ export const ItemContainer = styled.div.attrs({
   margin-top: 13px;
   cursor: pointer;
   border-radius: 4px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -91,9 +91,9 @@ export const IconLabel = styled.div.attrs({
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 400;
+  font-weight: 600;
   font-size: 15px;
-  color: #989898;
+  color: #333;
 `;
 
 export const Content = styled.div.attrs({

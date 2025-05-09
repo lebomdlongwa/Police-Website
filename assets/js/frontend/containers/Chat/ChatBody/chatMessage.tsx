@@ -2,6 +2,7 @@ import React from "react";
 import * as styled from "./styles/chatMessage";
 import { useUser } from "../../userContext";
 import { find, sortBy } from "lodash";
+import { AvatarColors } from "../../../components/colorCodes";
 
 type ChatMessageComponentProps = {
   messages: Message[];
@@ -15,8 +16,13 @@ export const ChatMessageComponent = (props: ChatMessageComponentProps) => {
 
   const sortedMessages = sortBy(messages, "inserted_at");
 
-  const AvatarElement = (initials: string) => (
-    <styled.ChatAvatar initials={initials} avatarSize={28} fontSize={13} />
+  const AvatarElement = (initials: string, color: string) => (
+    <styled.ChatAvatar
+      color={color}
+      initials={initials}
+      avatarSize={28}
+      fontSize={13}
+    />
   );
 
   return (
@@ -26,14 +32,17 @@ export const ChatMessageComponent = (props: ChatMessageComponentProps) => {
           const author = find(recipients, { id: message.author_id }) || user;
           const isCurrentUser = author.id === user.id;
 
+          const colors = Object.values(AvatarColors);
+          const avatarColor = colors[author.id % colors.length];
+
           return (
             <styled.ChatMessageWrapper
               key={message.id}
               isCurrentUser={isCurrentUser}
             >
-              {!isCurrentUser && AvatarElement(author.name[0])}
+              {!isCurrentUser && AvatarElement(author.name[0], avatarColor)}
               <styled.ChatMessage>{message.content}</styled.ChatMessage>
-              {isCurrentUser && AvatarElement(author.name[0])}
+              {isCurrentUser && AvatarElement(author.name[0], avatarColor)}
             </styled.ChatMessageWrapper>
           );
         })}

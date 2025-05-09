@@ -18,11 +18,12 @@ export const ChatMessage = styled.div.attrs({
 })`
   max-width: calc(70% - 40px);
   border-radius: 15px;
-  background-color: ${Color.darkBlue};
+  background-color: ${Color.darkCyan};
   color: ${Color.white};
   font-size: 15px;
   font-weight: 400;
   padding: 7px 15px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
 `;
 
 export const ChatAvatar = styled(AvatarComponent).attrs({

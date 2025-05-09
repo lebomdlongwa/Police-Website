@@ -64,34 +64,32 @@ export const MessageBoxContainer = styled.div.attrs({
   className: "MessageBoxContainer",
 })`
   width: 100%;
-  // height: 100%;
+  height: 70px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 10px;
-  background-color: ${Color.chalk};
+  align-items: center;
+  padding: 10px 0;
 `;
 
 export const MessageBoxWrapper = styled.div.attrs({
   className: "MessageBoxWrapper",
 })`
-  width: 100%;
-  height: 120px;
-  border: 2px solid ${Color.grayLighter};
-  border-radius: 4px;
-  position: relative;
-  background-color: ${Color.white};
+  width: 84%;
+  height: 100%;
 `;
 
 export const MessageBox = styled.textarea.attrs({
   className: "MessageBox",
 })`
-  border: none;
   width: 100%;
-  height: 60%;
+  height: 100%;
+  border: none;
+  background-color: ${Color.grayLighter};
+  border-radius: 8px;
+  vertical-align: middle;
+  padding: 16px 20px 0 20px;
   resize: none;
-  color: ${Color.darkBlueFont};
-  padding: 10px;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+  color: ${Color.black};
   font-size: 16px;
 
   &:focus {
@@ -102,13 +100,11 @@ export const MessageBox = styled.textarea.attrs({
 export const ButtonWrapper = styled.div.attrs({
   className: "ButtonWrapper",
 })`
-  width: 100%;
-  height: 40px;
+  width: 8%;
+  height: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 5px 15px;
-  background-color: ${Color.white};
+  justify-content: center;
 `;
 
 export const AttachFile = styled.div.attrs({
@@ -118,17 +114,11 @@ export const AttachFile = styled.div.attrs({
 export const SendButton = styled.div.attrs({
   className: "SendButton",
 })`
-  width: 30px;
-  height: 30px;
-  // padding: 10px;
-  border-radius: 50%;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
 
   &:hover {
-    background-color: ${Color.grayLighter};
     transition: 0.3s ease-in;
   }
 `;

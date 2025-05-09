@@ -9,6 +9,14 @@ import edit from "./edit.png";
 import accused from "./handcuff.png";
 import crime from "./crime-scene.png";
 import solved from "./puzzle-piece.png";
+import roundChat from "./round-chat.png";
+import squareChat from "./square-chat.png";
+import missing from "./missing.png";
+import mails from "./emails.png";
+import home from "./home.png";
+import list from "./list.png";
+import passport from "./passport.png";
+import send from "./send.png";
 import * as styled from "./styles";
 
 type IconProps = {
@@ -31,6 +39,14 @@ export const Icon = (props: IconProps) => {
     crime,
     accused,
     solved,
+    roundChat,
+    squareChat,
+    missing,
+    mails,
+    home,
+    list,
+    passport,
+    send,
   };
 
   return (

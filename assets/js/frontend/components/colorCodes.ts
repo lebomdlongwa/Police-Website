@@ -16,6 +16,7 @@ type ColorProps = {
   red: "#FF0000";
   green: "#2ECC71";
   veryDarkBlue: "#2E4053";
+  darkCyan: "#26A69A";
 };
 
 export const Color: ColorProps = {
@@ -36,4 +37,19 @@ export const Color: ColorProps = {
   red: "#FF0000",
   green: "#2ECC71",
   veryDarkBlue: "#2E4053",
+  darkCyan: "#26A69A",
+};
+
+export const AvatarColors = {
+  lightGreen: "#81C784",
+  yellowOrange: "#FFCA28",
+  blueGreen: "#009688",
+  softCyan: "#4DD0E1",
+  darkModerateBlue: "#3949AB",
+  magenta: "#BA68C8",
+  softPink: "#F06292",
+  olive: "#9E9D24",
+  brightRed: "#F44336",
+  veryDarkMagenta: "#660066",
+  strongOrange: "#D35400",
 };

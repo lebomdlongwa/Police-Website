@@ -12,6 +12,7 @@ import { fetchData } from "../requests";
 import { SearchComponent } from "../../components/SearchComponent/search";
 import { SearchedResultComponent } from "../../components/SearchedResult";
 import { Spinner } from "../../components/Spinner";
+import { AvatarColors } from "../../components/colorCodes";
 
 export const IdPassportPage = () => {
   const { admin } = useUser();
@@ -62,12 +63,16 @@ export const IdPassportPage = () => {
               />
             )}
             {!searchedId &&
-              idList.map((item) => {
+              idList.map((item, id) => {
+                const colors = Object.values(AvatarColors);
+                const avatarColor = colors[id % colors.length];
+
                 return (
                   <IdPpComponent
                     key={item.id}
                     item={item}
                     setIdList={setIdList}
+                    avatarColor={avatarColor}
                   />
                 );
               })}
