@@ -40,7 +40,7 @@ export const UserInfoWrapper = styled.div.attrs({
   height: 34px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
 `;
 
 export const InfoContent = styled.div.attrs({
@@ -51,8 +51,8 @@ export const InfoContent = styled.div.attrs({
   font-weight: 400;
 `;
 
-export const TimeLocationContatiner = styled.div.attrs({
-  className: "TimeLocationContatiner",
+export const ExtraDetailsContatiner = styled.div.attrs({
+  className: "ExtraDetailsContatiner",
 })`
   margin-top: 10px;
   width: 100%;
@@ -60,19 +60,20 @@ export const TimeLocationContatiner = styled.div.attrs({
   color: #333;
 `;
 
-export const TimeLocationWrapper = styled.div.attrs({
-  className: "TimeLocation Wrapper",
+export const ExtraDetailsWrapper = styled.div.attrs({
+  className: "ExtraDetails Wrapper",
 })`
   color: #333;
   font-size: 12px;
   font-weight: 400;
   display: flex;
-  align-items: center;
   gap: 10px;
+  display: flex;
+  align-items: center;
 `;
 
-export const TimeLocationContent = styled.div.attrs({
-  className: "TimeLocationContent",
+export const ExtraDetailsContent = styled.div.attrs({
+  className: "ExtraDetailsContent",
 })`
   margin: 5px;
   color: #333;

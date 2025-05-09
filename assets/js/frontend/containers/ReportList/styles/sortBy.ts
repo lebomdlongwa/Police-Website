@@ -58,6 +58,7 @@ export const Options = styled.div.attrs<{ active: boolean }>({
   align-items: center;
   margin-right: 20px;
   cursor: pointer;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 `;
 
 export const XIcon = styled.div.attrs<{ active: boolean }>({

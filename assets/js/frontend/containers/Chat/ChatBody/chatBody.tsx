@@ -8,8 +8,8 @@ import * as styled from "./styles/chatBody";
 import { ThreeDotsIcon } from "../../../components/icons/threeDots";
 import { Color } from "../../../components/colorCodes";
 import { ClipIcon } from "../../../components/icons/clip";
-import { FlyingEnvelopeIcon } from "../../../components/icons/flyingEnvelope";
-import { ChatIcon } from "../../../components/icons/chat";
+import { Icon } from "../../../components/icons";
+import { find } from "lodash";
 
 type ChatBodyProps = {
   currentChannel: Channel;
@@ -55,6 +55,9 @@ export const ChatBody = (props: ChatBodyProps) => {
 
   if (threadsObject) {
     const { threads, recipients } = threadsObject;
+    const recipient = find(recipients, { id: activeRecipientId });
+    const recipientName = `${recipient?.name} ${recipient?.surname}`;
+
     const thread = threads.filter(
       (thread) =>
         thread.thread_users.filter((user) => user.id === activeRecipientId)
@@ -64,7 +67,7 @@ export const ChatBody = (props: ChatBodyProps) => {
     return (
       <styled.ChatBodyWrapper>
         <styled.Header>
-          {userName}
+          {recipientName || userName}
           <styled.HeaderOptions>
             <ThreeDotsIcon size={17} color={Color.lightBlack} />
           </styled.HeaderOptions>
@@ -74,7 +77,7 @@ export const ChatBody = (props: ChatBodyProps) => {
           isMessagesValid={!isMessagesValid || !currentThreadId}
         >
           {!isMessagesValid || !currentThreadId ? (
-            <ChatIcon size={200} color={Color.gray} />
+            <Icon name="squareChat" size={300} />
           ) : (
             <>
               <styled.Chats ref={chatsRef}>
@@ -85,19 +88,21 @@ export const ChatBody = (props: ChatBodyProps) => {
                 />
               </styled.Chats>
               <styled.MessageBoxContainer>
+                <styled.ButtonWrapper>
+                  <ClipIcon size={27} color={Color.darkCyan} />
+                </styled.ButtonWrapper>
                 <styled.MessageBoxWrapper>
                   <styled.MessageBox
                     placeholder="Type a message..."
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                   />
-                  <styled.ButtonWrapper>
-                    <ClipIcon size={15} color={Color.gray} />
-                    <styled.SendButton onClick={handleSendMessage}>
-                      <FlyingEnvelopeIcon size={15} />
-                    </styled.SendButton>
-                  </styled.ButtonWrapper>
                 </styled.MessageBoxWrapper>
+                <styled.ButtonWrapper>
+                  <styled.SendButton onClick={handleSendMessage}>
+                    <Icon name="send" size={30} />
+                  </styled.SendButton>
+                </styled.ButtonWrapper>
               </styled.MessageBoxContainer>
             </>
           )}

@@ -5,6 +5,7 @@ import { find, isEmpty } from "lodash";
 import * as styled from "./styles/index";
 
 import { AvatarComponent } from "../../../components/Avatar/avatar";
+import { AvatarColors } from "../../../components/colorCodes";
 
 type ChatSideBarProps = {
   onSetActiveRecipientId: (id: string) => void;
@@ -38,6 +39,9 @@ export const ChatSideBar = (props: ChatSideBarProps) => {
               const lastMessage = thread.messages.slice(-1)[0];
               const isLastMessageRecipient =
                 lastMessage?.author_id === recipient?.id;
+              const avatarColors = Object.values(AvatarColors);
+              const avatarColor =
+                avatarColors[Number(recipient?.id) % avatarColors.length];
 
               return (
                 <styled.UserChatWrapper
@@ -50,6 +54,7 @@ export const ChatSideBar = (props: ChatSideBarProps) => {
                     <AvatarComponent
                       initials={recipient?.avatar}
                       avatarSize={37}
+                      color={avatarColor}
                     />
                     <styled.UserMessageWrapper>
                       <styled.UserTimestampWrapper>

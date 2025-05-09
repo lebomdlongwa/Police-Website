@@ -125,7 +125,7 @@ export const Notification = styled.div.attrs({
 })`
   width: 16px;
   height: 16px;
-  background-color: ${Color.darkBlue};
+  background-color: ${Color.red};
   display: flex;
   justify-content: center;
   align-items: center;

@@ -9,15 +9,16 @@ import AddFormComponent from "./AddForm/addForm";
 import { useUser } from "../userContext";
 import { AvatarComponent } from "../../components/Avatar/avatar";
 import { DeleteModal } from "../../components/DeleteModal";
+import { Icon } from "../../components/icons";
 
 type IdPpComponentProps = {
   item?: IdItem;
   setIdList?: (list: IdItem[]) => void;
-  color?: string;
+  avatarColor?: string;
 };
 
 export const IdPpComponent = (props: IdPpComponentProps) => {
-  const { item, setIdList } = props;
+  const { item, setIdList, avatarColor } = props;
 
   const [showAddForm, setShowAddForm] = useState(false);
   const [edit, setEdit] = useState(false);
@@ -41,21 +42,21 @@ export const IdPpComponent = (props: IdPpComponentProps) => {
       <styled.ItemContainer>
         <styled.ItemWrapper>
           <styled.Item admin={admin}>
-            <AvatarComponent initials={initials} />
+            <AvatarComponent square color={avatarColor} initials={initials} />
             <styled.ItemContent>
               <styled.FullName>
                 <styled.Content>{fullname}</styled.Content>
               </styled.FullName>
               <styled.IdNumber>
                 <styled.Icon>
-                  <IdIcon h={22} w={22} />
+                  <IdIcon size={22} />
                   <styled.IconLabel>ID NUMBER</styled.IconLabel>
                 </styled.Icon>
                 <styled.Content>{item.idNumber}</styled.Content>
               </styled.IdNumber>
               <styled.DateLost>
                 <styled.Icon>
-                  <CalendarIcon />
+                  <Icon name="calendar" size={16} />
                   <styled.IconLabel>DATE ADDED</styled.IconLabel>
                 </styled.Icon>
                 <styled.Content>{item.dateLost}</styled.Content>
@@ -71,13 +72,13 @@ export const IdPpComponent = (props: IdPpComponentProps) => {
                 }}
               >
                 <styled.ButtonIcon>
-                  <EditIcon h={24} w={24} />
+                  <Icon name="edit" size={20} />
                 </styled.ButtonIcon>
               </styled.Button>
               <styled.ButtonDivider />
               <styled.Button onClick={handleDeleteStatus}>
                 <styled.ButtonIcon>
-                  <TrashIcon h={20} w={20} />
+                  <Icon name="trash" size={18} />
                 </styled.ButtonIcon>
               </styled.Button>
             </styled.ButtonsWrapper>
