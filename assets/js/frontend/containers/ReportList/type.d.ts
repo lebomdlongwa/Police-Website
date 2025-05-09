@@ -5,7 +5,11 @@ type ReportParams = {
   grade: string;
   accused: string;
   brief_circumstance: string;
+  crime_type: CrimeType;
+  solved?: boolean;
 };
+
+type CrimeType = "theft" | "murder" | "assult" | "phyicalAbuse" | "childAbuse";
 
 type SortByType = "officer" | "grade";
 
@@ -19,6 +23,9 @@ type ReportItem = {
   brief_circumstance: string;
   report_date?: string;
   case_number?: string;
+  action_taken: string;
+  crime_type: CrimeType;
+  solved: boolean;
 };
 
 type ReportsList = {

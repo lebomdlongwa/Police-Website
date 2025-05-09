@@ -26,9 +26,8 @@ defmodule ReportAppWeb.Api.ReportController do
   def update(conn, %{"id" => id, "params" => params}) do
     report = Reports.get_report!(id)
 
-    with {:ok, %Report{}} <- Reports.update_report(report, params) do
-      reports = Reports.list_reports()
-      render(conn, "index.json", reports: reports)
+    with {:ok, %Report{} = report} <- Reports.update_report(report, params) do
+      render(conn, "show.json", report: report)
     end
   end
 

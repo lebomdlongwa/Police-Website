@@ -22,6 +22,7 @@ export const ReportList = () => {
   const [showReportModal, setShowReportModal] = useState(false);
   const [searchedReportId, setSearchedReportId] = useState<string>(null);
 
+  const handleSetReportList = (list: ReportItem[]) => setReportList(list);
   const handleShowReportModal = () => setShowReportModal(!showReportModal);
   const handleSetSearchIdNull = () => setSearchedReportId(null);
 
@@ -47,10 +48,22 @@ export const ReportList = () => {
   const handleUpdateReport = async (
     id: string,
     params: Partial<ReportParams>
-  ) => {
-    const response = await updateReport(id, params);
-    setReportList(response);
-  };
+  ) =>
+    updateReport(id, params)
+      .then((report: ReportItem) => {
+        const updatedList = reportList.map((item) => {
+          if (item.id === report.id) {
+            return {
+              ...report,
+            };
+          } else {
+            return item;
+          }
+        });
+
+        return setReportList(updatedList);
+      })
+      .catch((err) => err);
 
   const handleDeleteReport = async (id: string) => {
     const response = await deleteReport(id);

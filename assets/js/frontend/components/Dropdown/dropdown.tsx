@@ -1,7 +1,10 @@
 import React, { useState, useRef, useEffect, ReactNode } from "react";
+
+import { isEmpty } from "lodash";
+
 import { Color } from "../colorCodes";
 import * as styled from "./styles/dropdown";
-import { isEmpty } from "lodash";
+import OnClickOutside from "../OnClickOutside";
 
 export type DropdownProps = {
   maxHeight?: number;
@@ -12,11 +15,12 @@ export type DropdownProps = {
   fontSize?: number;
   fontColorOnHover?: string;
   children?: ReactNode;
-  options?: any[] | React.JSX.Element;
-  displayDropdown: boolean;
+  options: any[] | React.JSX.Element;
+  displayDropdown?: boolean;
   isSearch?: boolean;
   isOptionsList?: boolean;
   borderTop?: boolean;
+  fn: (value: string) => void;
 };
 
 export const Dropdown = (props: DropdownProps) => {
@@ -34,8 +38,10 @@ export const Dropdown = (props: DropdownProps) => {
     isSearch = false,
     isOptionsList = true,
     borderTop = true,
+    fn,
   } = props;
 
+  const [display, setDisplay] = useState(false);
   const [distanceToTop, setDistToTop] = useState(0);
   const [dropdownWidth, setDropdownWidth] = useState(0);
   const [distanceToLeft, setDistToLeft] = useState(0);
@@ -49,7 +55,7 @@ export const Dropdown = (props: DropdownProps) => {
     fontColor,
     fontColorOnHover,
     fontSize,
-    displayDropdown,
+    displayDropdown: isSearch ? displayDropdown : display,
     isSearch,
     isOptionsList,
     borderTop,
@@ -59,19 +65,10 @@ export const Dropdown = (props: DropdownProps) => {
     const measureDistance = () => {
       if (childrenRef.current) {
         const select = childrenRef.current.getBoundingClientRect();
-        const parentElement = childrenRef.current;
-        const firstChild = parentElement.children[0];
 
-        const style = window.getComputedStyle(firstChild);
-
-        const marginRight = parseInt(style.marginRight || "0", 10) || 0;
-        const marginLeft = parseInt(style.marginLeft || "0", 10) || 0;
-        const marginTop = parseInt(style.marginTop || "0", 10) || 0;
-        const marginBottom = parseInt(style.marginBottom || "0", 10) || 0;
-
-        setDropdownWidth(select.width - marginRight - marginLeft);
-        setDistToLeft(select.left - marginLeft);
-        setDistToTop(select.bottom - marginTop - marginBottom);
+        setDropdownWidth(select.width);
+        setDistToLeft(select.left);
+        setDistToTop(select.bottom);
       }
     };
 
@@ -92,29 +89,37 @@ export const Dropdown = (props: DropdownProps) => {
   const dropdownDistToLeft = width ? distanceToLeftWidth : distanceToLeft;
 
   return (
-    <styled.DropdownContainer>
-      <styled.Children borderTop={borderTop} ref={childrenRef}>
-        {children}
-      </styled.Children>
-      <styled.DropdownWrapper
-        distanceToTop={distanceToTop}
-        dropdownWidth={dropdownWidth}
-        dropdownDistToLeft={dropdownDistToLeft}
-        dropdownSettings={dropdownSettings}
-      >
-        <styled.OptionsWrapper>
-          {isOptionsList
-            ? !isEmpty(options) &&
-              (options as any[]).map((option) => (
-                <styled.OptionContainer dropdownSettings={dropdownSettings}>
-                  <styled.Option dropdownSettings={dropdownSettings}>
-                    {option}
-                  </styled.Option>
-                </styled.OptionContainer>
-              ))
-            : options}
-        </styled.OptionsWrapper>
-      </styled.DropdownWrapper>
-    </styled.DropdownContainer>
+    <OnClickOutside
+      onClickOutsideFn={() => setDisplay(false)}
+      isSearch={isSearch}
+    >
+      <styled.DropdownContainer onClick={() => setDisplay(!display)}>
+        <styled.Children borderTop={borderTop} ref={childrenRef}>
+          {children}
+        </styled.Children>
+        <styled.DropdownWrapper
+          distanceToTop={distanceToTop}
+          dropdownWidth={dropdownWidth}
+          dropdownDistToLeft={dropdownDistToLeft}
+          dropdownSettings={dropdownSettings}
+        >
+          <styled.OptionsWrapper>
+            {isOptionsList
+              ? !isEmpty(options) &&
+                (options as any[]).map((option) => (
+                  <styled.OptionContainer
+                    dropdownSettings={dropdownSettings}
+                    onClick={() => fn(option)}
+                  >
+                    <styled.Option dropdownSettings={dropdownSettings}>
+                      {option}
+                    </styled.Option>
+                  </styled.OptionContainer>
+                ))
+              : options}
+          </styled.OptionsWrapper>
+        </styled.DropdownWrapper>
+      </styled.DropdownContainer>
+    </OnClickOutside>
   );
 };
