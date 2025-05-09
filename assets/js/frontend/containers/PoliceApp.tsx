@@ -34,14 +34,22 @@ const PoliceApp = () => {
   const { updateUser } = useUser();
   const [currentUser, setCurrentUser] = useState(null);
 
-  const handleCurrentUser = (user: UserObject) => setCurrentUser(user);
+  const handleCurrentUser = (user: UserObject) => {
+    updateUser(user);
+    setCurrentUser(user);
+  };
   const token = sessionStorage.getItem("token") || null;
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const response = await getUser(token);
-      updateUser(response);
-      setCurrentUser(response);
+    const fetchUser = () => {
+      getUser(token)
+        .then((res) => {
+          updateUser(res);
+          setCurrentUser(res);
+        })
+        .catch((err) => {
+          return err;
+        });
     };
 
     if (!currentUser) {

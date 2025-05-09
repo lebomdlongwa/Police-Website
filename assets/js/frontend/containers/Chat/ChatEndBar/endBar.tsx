@@ -4,6 +4,7 @@ import { GeneralInfoComponent } from "./GeneralInfo/generalInfo";
 import { DeleteIcon } from "../../../components/icons/delete";
 import { SinglePersonIcon } from "../../../components/icons/singlePerson";
 import { ThreeDotsIcon } from "../../../components/icons/threeDots";
+import { Color } from "../../../components/colorCodes";
 
 type ChatEndBarProps = {
   ShowPersonDetails: VoidCallBack;
@@ -17,10 +18,10 @@ export const ChatEndBar = (props: ChatEndBarProps) => {
       <styled.Header>
         <styled.HeaderButtonsWrapper>
           <styled.Button onClick={ShowPersonDetails}>
-            <DeleteIcon size={25} color="gray" />
+            <DeleteIcon size={25} color={Color.red} />
           </styled.Button>
           <styled.Button active={true}>
-            <SinglePersonIcon size={25} color="gray" />
+            <SinglePersonIcon size={25} color={Color.veryDarkBlue} />
           </styled.Button>
         </styled.HeaderButtonsWrapper>
       </styled.Header>
