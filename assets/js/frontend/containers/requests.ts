@@ -38,7 +38,7 @@ type ToastMessages = {
 
 export const httpPost = (
   path: string,
-  params: object,
+  params: object | string,
   toastMessages?: ToastMessages
 ) =>
   toast.promise(
@@ -53,8 +53,8 @@ export const httpPost = (
         .catch((error) => reject(error))
     ),
     {
-      success: toastMessages.successMessage,
-      error: toastMessages.errorMessage,
+      success: toastMessages?.successMessage,
+      error: toastMessages?.errorMessage,
     },
     {
       position: "bottom-left",
@@ -85,8 +85,8 @@ export const httpPut = async (
         .catch((error) => reject(error))
     ),
     {
-      success: toastMessages.successMessage,
-      error: toastMessages.errorMessage,
+      success: toastMessages?.successMessage,
+      error: toastMessages?.errorMessage,
     },
     {
       position: "bottom-left",
@@ -111,8 +111,8 @@ export const httpDelete = async (
         .catch((error) => reject(error))
     ),
     {
-      success: toastMessages.successMessage,
-      error: toastMessages.errorMessage,
+      success: toastMessages?.successMessage,
+      error: toastMessages?.errorMessage,
     },
     {
       position: "bottom-left",

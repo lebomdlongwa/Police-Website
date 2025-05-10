@@ -40,7 +40,7 @@ defmodule ReportApp.Messenger.Messages do
   def set_seen_true(thread_id) do
     from(m in Message,
       where: m.thread_id == ^thread_id,
-      where: m.seen != true,
+      where: m.seen == false,
       update: [set: [seen: true]]
     )
     |> Repo.update_all([])

@@ -6,6 +6,7 @@ import * as styled from "./styles/index";
 
 import { AvatarComponent } from "../../../components/Avatar/avatar";
 import { AvatarColors } from "../../../components/colorCodes";
+import { setSeenTrue } from "../actions";
 
 type ChatSideBarProps = {
   onSetActiveRecipientId: (id: string) => void;
@@ -13,6 +14,10 @@ type ChatSideBarProps = {
   threadsObject: ThreadsObject;
   activeRecipientId: string;
   onSetCurrentThreadId: (id: string) => void;
+  currentConvoIdRef: React.MutableRefObject<any>;
+  onUpdateThreadsObj: (
+    obj: ThreadsObject | ((prev: ThreadsObject) => ThreadsObject)
+  ) => void;
 };
 
 export const ChatSideBar = (props: ChatSideBarProps) => {
@@ -21,6 +26,8 @@ export const ChatSideBar = (props: ChatSideBarProps) => {
     onSetCurrentThreadId,
     threadsObject,
     userId,
+    currentConvoIdRef,
+    onUpdateThreadsObj,
   } = props;
 
   if (threadsObject) {
@@ -37,19 +44,44 @@ export const ChatSideBar = (props: ChatSideBarProps) => {
               )[0];
               const recipient = find(recipients, { id: chatRecipient.id });
               const lastMessage = thread.messages.slice(-1)[0];
-              const isLastMessageRecipient =
-                lastMessage?.author_id === recipient?.id;
               const avatarColors = Object.values(AvatarColors);
               const avatarColor =
                 avatarColors[Number(recipient?.id) % avatarColors.length];
 
+              const handleRecipientClick = () => {
+                onSetActiveRecipientId(recipient?.id);
+                onSetCurrentThreadId(thread.id);
+                currentConvoIdRef.current = thread.id;
+
+                setSeenTrue(thread.id)
+                  .then(() => {
+                    onUpdateThreadsObj((prev) => {
+                      return {
+                        ...prev,
+                        threads: prev.threads.map((thd: Thread) => {
+                          if (thd.id !== currentConvoIdRef.current) return thd;
+
+                          return {
+                            ...thd,
+                            messages: thd.messages.map((msg) =>
+                              msg.seen ? msg : { ...msg, seen: true }
+                            ),
+                          };
+                        }),
+                      };
+                    });
+                  })
+                  .catch((err) =>
+                    console.log("Error while updating threadsObject", err)
+                  );
+              };
+
+              const unSeenMessagesCount = (thread.messages || []).filter(
+                (message) => !message.seen
+              ).length;
+
               return (
-                <styled.UserChatWrapper
-                  onClick={() => {
-                    onSetActiveRecipientId(recipient?.id);
-                    onSetCurrentThreadId(thread.id);
-                  }}
-                >
+                <styled.UserChatWrapper onClick={handleRecipientClick}>
                   <styled.UserChatContainer>
                     <AvatarComponent
                       initials={recipient?.avatar}
@@ -65,8 +97,10 @@ export const ChatSideBar = (props: ChatSideBarProps) => {
                       </styled.UserTimestampWrapper>
                       <styled.MessageNotificationWrapper>
                         <styled.Message>{lastMessage?.content}</styled.Message>
-                        {isLastMessageRecipient && (
-                          <styled.Notification>1</styled.Notification>
+                        {unSeenMessagesCount > 0 && (
+                          <styled.Notification>
+                            {unSeenMessagesCount}
+                          </styled.Notification>
                         )}
                       </styled.MessageNotificationWrapper>
                     </styled.UserMessageWrapper>

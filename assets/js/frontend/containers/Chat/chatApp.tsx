@@ -6,7 +6,7 @@ import { Channel } from "phoenix";
 import { ChatSideBar } from "./ChatSideBar";
 import { ChatBody } from "./ChatBody/chatBody";
 import { ChatEndBar } from "./ChatEndBar/endBar";
-import { fetchUserThreads } from "./actions";
+import { fetchUserThreads, setSeenTrue } from "./actions";
 import * as styled from "./styles/chatApp";
 
 import { socket } from "../../socket";
@@ -22,11 +22,14 @@ export const ChatAppComponent = () => {
     threads: [],
   });
   const channelsRef = useRef<Record<string, Channel>>({});
+  const currentConvoIdRef = useRef(null);
   const { user } = useUser();
 
   const handleShowPersonDetails = () => setShowPersonDetails(false);
   const handleSetActiveRecipientId = (id: string) => setActiveRecipientId(id);
   const handleSetCurrentThreadId = (id: string) => setCurrentThreadId(id);
+  const handleUpdateThreadsObject = (obj: ThreadsObject) =>
+    setThreadsObject(obj);
 
   const isLoading = !user?.id || isEmpty(threadsObject.threads);
   const isMessagesValid = true;
@@ -49,29 +52,32 @@ export const ChatAppComponent = () => {
         channelsRef.current[thread.id] = channel;
 
         channel.on("new_message", (payload) => {
-          const messageObject = payload.message.data;
-          console.log(
-            "New message received",
-            messageObject,
-            threadsObject.threads,
-            res
-          );
+          const messageObj = payload.message.data;
+          const isMessageFromCurrentThread =
+            messageObj.thread_id === currentConvoIdRef.current;
+          const updatedMessageObj = isMessageFromCurrentThread
+            ? { ...messageObj, seen: true }
+            : messageObj;
 
-          const updatedThreads = res.threads.map((thread) => {
-            if (thread.id === messageObject.thread_id) {
+          if (isMessageFromCurrentThread) {
+            setSeenTrue(messageObj.thread_id);
+          }
+
+          setThreadsObject((prev) => {
+            const updatedThreads = prev.threads.map((thread) => {
+              if (thread.id !== messageObj.thread_id) return thread;
+
               return {
                 ...thread,
-                messages: [...thread.messages, messageObject],
+                messages: [...thread.messages, updatedMessageObj],
               };
-            } else {
-              return thread;
-            }
-          });
+            });
 
-          setThreadsObject((prev) => ({
-            ...prev,
-            threads: updatedThreads,
-          }));
+            return {
+              ...prev,
+              threads: updatedThreads,
+            };
+          });
         });
       });
     });
@@ -95,15 +101,16 @@ export const ChatAppComponent = () => {
             userId={user?.id}
             activeRecipientId={activeRecipientId}
             onSetCurrentThreadId={handleSetCurrentThreadId}
+            currentConvoIdRef={currentConvoIdRef}
+            onUpdateThreadsObj={handleUpdateThreadsObject}
           />
           <ChatBody
             currentChannel={currentChannel}
             isMessagesValid={isMessagesValid}
             threadsObject={threadsObject}
             activeRecipientId={activeRecipientId}
-            userId={user?.id}
             currentThreadId={currentThreadId}
-            userName={`${user?.name} ${user?.surname}`}
+            user={user}
           />
           {isMessagesValid && showPersonDetails && (
             <ChatEndBar ShowPersonDetails={handleShowPersonDetails} />
