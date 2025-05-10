@@ -1,7 +1,7 @@
 defmodule ReportAppWeb.Api.ThreadController do
   use ReportAppWeb, :controller
 
-  alias ReportApp.Messenger.Threads
+  alias ReportApp.Messenger.{Threads, Messages}
 
   def get_user_threads(conn, _params) do
     with user_id when not is_nil(user_id) <- get_session(conn, :user_id),
@@ -11,9 +11,14 @@ defmodule ReportAppWeb.Api.ThreadController do
     end
   end
 
-  # def setSeenTrue(conn, %{"thread_id" => thread_id}) do
-
-  # end
+  def setSeenTrue(conn, %{"params" => thread_id}) do
+    IO.inspect(thread_id)
+    with {count, _} <- Messages.set_seen_true(thread_id) do
+      # thread = Threads.get_thread!(id)
+      # render(conn, "show.json", thread: thread)
+      json(conn, %{})
+    end
+  end
 
   # def show(conn, %{"id" => id}) do
   #   thread = Threads.get_thread!(id)

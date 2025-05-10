@@ -11,8 +11,6 @@ export const GeneralInfoComponent = () => {
   const colors = Object.values(AvatarColors);
   const avatarColor = colors[user.id % colors.length];
 
-  console.log(user);
-
   return (
     <styled.GeneralCardWrapper>
       <styled.GeneralCardContent>

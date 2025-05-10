@@ -130,5 +130,5 @@ export const Notification = styled.div.attrs({
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  font-size: 11.5px;
+  font-size: 10px;
 `;

@@ -13,7 +13,7 @@ defmodule ReportApp.Messenger.Schemas.Message do
 
   schema "message" do
     field :content, :string
-    field :seen, :boolean
+    field :seen, :boolean, default: false
 
     belongs_to :author, User
     belongs_to :recipient, User
