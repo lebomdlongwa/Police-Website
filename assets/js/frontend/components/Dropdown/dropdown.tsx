@@ -20,7 +20,7 @@ export type DropdownProps = {
   isSearch?: boolean;
   isOptionsList?: boolean;
   borderTop?: boolean;
-  fn: (value: string) => void;
+  fn?: (value: string) => void;
 };
 
 export const Dropdown = (props: DropdownProps) => {

@@ -13,4 +13,8 @@ defmodule ReportAppWeb.ErrorView do
   def template_not_found(template, _assigns) do
     Phoenix.Controller.status_message_from_template(template)
   end
+
+  def render("index.json", %{error: error}) do
+    %{error: error}
+  end
 end

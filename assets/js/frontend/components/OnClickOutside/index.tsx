@@ -7,8 +7,8 @@ type OnClickOutsideProps = {
   isSearch?: boolean;
 };
 
-const Wrapper = styled.div.attrs<{ isSearch?: boolean }>({
-  className: "Wrapper",
+const OnClickOutsideWrapper = styled.div.attrs<{ isSearch?: boolean }>({
+  className: "OnClickOutsideWrapper",
 })`
   ${({ isSearch }) => !isSearch && "width: 100%"}
 `;
@@ -18,7 +18,7 @@ interface WrapperElement extends HTMLDivElement {
 }
 
 const OnClickOutside = (props: OnClickOutsideProps) => {
-  const { children, onClickOutsideFn, isSearch } = props;
+  const { children, onClickOutsideFn, isSearch = false } = props;
 
   const wrapperRef = useRef<WrapperElement>();
 
@@ -37,9 +37,9 @@ const OnClickOutside = (props: OnClickOutsideProps) => {
   }, [onClickOutsideFn]);
 
   return (
-    <Wrapper isSearch={isSearch} ref={wrapperRef}>
+    <OnClickOutsideWrapper isSearch={isSearch} ref={wrapperRef}>
       {children}
-    </Wrapper>
+    </OnClickOutsideWrapper>
   );
 };
 

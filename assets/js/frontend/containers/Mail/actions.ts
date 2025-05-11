@@ -2,7 +2,7 @@ import { httpDelete, httpGet, httpPost, httpPut } from "../requests";
 
 const path = "/mail";
 
-export const getMails = async (): Promise<Mail[] | Mail> => await httpGet(path);
+export const getMails = (): Promise<Mail[]> => httpGet(path);
 
 export const getMail = async (id: string): Promise<Mail[] | Mail> =>
   await httpGet(`${path}/${id}`);

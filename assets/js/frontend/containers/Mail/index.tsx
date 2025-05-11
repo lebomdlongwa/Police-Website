@@ -11,20 +11,22 @@ import * as styled from "./styles/index";
 
 import { SearchComponent } from "../../components/SearchComponent/search";
 import { Color } from "../../components/colorCodes";
-import OnClickOutside from "../../components/OnClickOutside";
-import { fetchData } from "../requests";
 import { socket } from "../../socket";
 import { Spinner } from "../../components/Spinner";
+import { NoDataComponent } from "../../components/NoData";
 
 export const MailBox = () => {
-  const [mails, setMails] = useState<Mail[]>([]);
+  const [mails, setMails] = useState<Mail[]>(null);
   const [searchClicked, setSearchClicked] = useState(false);
   const [selectedMailId, setSelectedMailId] = useState(null);
+  const [noData, setNoData] = useState(false);
 
   const [currentTab, setCurrentTab] = useState("All Mails");
   const navigate = useNavigate();
 
-  const renderMailList = () => {
+  const renderMailList = (() => {
+    if (isEmpty(mails)) return;
+
     switch (currentTab) {
       case "All Mails":
         return mails.filter((mail) => mail.rejected !== true);
@@ -34,21 +36,27 @@ export const MailBox = () => {
         return mails.filter((mail) => mail.type === "person");
       case "Rejected Reports":
         return mails.filter((mail) => mail.rejected === true);
+      default:
+        return mails.filter((mail) => mail.rejected !== true);
     }
+  })();
+
+  const handleDeleteMail = (id: string) => {
+    deleteMail(id)
+      .then((response) => setMails(response))
+      .catch((err) => err);
   };
 
-  const handleDeleteMail = async (id: string) => {
-    const response = await deleteMail(id);
-    setMails(response);
-  };
-
-  const handleRejectMail = async (id: string) => {
-    const response = await rejectMail(id, { rejected: true });
-    setMails(response);
+  const handleRejectMail = (id: string) => {
+    rejectMail(id, { rejected: true })
+      .then((response) => setMails(response))
+      .catch((err) => err);
   };
 
   const handleSelectedMailId = (id: string) => setSelectedMailId(id);
   const handleCurrentTab = (label: string) => setCurrentTab(label);
+  const handleSetMails = (mails: Mail[]) => setMails(mails);
+  const handleSetNoData = () => setNoData(true);
 
   const channel = socket.channel("mail:lobby", {});
 
@@ -73,7 +81,13 @@ export const MailBox = () => {
   }, [channel]);
 
   useEffect(() => {
-    fetchData(getMails, setMails);
+    getMails().then((res) => {
+      setMails(res);
+
+      if (isEmpty(res)) {
+        setNoData(true);
+      }
+    });
   }, []);
 
   useEffect(() => {
@@ -114,12 +128,13 @@ export const MailBox = () => {
       <styled.BackgroundPic>
         <styled.ContentWrapper>
           <styled.Header>
-            <OnClickOutside onClickOutsideFn={() => setSearchClicked(false)}>
-              <SearchComponent
-                {...searchProps}
-                onClick={() => setSearchClicked(true)}
-              />
-            </OnClickOutside>
+            <SearchComponent
+              {...searchProps}
+              onClick={() => setSearchClicked(true)}
+              itemList={mails}
+              searchValue="name"
+              handleDisplaySearchedItem={handleSelectedMailId}
+            />
           </styled.Header>
           <styled.MailsContainer>
             <styled.MailsHeader>
@@ -140,27 +155,35 @@ export const MailBox = () => {
               </styled.TabsWrapper>
             </styled.MailsHeader>
             <styled.MailsWrapper>
-              {isEmpty(mails) ? (
+              {noData && <NoDataComponent isEmail />}
+              {isEmpty(mails) && !noData ? (
                 <Spinner size={25} />
               ) : (
                 <>
-                  {!selectedMailId && !isEmpty(mails) ? (
-                    renderMailList().map((mail) => (
-                      <MailComponent
-                        key={mail.id}
-                        mail={mail}
-                        onClick={() => {
-                          handleSelectedMailId(mail.id);
-                          updateUrlWithMail(`?mailId=${mail.id}`);
-                        }}
-                      />
-                    ))
+                  {!selectedMailId ? (
+                    renderMailList?.length > 0 ? (
+                      renderMailList.map((mail) => (
+                        <MailComponent
+                          key={mail.id}
+                          mail={mail}
+                          onClick={() => {
+                            handleSelectedMailId(mail.id);
+                            updateUrlWithMail(`?mailId=${mail.id}`);
+                          }}
+                        />
+                      ))
+                    ) : (
+                      !noData && <NoDataComponent isEmail />
+                    )
                   ) : (
                     <MailModal
                       onCloseModal={handleSelectedMailId}
                       selectedMailId={selectedMailId}
                       onDelete={handleDeleteMail}
                       onReject={handleRejectMail}
+                      handleSetMails={handleSetMails}
+                      mails={mails}
+                      handleSetNoData={handleSetNoData}
                     />
                   )}
                 </>

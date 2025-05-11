@@ -10,7 +10,7 @@ export const Wrapper = styled.div.attrs({
   min-width: 1250px;
   min-height: 100vh;
   padding: 20px 30px;
-  background-color: ${Color.white};
+  background-color: ${Color.chalk};
 
   @media (max-width: 500px) {
     width: 100vw;
@@ -51,15 +51,21 @@ export const Body = styled.div.attrs({
   flex: 1;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: space-between;
 `;
 
 export const DetailsWrapper = styled.div.attrs({
   className: "DetailsWrapper",
 })`
-  margin-top: 50px;
+  width: 100%;
+  margin-top: 30px;
   display: flex;
-  position: relative;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  border-radius: 7px;
+  gap: 25px;
+  max-width: 1360px;
 
   @media (max-width: 500px) {
     display: block;
@@ -67,12 +73,11 @@ export const DetailsWrapper = styled.div.attrs({
   }
 `;
 
-export const PictureWrapper = styled.div.attrs({
+export const PictureWrapper = styled.div.attrs<{ isAdmin?: boolean }>({
   className: "PictureWrapper",
 })`
-  width: 35%;
-  height: 100%;
-  flex: 1;
+  width: 100%;
+  height: ${({ isAdmin }) => (isAdmin ? "450px" : "300px")};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -94,16 +99,10 @@ export const Picture = styled.img.attrs({
 
 export const PersonReportsWrapper = styled.div.attrs({
   className: "PersonReportsWrapper",
-})`
-  display: flex;
-  justify-content: flex-end;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-`;
+})``;
 
 export const PersonReportsButton = styled(Button).attrs({
-  className: "PersonReports",
+  className: "PersonReportsButton",
 })`
   padding: 10px 12px;
   display: flex;
@@ -114,9 +113,12 @@ export const Details = styled.div.attrs<{ admin: boolean }>({
   className: "Details",
 })`
   position: relative;
-  width: 65%;
-  padding-bottom: 30px;
+  width: 50%;
+  padding: 10px;
   border-bottom: ${({ admin }) => (admin ? "none" : "1px solid lightgray")};
+  border-radius: 7px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  background-color: ${Color.white};
 
   @media (max-width: 500px) {
     width: 100%;
@@ -145,12 +147,14 @@ export const DetailRows = styled.div.attrs<{ graybackground?: boolean }>({
 })`
   width: 100%;
   margin-bottom: 20px;
-  background-color: ${Color.grayLighter};
   height: 46px;
   display: flex;
   align-items: center;
   padding-left: 20px;
-  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.3);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 `;
 
 export const SubjectContentWrapper = styled.div.attrs({
@@ -160,12 +164,14 @@ export const SubjectContentWrapper = styled.div.attrs({
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 `;
 
 export const DetailSubject = styled.div.attrs({
   className: "DetailSubject",
 })`
   height: 100%;
+  width: 50%;
   color: ${Color.darkBlueFont};
   font-weight: 700;
   font-size: 18px;
@@ -179,14 +185,29 @@ export const DetailContent = styled.input.attrs({
   type: "text",
 })`
   height: 40px;
-  width: 100%;
-  background-color: ${Color.grayLighter};
+  width: 50%;
   color: ${Color.darkBlueFont};
+
   display: flex;
   align-items: center;
   outline: none;
   border: none;
   font-size: 16px;
+`;
+
+export const RightColumn = styled.div.attrs({
+  className: "RightColumn",
+})`
+  width: 35%;
+  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  border-radius: 7px;
+  background-color: ${Color.white};
 `;
 
 export const CallPolice = styled.div.attrs({
@@ -197,13 +218,15 @@ export const CallPolice = styled.div.attrs({
   height: 30vh;
 `;
 
-export const ButtonsWrapper = styled.div.attrs({
+export const ButtonsWrapper = styled.div.attrs<{ modalButton?: boolean }>({
   className: "ButtonsWrapper",
 })`
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: ${({ modalButton }) =>
+    modalButton ? "center" : "space-between"};
   align-items: flex-end;
+  padding: 0 40px;
 `;
 
 export const Footer = styled.div.attrs({

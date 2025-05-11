@@ -8,18 +8,21 @@ export const Wrapper = styled.div.attrs({
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: 30px;
   background-color: ${Color.chalk};
 `;
 
-export const ReportCasesWrapper = styled.div.attrs<{ center: boolean }>({
+export const ReportCasesWrapper = styled.div.attrs<{
+  isLoading: boolean;
+  noData: boolean;
+}>({
   className: "ReportCasesWrapper",
 })`
   width: 100%;
-  height: 100%;
   display: flex;
   flex-wrap: wrap;
-  flex-grow: 1;
   justify-content: space-between;
-  align-items: ${({ center }) => (center ? "center" : "flex-start")};
+  ${({ noData }) => (noData ? "height: 100vh" : "padding: 30px")};
+
+  ${({ isLoading }) =>
+    isLoading ? "align-items: center; flex: 1" : "flex-start"};
 `;

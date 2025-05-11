@@ -17,6 +17,10 @@ import home from "./home.png";
 import list from "./list.png";
 import passport from "./passport.png";
 import send from "./send.png";
+import empty from "./box.png";
+import redWarning from "./warning.png";
+import yellowWarning from "./complain.png";
+
 import * as styled from "./styles";
 
 type IconProps = {
@@ -47,6 +51,9 @@ export const Icon = (props: IconProps) => {
     list,
     passport,
     send,
+    redWarning,
+    yellowWarning,
+    empty,
   };
 
   return (

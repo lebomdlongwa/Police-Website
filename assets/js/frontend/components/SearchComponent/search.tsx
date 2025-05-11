@@ -65,6 +65,7 @@ export const SearchComponent = (props: SearchComponentProps) => {
         onClick={() => {
           handleDisplaySearchedItem(item.id);
           setSearchActive(false);
+          clearSearchTerm();
         }}
       >
         <styled.OptionNameAvatar
