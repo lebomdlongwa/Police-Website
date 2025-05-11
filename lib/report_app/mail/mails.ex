@@ -59,8 +59,8 @@ defmodule ReportApp.Mails do
         MailChannel.push_out!()
         {:ok, report_creation}
 
-      {:error, changeset} ->
-        {:error, changeset}
+      {:error, error} ->
+        {:error, error}
 
       nil ->
         {:error, "Report type undefined"}

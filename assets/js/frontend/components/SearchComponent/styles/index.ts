@@ -88,7 +88,6 @@ export const DropdownOption = styled.div.attrs({
 })`
   height: 50px;
   width: 100%;
-  padding: 0 20px;
   display: flex;
   align-items: center;
   gap: 20px;

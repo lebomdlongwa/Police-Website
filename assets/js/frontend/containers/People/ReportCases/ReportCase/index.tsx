@@ -24,8 +24,8 @@ export const ReportCase = (props: ReportCaseProps) => {
   );
 
   return (
-    <OnClickOutside onClickOutsideFn={() => setExpanded(false)}>
-      <styled.ReportItemWrapper>
+    <styled.ReportItemWrapper>
+      <OnClickOutside onClickOutsideFn={() => setExpanded(false)}>
         <Dropdown
           displayDropdown={expanded}
           isOptionsList={false}
@@ -58,7 +58,7 @@ export const ReportCase = (props: ReportCaseProps) => {
             <styled.CaseFooterContent>Viewed 0 times</styled.CaseFooterContent>
           </styled.CaseFooter>
         )}
-      </styled.ReportItemWrapper>
-    </OnClickOutside>
+      </OnClickOutside>
+    </styled.ReportItemWrapper>
   );
 };

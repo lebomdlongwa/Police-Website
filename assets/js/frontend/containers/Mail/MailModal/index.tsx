@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import * as styled from "./styles";
 import { createReport, getMail } from "../actions";
-import { isEmpty } from "lodash";
+import { find, isEmpty, reject } from "lodash";
 import { Button } from "../../../components/Button/button";
 
 type MailProps = {
@@ -9,25 +9,37 @@ type MailProps = {
   onCloseModal: (id: string) => void;
   onDelete: (id: string) => void;
   onReject: (id: string) => void;
+  handleSetMails: (mails: Mail[]) => void;
+  mails: Mail[];
+  handleSetNoData: () => void;
 };
 
 export const MailModal = (props: MailProps) => {
-  const { selectedMailId, onCloseModal, onDelete, onReject } = props;
+  const {
+    mails,
+    selectedMailId,
+    onCloseModal,
+    onDelete,
+    onReject,
+    handleSetMails,
+    handleSetNoData,
+  } = props;
 
-  const [mail, setMail] = useState<Mail>(null);
+  // const [mail, setMail] = useState<Mail>(null);
   const [formInput, setFormInput] = useState({
     grade: "",
     officer: "",
   });
+  const mail = find(mails, { id: selectedMailId });
 
-  useEffect(() => {
-    const fetchMail = async () => {
-      const response = await getMail(selectedMailId);
-      setMail(response as Mail);
-    };
+  // useEffect(() => {
+  //   const fetchMail = async () => {
+  //     const response = await getMail(selectedMailId);
+  //     setMail(response as Mail);
+  //   };
 
-    fetchMail();
-  }, []);
+  //   fetchMail();
+  // }, []);
 
   const isCrimeReport = mail?.type === "crime";
   const topLeftItemLabel = isCrimeReport ? "NAME" : "DATE SEEN";
@@ -59,7 +71,17 @@ export const MailModal = (props: MailProps) => {
         grade: formInput.grade,
       },
       isCrimeReport
-    );
+    )
+      .then(() => {
+        const updatedMails = reject(mails, { id: selectedMailId });
+        if (isEmpty(updatedMails)) {
+          handleSetNoData();
+        }
+
+        handleSetMails(updatedMails);
+      })
+      .catch((err) => err);
+
     onCloseModal(null);
   };
 

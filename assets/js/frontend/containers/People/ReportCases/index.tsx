@@ -8,15 +8,23 @@ import * as styled from "./styles/index";
 
 import { getMissingReports } from "../ReportModal/actions";
 import { Spinner } from "../../../components/Spinner";
+import { NoDataComponent } from "../../../components/NoData";
 
 export const ReportCasesComponent = () => {
   const [missingReports, setMissingReports] = useState([]);
+  const [noData, setNoData] = useState(false);
   const { id: url_id } = useParams();
   const isIdValid = url_id && url_id !== ":id";
+  const isLoading = isEmpty(missingReports) && !noData;
 
-  const handleGetMissingReports = async () => {
-    const response = await getMissingReports(url_id);
-    setMissingReports(response);
+  const handleGetMissingReports = () => {
+    getMissingReports(url_id).then((response) => {
+      setMissingReports(response);
+
+      if (isEmpty(response)) {
+        setNoData(true);
+      }
+    });
   };
 
   useEffect(() => {
@@ -27,8 +35,9 @@ export const ReportCasesComponent = () => {
 
   return (
     <styled.Wrapper>
-      <styled.ReportCasesWrapper center={isEmpty(missingReports)}>
-        {isEmpty(missingReports) ? (
+      <styled.ReportCasesWrapper isLoading={isLoading} noData={noData}>
+        {noData && <NoDataComponent />}
+        {isLoading ? (
           <Spinner size={30} />
         ) : (
           missingReports.map((missingReport) => (

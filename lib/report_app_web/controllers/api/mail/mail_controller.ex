@@ -1,4 +1,5 @@
 defmodule ReportAppWeb.Api.MailController do
+      alias ReportAppWeb.ErrorView
   use ReportAppWeb, :controller
 
   alias ReportApp.Mails
@@ -16,11 +17,11 @@ defmodule ReportAppWeb.Api.MailController do
 
   def create(conn, %{"params" => %{"id" => _} = params}) do
     case Mails.create_report(params) do
-      {:ok, report} ->
+      {:ok, _} ->
         render(conn, "delete.json", %{})
 
       {:error, error} ->
-        send_resp(conn, :unprocessable_entity, error)
+        ErrorView.render("index.json", %{error: error})
     end
   end
 

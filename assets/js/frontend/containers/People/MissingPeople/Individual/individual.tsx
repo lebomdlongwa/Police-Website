@@ -2,10 +2,7 @@ import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import * as styled from "./styles/individual";
 import { ReportButton } from "../ReportButtonModal";
 import { FormDerfinition } from "./utils/formDefinition";
-import {
-  DetailRowComponent,
-  DoubleDetailRowComponent,
-} from "./utils/groupedComponent";
+import { DetailRowComponent } from "./utils/groupedComponent";
 import {
   addMissingPerson,
   deleteMissingPerson,
@@ -58,22 +55,33 @@ export const IndividualComponent = () => {
   };
 
   const handleGetMissingPerson = async (id: string) => {
-    const response = await getMissingPerson(id);
-    setFormInputObj({ ...response });
+    getMissingPerson(id)
+      .then((response) => setFormInputObj({ ...response }))
+      .catch((err) => err);
   };
 
   const handleAddMissingPerson = async () => {
-    const response = await addMissingPerson(formInputObj);
-    navigate(routes.missing);
+    addMissingPerson(formInputObj)
+      .then((response) => {
+        setFormInputObj({ ...response });
+        navigate(routes.missing);
+      })
+      .catch((err) => err);
   };
 
   const handleUpdateMissingPerson = async () => {
-    const response = await updateMissingPerson(url_id, formInputObj);
-    setFormInputObj({ ...response });
+    updateMissingPerson(url_id, formInputObj)
+      .then((response) => setFormInputObj({ ...response }))
+      .catch((err) => err);
   };
 
   const handleDeleteMissingPerson = async () => {
-    const response = await deleteMissingPerson(url_id);
+    deleteMissingPerson(url_id)
+      .then(
+        (response) => response
+        // setFormInputObj({ ...response })
+      )
+      .catch((err) => err);
   };
 
   const addOrUpdate = () => {
@@ -84,12 +92,6 @@ export const IndividualComponent = () => {
     }
   };
 
-  const customStyles = {
-    position: "absolute",
-    bottom: "0",
-    right: "0",
-  };
-
   return (
     <styled.Wrapper>
       <styled.CaseHeader>{header}</styled.CaseHeader>
@@ -97,57 +99,44 @@ export const IndividualComponent = () => {
         <styled.DetailsWrapper>
           <styled.Details admin={admin}>
             {FormDerfinition &&
-              FormDerfinition.slice(0, 5).map((item) => (
+              FormDerfinition.map((item) => (
                 <DetailRowComponent
                   item={item}
                   onChange={onChange}
                   formInput={formInputObj}
                 />
               ))}
-            <styled.DoubleDetailRowWrapper>
-              {FormDerfinition &&
-                FormDerfinition.slice(5, 7).map((item) => (
-                  <DoubleDetailRowComponent
-                    item={item}
-                    onChange={onChange}
-                    formInput={formInputObj}
-                  />
-                ))}
-            </styled.DoubleDetailRowWrapper>
-            <styled.DoubleDetailRowWrapper>
-              {FormDerfinition &&
-                FormDerfinition.slice(7, 9).map((item) => (
-                  <DoubleDetailRowComponent
-                    item={item}
-                    onChange={onChange}
-                    formInput={formInputObj}
-                  />
-                ))}
-            </styled.DoubleDetailRowWrapper>
-            {admin && (
-              <Button
-                customStyles={customStyles}
-                text={isIdValid ? "Edit Person" : "Upload Person"}
-                onClick={addOrUpdate}
-              />
-            )}
-            {admin && (
-              <styled.PersonReportsWrapper>
-                <StyledLink to={`${routes.missing_person_reports}/${url_id}`}>
-                  <styled.PersonReportsButton text="View Reported Cases" />
-                </StyledLink>
-              </styled.PersonReportsWrapper>
-            )}
           </styled.Details>
-          <styled.PictureWrapper>
-            {admin && <PictureUpload />}
-            <styled.Picture src="" />
-            {/* <styled.Picture src={upload?.file_path} /> */}
-          </styled.PictureWrapper>
+          <styled.RightColumn>
+            <styled.PictureWrapper isAdmin={admin}>
+              {admin && <PictureUpload />}
+              <styled.Picture src="" />
+            </styled.PictureWrapper>
+            <styled.ButtonsWrapper>
+              {admin ? (
+                <>
+                  <Button
+                    text={isIdValid ? "Edit Person" : "Upload Person"}
+                    onClick={addOrUpdate}
+                    paddingSides={55}
+                  />
+                  <styled.PersonReportsWrapper>
+                    <StyledLink
+                      to={`${routes.missing_person_reports}/${url_id}`}
+                    >
+                      <styled.PersonReportsButton text="View Reported Cases" />
+                    </StyledLink>
+                  </styled.PersonReportsWrapper>
+                </>
+              ) : (
+                <styled.ButtonsWrapper modalButton={true}>
+                  {!admin && <ReportButton handleShowModal={handleShowModal} />}
+                </styled.ButtonsWrapper>
+              )}
+            </styled.ButtonsWrapper>
+          </styled.RightColumn>
         </styled.DetailsWrapper>
-        <styled.ButtonsWrapper>
-          {!admin && <ReportButton handleShowModal={handleShowModal} />}
-        </styled.ButtonsWrapper>
+
         {showReportModal && (
           <PeopleReportModal
             handleShowModal={handleShowModal}

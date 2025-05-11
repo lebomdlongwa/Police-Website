@@ -5,6 +5,8 @@ export const ReportItemWrapper = styled.div.attrs({
   className: "ReportItem",
 })`
   margin-bottom: 30px;
+  width: 42vw;
+  height: 66px;
 
   &:hover {
     transition: 0.3 ease-in;
@@ -15,10 +17,9 @@ export const ReportItemWrapper = styled.div.attrs({
 export const CaseBody = styled.div.attrs<{ expanded: boolean }>({
   className: "CaseBody",
 })`
-  width: 42vw;
-  height: 66px;
   padding: 10px 15px;
   border: 1px solid ${Color.lightgray};
+  border-bottom: 0;
   border-bottom: ${({ expanded }) => expanded && "none"};
   border-radius: 5px;
   display: flex;
