@@ -26,9 +26,9 @@ export const ChatMessage = styled.div.attrs({
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
 `;
 
-export const ChatAvatar = styled(AvatarComponent).attrs({
-  className: "ChatAvatar",
+export const ChatAvatarWrapper = styled.div.attrs({
+  className: "ChatAvatarWrapper",
 })`
-  width: 20px;
-  height: 20px;
+  width: 28px;
+  height: 28px;
 `;

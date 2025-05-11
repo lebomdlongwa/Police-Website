@@ -24,6 +24,26 @@ export const Header = styled.div.attrs({
   font-size: 18px;
 `;
 
+export const NewChat = styled.div.attrs({
+  className: "NewChat",
+})`
+  width: 90%;
+  height: 90%;
+  border-radius: 4px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${Color.darkCyan};
+  font-size: 16px;
+  font-weight: 600;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 export const UsersContainer = styled.div.attrs<{ active?: boolean }>({
   className: "UsersContainer",
 })`
@@ -36,7 +56,10 @@ export const UsersContainer = styled.div.attrs<{ active?: boolean }>({
   -ms-overflow-style: none;
 `;
 
-export const UserChatWrapper = styled.div.attrs<{ active?: boolean }>({
+export const UserChatWrapper = styled.div.attrs<{
+  active?: boolean;
+  noShadow?: true;
+}>({
   className: "UserChatWrapper",
 })`
   height: 65px;
@@ -44,6 +67,7 @@ export const UserChatWrapper = styled.div.attrs<{ active?: boolean }>({
   margin: auto;
   padding: 10px 0;
   display: flex;
+  justify-content: center;
   align-items: center;
   border-bottom: ${({ active }) =>
     active ? `none` : `2px solid ${Color.grayLighter} `};
@@ -51,7 +75,7 @@ export const UserChatWrapper = styled.div.attrs<{ active?: boolean }>({
 
   &:hover {
     transition: 0.3s ease-in;
-    background-color: #d3d3d3;
+    background-color: ${({ noShadow }) => (noShadow ? "none" : "#d3d3d3")};
     curser: pointer;
   }
 `;

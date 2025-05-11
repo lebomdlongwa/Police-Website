@@ -11,12 +11,15 @@ defmodule ReportAppWeb.Api.ThreadController do
     end
   end
 
-  def setSeenTrue(conn, %{"params" => thread_id}) do
-    IO.inspect(thread_id)
-    with {count, _} <- Messages.set_seen_true(thread_id) do
-      # thread = Threads.get_thread!(id)
-      # render(conn, "show.json", thread: thread)
+  def set_seen_true(conn, %{"params" => thread_id}) do
+    with {count, _} when is_integer(count) <- Messages.set_seen_true(thread_id) do
       json(conn, %{})
+    end
+  end
+
+  def initialize_thread(conn, %{"params" => params}) do
+    with {:ok, thread} <- Threads.initialize_thread(params) do
+      render(conn, "show.json", thread: thread)
     end
   end
 

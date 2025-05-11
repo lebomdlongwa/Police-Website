@@ -55,7 +55,8 @@ defmodule ReportAppWeb.Router do
     resources "/uploads", UploadController
     resources "/users", UserController
     get "/threads", ThreadController, :get_user_threads
-    post "/setSeenTrue", ThreadController, :setSeenTrue
+    post "/set_seen_true", ThreadController, :set_seen_true
+    post "/initialize_thread", ThreadController, :initialize_thread
     post "/fetch_user", UserController, :get_user
     post "/register", UserController, :create
     post "/login", SessionController, :login
