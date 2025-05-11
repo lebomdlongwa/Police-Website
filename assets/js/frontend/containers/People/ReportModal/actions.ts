@@ -2,27 +2,27 @@ import { httpGet, httpPost, httpPut, httpDelete } from "../../requests";
 
 const path = "/missing_reports";
 
-export const getMissingReports = async (
+export const getMissingReports = (
   id: string
 ): Promise<MissingReportParams[]> => {
-  return await httpGet(path, { id });
+  return httpGet(path, { id });
 };
 
-export const addMissingReport = async (
+export const addMissingReport = (
   params: MissingReportParams
 ): Promise<void> => {
-  return await httpPost(path, params);
+  return httpPost(path, params);
 };
 
-export const updateMissingReport = async (
+export const updateMissingReport = (
   id: string,
   params: MissingReportParams
 ): Promise<MissingReportParams> => {
   const url_object = { id, params };
-  const response = await httpPut(path, url_object);
+  const response = httpPut(path, url_object);
 
   return response;
 };
 
-export const deleteMissingReport = async (id: string): Promise<void> =>
-  await httpDelete(path, id);
+export const deleteMissingReport = (id: string): Promise<void> =>
+  httpDelete(path, id);

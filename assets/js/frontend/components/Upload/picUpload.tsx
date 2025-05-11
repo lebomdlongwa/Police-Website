@@ -18,7 +18,7 @@ export const PictureUpload = (props: PictureUploadProps) => {
     }
   };
 
-  const onUploadImg = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onUploadImg = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       console.log("Uploaded file:", file);

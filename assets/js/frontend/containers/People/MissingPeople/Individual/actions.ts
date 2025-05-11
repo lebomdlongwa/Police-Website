@@ -2,14 +2,13 @@ import { httpDelete, httpGet, httpPost, httpPut } from "../../../requests";
 
 const path = "/missing_people";
 
-export const getMissingPersons = async (): Promise<MissingPersonParams[]> =>
-  await httpGet(path);
+export const getMissingPersons = (): Promise<MissingPersonParams[]> =>
+  httpGet(path);
 
-export const getMissingPerson = async (
-  id: string
-): Promise<MissingPersonParams> => await httpGet(`${path}/${id}`);
+export const getMissingPerson = (id: string): Promise<MissingPersonParams> =>
+  httpGet(`${path}/${id}`);
 
-export const addMissingPerson = async (
+export const addMissingPerson = (
   params: MissingPersonParams
 ): Promise<void> => {
   const toastMessages = {
@@ -17,10 +16,10 @@ export const addMissingPerson = async (
     errorMessage: "Error while creating Missing Person",
   };
 
-  return await httpPost(path, params, toastMessages);
+  return httpPost(path, params, toastMessages);
 };
 
-export const updateMissingPerson = async (
+export const updateMissingPerson = (
   id: string,
   params: MissingPersonParams
 ): Promise<MissingPersonParams> => {
@@ -31,14 +30,14 @@ export const updateMissingPerson = async (
     errorMessage: "Error while updating Missing Person",
   };
 
-  return await httpPut(path, url_object, toastMessages);
+  return httpPut(path, url_object, toastMessages);
 };
 
-export const deleteMissingPerson = async (id: string): Promise<void> => {
+export const deleteMissingPerson = (id: string): Promise<void> => {
   const toastMessages = {
     successMessage: "Missing Person succesfully deleted",
     errorMessage: "Error while deleting Missing Person",
   };
 
-  return await httpDelete(path, id);
+  return httpDelete(path, id);
 };

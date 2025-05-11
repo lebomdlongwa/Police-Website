@@ -29,10 +29,10 @@ export const IdPpComponent = (props: IdPpComponentProps) => {
   const handleSetEdit = () => setEdit(!edit);
   const handleDeleteStatus = () => setDeleteActive(!deleteActive);
 
-  const handleDeleteItem = async () => {
-    const response = await deleteId(item.id);
-    setIdList(response);
-  };
+  const handleDeleteItem = () =>
+    deleteId(item.id)
+      .then((response) => setIdList(response))
+      .catch((err) => err);
 
   const fullname = item && `${item.name} ${item.surname}`;
   const initials = item && `${item.name[0]}`;

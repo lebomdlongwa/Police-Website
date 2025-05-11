@@ -2,18 +2,18 @@ import { httpDelete, httpGet, httpPost, httpPut } from "../requests";
 
 const path = "/lost_ids";
 
-export const fetchIds = async () => await httpGet(path);
+export const fetchIds = () => httpGet(path);
 
-export const createId = async (params: IdPpParams) => {
+export const createId = (params: IdPpParams) => {
   const toastMessages = {
     successMessage: "Id Item succesfully created",
     errorMessage: "Error while creating Id Item",
   };
 
-  return await httpPost(path, params, toastMessages);
+  return httpPost(path, params, toastMessages);
 };
 
-export const updateId = async (id: string, params: Partial<IdPpParams>) => {
+export const updateId = (id: string, params: Partial<IdPpParams>) => {
   const url_object = { id, params };
 
   const toastMessages = {
@@ -21,14 +21,14 @@ export const updateId = async (id: string, params: Partial<IdPpParams>) => {
     errorMessage: "Error while updating Id List",
   };
 
-  return await httpPut(path, url_object, toastMessages);
+  return httpPut(path, url_object, toastMessages);
 };
 
-export const deleteId = async (id: string) => {
+export const deleteId = (id: string) => {
   const toastMessages = {
     successMessage: "Id Item succesfully deleted",
     errorMessage: "Error while deleting Id Item",
   };
 
-  return await httpDelete(path, id, toastMessages);
+  return httpDelete(path, id, toastMessages);
 };

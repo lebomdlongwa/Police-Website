@@ -49,18 +49,20 @@ class AddFormComponent extends Component<AddFormComponentProps, State> {
     });
   };
 
-  handleAddItem = async () => {
+  handleAddItem = () => {
     const { setIdList } = this.props;
 
-    const response = await createId({ ...this.state });
-    setIdList(response);
+    createId({ ...this.state })
+      .then((response) => setIdList(response))
+      .catch((err) => err);
   };
 
-  handleUpdateItem = async () => {
+  handleUpdateItem = () => {
     const { item, setIdList } = this.props;
 
-    const response = await updateId(item.id, { ...this.state });
-    setIdList(response);
+    updateId(item.id, { ...this.state })
+      .then((response) => setIdList(response))
+      .catch((err) => err);
   };
 
   onUpdateOrAdd = () => {

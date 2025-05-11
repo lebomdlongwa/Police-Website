@@ -3,16 +3,12 @@ import { toast } from "react-toastify";
 export const baseUrl = "http://localhost:4000/api";
 const headers = { "Content-Type": "application/json" };
 
-export const fetchData = async (getRequestFn: any, stateUpdateFn: any) => {
-  try {
-    const response = await getRequestFn();
-    stateUpdateFn(response);
-  } catch (err) {
-    console.error("Error fetching data:", err);
-  }
-};
+export const fetchData = (getRequestFn: any, stateUpdateFn: any) =>
+  getRequestFn()
+    .then((response: any) => stateUpdateFn(response))
+    .catch((err: Error) => console.error("Error fetching data:", err));
 
-export const httpGet = async (
+export const httpGet = (
   path: string,
   params?: string | Record<string, string>
 ) => {
@@ -66,7 +62,7 @@ type UrlObject = {
   params: object;
 };
 
-export const httpPut = async (
+export const httpPut = (
   path: string,
   url_object: UrlObject,
   toastMessages?: ToastMessages
@@ -94,7 +90,7 @@ export const httpPut = async (
   );
 };
 
-export const httpDelete = async (
+export const httpDelete = (
   path: string,
   id: string,
   toastMessages?: ToastMessages

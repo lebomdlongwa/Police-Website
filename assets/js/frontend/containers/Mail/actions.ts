@@ -4,19 +4,19 @@ const path = "/mail";
 
 export const getMails = (): Promise<Mail[]> => httpGet(path);
 
-export const getMail = async (id: string): Promise<Mail[] | Mail> =>
-  await httpGet(`${path}/${id}`);
+export const getMail = (id: string): Promise<Mail[] | Mail> =>
+  httpGet(`${path}/${id}`);
 
-export const createMail = async (params: Mail): Promise<Mail[]> => {
+export const createMail = (params: Mail): Promise<Mail[]> => {
   const toastMessages = {
     successMessage: "Missing Person report sent",
     errorMessage: "Error while sending Missing Person report",
   };
 
-  return await httpPost(path, params, toastMessages);
+  return httpPost(path, params, toastMessages);
 };
 
-export const createReport = async (
+export const createReport = (
   params: CreateReportParams,
   isCrimeReport: boolean
 ) => {
@@ -29,10 +29,10 @@ export const createReport = async (
     }`,
   };
 
-  return await httpPost(path, params, toastMessages);
+  return httpPost(path, params, toastMessages);
 };
 
-export const rejectMail = async (
+export const rejectMail = (
   id: string,
   params: Partial<CreateReportParams>
 ): Promise<Mail[]> => {
@@ -43,8 +43,7 @@ export const rejectMail = async (
     errorMessage: "Error while rejecting Mail Report",
   };
 
-  return await httpPut(path, url_object, toastMessages);
+  return httpPut(path, url_object, toastMessages);
 };
 
-export const deleteMail = async (id: string): Promise<Mail[]> =>
-  await httpDelete(path, id);
+export const deleteMail = (id: string): Promise<Mail[]> => httpDelete(path, id);

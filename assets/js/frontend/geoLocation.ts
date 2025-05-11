@@ -14,32 +14,36 @@ export const geoLocation = (
           headers: { accept: "application/json" },
         };
 
-        const getLocCoords = async () => {
-          try {
-            const response = await fetch(reverseUrl, options);
-            const responseJSON = await response.json();
-            onSetLocation({
-              lat: position.coords.latitude,
-              lon: position.coords.longitude,
-              location_name: responseJSON.display_name,
-              boundingbox: responseJSON.boundingbox,
-              place_id: responseJSON.place_id,
-            });
-          } catch (err) {
-            console.error(
-              "Error occured while fetching location co-ordinations",
-              err
+        const getLocCoords = () => {
+          fetch(reverseUrl, options)
+            .then((response) =>
+              response
+                .json()
+                .then((data) =>
+                  onSetLocation({
+                    lat: position.coords.latitude,
+                    lon: position.coords.longitude,
+                    location_name: data.display_name,
+                    boundingbox: data.boundingbox,
+                    place_id: data.place_id,
+                  })
+                )
+                .catch((err) => err)
+            )
+            .catch((err) =>
+              console.error(
+                "Error occured while fetching location co-ordinations",
+                err
+              )
             );
-          }
         };
 
-        const getImgUrl = async () => {
-          try {
-            const response = await fetch(imgUrl, options);
-            onSetImgUrl(response.url);
-          } catch (err) {
-            console.error("Error occured while geo-reversing location", err);
-          }
+        const getImgUrl = () => {
+          fetch(imgUrl, options)
+            .then((response) => onSetImgUrl(response.url))
+            .catch((err) =>
+              console.error("Error occured while geo-reversing location", err)
+            );
         };
 
         getLocCoords();

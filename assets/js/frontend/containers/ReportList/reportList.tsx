@@ -32,23 +32,22 @@ export const ReportList = () => {
     fetchData(getReports, setReportList);
   }, []);
 
-  const handleGetReports = async (getType: SortByType) => {
+  const handleGetReports = (getType: SortByType) => {
     const params = {
       type: getType,
     };
-    const response = await getReports(params);
-    setReportList(response);
+    getReports(params)
+      .then((response) => setReportList(response))
+      .catch((err) => err);
   };
 
-  const handleAddReport = async (params: ReportParams) => {
-    const response = await createReport(params);
-    setReportList(response);
+  const handleAddReport = (params: ReportParams) => {
+    createReport(params)
+      .then((response) => setReportList(response))
+      .catch((err) => err);
   };
 
-  const handleUpdateReport = async (
-    id: string,
-    params: Partial<ReportParams>
-  ) =>
+  const handleUpdateReport = (id: string, params: Partial<ReportParams>) =>
     updateReport(id, params)
       .then((report: ReportItem) => {
         const updatedList = reportList.map((item) => {
@@ -65,9 +64,10 @@ export const ReportList = () => {
       })
       .catch((err) => err);
 
-  const handleDeleteReport = async (id: string) => {
-    const response = await deleteReport(id);
-    setReportList(response);
+  const handleDeleteReport = (id: string) => {
+    deleteReport(id)
+      .then((response) => setReportList(response))
+      .catch((err) => err);
   };
 
   const showReportList =
