@@ -31,7 +31,7 @@ export const SignIn = (props: SignInProps) => {
   const signText = notSignedIn ? "Sign Up" : "Sign In";
   const googleSignText = `SIGN ${notSignedIn ? "UP" : "IN"} WITH GOOGLE`;
 
-  const handleSubmitCredentials = async (admin: boolean) => {
+  const handleSubmitCredentials = (admin: boolean) => {
     setFormObject({
       ...formObject,
       admin: admin,
@@ -41,11 +41,13 @@ export const SignIn = (props: SignInProps) => {
 
     if (formObject.admin !== null) {
       if (notSignedIn) {
-        response = await signUp(formObject);
-        onCurrentUser(response);
+        signUp(formObject)
+          .then((response) => onCurrentUser(response))
+          .catch((err) => err);
       } else {
-        response = await login(formObject);
-        onCurrentUser(response);
+        login(formObject)
+          .then((response) => onCurrentUser(response))
+          .catch((err) => err);
       }
     }
   };

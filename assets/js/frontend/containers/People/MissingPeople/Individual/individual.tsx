@@ -54,13 +54,13 @@ export const IndividualComponent = () => {
     });
   };
 
-  const handleGetMissingPerson = async (id: string) => {
+  const handleGetMissingPerson = (id: string) => {
     getMissingPerson(id)
       .then((response) => setFormInputObj({ ...response }))
       .catch((err) => err);
   };
 
-  const handleAddMissingPerson = async () => {
+  const handleAddMissingPerson = () => {
     addMissingPerson(formInputObj)
       .then((response) => {
         setFormInputObj({ ...response });
@@ -69,13 +69,13 @@ export const IndividualComponent = () => {
       .catch((err) => err);
   };
 
-  const handleUpdateMissingPerson = async () => {
+  const handleUpdateMissingPerson = () => {
     updateMissingPerson(url_id, formInputObj)
       .then((response) => setFormInputObj({ ...response }))
       .catch((err) => err);
   };
 
-  const handleDeleteMissingPerson = async () => {
+  const handleDeleteMissingPerson = () => {
     deleteMissingPerson(url_id)
       .then(
         (response) => response

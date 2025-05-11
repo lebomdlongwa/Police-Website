@@ -2,22 +2,20 @@ import { httpDelete, httpGet, httpPost, httpPut } from "../requests";
 
 const path = "/reports";
 
-export const getReports = async (params?: {
+export const getReports = (params?: {
   type: SortByType;
-}): Promise<ReportItem[]> => await httpGet(path, params);
+}): Promise<ReportItem[]> => httpGet(path, params);
 
-export const createReport = async (
-  params: ReportParams
-): Promise<ReportItem[]> => {
+export const createReport = (params: ReportParams): Promise<ReportItem[]> => {
   const toastMessages = {
     successMessage: "Report Item succesfully created",
     errorMessage: "Error while creating Report Item",
   };
 
-  return await httpPost(path, params, toastMessages);
+  return httpPost(path, params, toastMessages);
 };
 
-export const updateReport = async (
+export const updateReport = (
   id: string,
   params: Partial<ReportParams>
 ): Promise<ReportItem> => {
@@ -28,14 +26,14 @@ export const updateReport = async (
     errorMessage: "Error while updating Report List",
   };
 
-  return await httpPut(path, url_object, toastMessages);
+  return httpPut(path, url_object, toastMessages);
 };
 
-export const deleteReport = async (id: string): Promise<ReportItem[]> => {
+export const deleteReport = (id: string): Promise<ReportItem[]> => {
   const toastMessages = {
     successMessage: "Report Item succesfully deleted",
     errorMessage: "Error while deleting Report Item",
   };
 
-  return await httpDelete(path, id, toastMessages);
+  return httpDelete(path, id, toastMessages);
 };

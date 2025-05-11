@@ -30,7 +30,7 @@ export const signUp = (credentials: Credentials): Promise<UserObject> => {
   );
 };
 
-export const getUser = async (token: string) =>
+export const getUser = (token: string) =>
   new Promise((resolve, reject) =>
     fetch("http://localhost:4000/api/fetch_user", {
       method: "POST",

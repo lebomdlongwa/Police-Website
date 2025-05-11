@@ -49,10 +49,10 @@ export class PeopleReportModal extends Component<
     });
   };
 
-  handleCreateMailReport = async () => {
+  handleCreateMailReport = () => {
     const { id, user } = this.props;
 
-    const response = await createMail({
+    createMail({
       ...this.state,
       missing_person_id: id,
       name: user.name,
