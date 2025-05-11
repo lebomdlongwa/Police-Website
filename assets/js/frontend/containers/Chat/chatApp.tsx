@@ -17,6 +17,7 @@ export const ChatAppComponent = () => {
   const [showPersonDetails, setShowPersonDetails] = useState(true);
   const [activeRecipientId, setActiveRecipientId] = useState(null);
   const [currentThreadId, setCurrentThreadId] = useState(null);
+  const [noData, setNoData] = useState(false);
   const [threadsObject, setThreadsObject] = useState<ThreadsObject>({
     recipients: [],
     threads: [],
@@ -31,13 +32,17 @@ export const ChatAppComponent = () => {
   const handleUpdateThreadsObject = (obj: ThreadsObject) =>
     setThreadsObject(obj);
 
-  const isLoading = !user?.id || isEmpty(threadsObject.threads);
+  const isLoading = !user?.id && isEmpty(threadsObject.threads);
   const isMessagesValid = true;
   const currentChannel = channelsRef.current[currentThreadId];
 
   useEffect(() => {
     fetchUserThreads().then((res: ThreadsObject) => {
       setThreadsObject(res);
+
+      if (!isEmpty(res)) {
+        setNoData(true);
+      }
 
       res.threads.forEach((thread) => {
         const channel = socket.channel(`chats:threadId-${thread.id}`);
@@ -103,6 +108,7 @@ export const ChatAppComponent = () => {
             onSetCurrentThreadId={handleSetCurrentThreadId}
             currentConvoIdRef={currentConvoIdRef}
             onUpdateThreadsObj={handleUpdateThreadsObject}
+            noData={noData}
           />
           <ChatBody
             currentChannel={currentChannel}

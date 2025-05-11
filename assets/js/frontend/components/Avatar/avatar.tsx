@@ -26,7 +26,7 @@ export const AvatarComponent = (props: AvatarProps) => {
       square={square}
     >
       <styled.Avatar fontSize={fontSize}>
-        {initials.toLocaleUpperCase()}
+        {initials?.toLocaleUpperCase()}
       </styled.Avatar>
     </styled.AvatarWrapper>
   );

@@ -9,7 +9,7 @@ import { useUser } from "../../../userContext";
 export const GeneralInfoComponent = () => {
   const { user } = useUser();
   const colors = Object.values(AvatarColors);
-  const avatarColor = colors[user.id % colors.length];
+  const avatarColor = colors[user?.id % colors.length];
 
   return (
     <styled.GeneralCardWrapper>
@@ -18,13 +18,13 @@ export const GeneralInfoComponent = () => {
         <styled.AvatarUserContainer>
           <AvatarComponent
             color={avatarColor}
-            initials={user.name[0]}
+            initials={user?.name[0]}
             fontSize={14}
             avatarSize={32}
           />
           <styled.UserInfoWrapper>
             <styled.InfoContent style={{ fontWeight: "700" }}>
-              {user.name} {user.surname}
+              {user?.name} {user?.surname}
             </styled.InfoContent>
           </styled.UserInfoWrapper>
         </styled.AvatarUserContainer>

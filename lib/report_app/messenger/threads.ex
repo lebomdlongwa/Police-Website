@@ -5,6 +5,8 @@ defmodule ReportApp.Messenger.Threads do
   alias ReportApp.Messenger.Messages
   alias ReportApp.{Repo, User}
 
+  @preloads [:messages, :thread_users]
+
   def get_thread(id) do
     Repo.get!(Thread, id)
   end
@@ -56,7 +58,16 @@ defmodule ReportApp.Messenger.Threads do
     end
   end
 
-  defp initialize_thread(user_ids) do
+  def initialize_thread(%{"user_id" => user_id}) do
+    admin_id =
+      from(u in User,
+        where: u.admin == true,
+        select: u.id
+      )
+      |> Repo.one()
+
+    users_ids = [admin_id, user_id]
+
     Ecto.Multi.new()
     |> Ecto.Multi.run(:thread, fn _, _ ->
       %Thread{}
@@ -64,7 +75,7 @@ defmodule ReportApp.Messenger.Threads do
       |> Repo.insert()
     end)
     |> Ecto.Multi.run(:thread_users, fn _, %{thread: thread} ->
-      with [ok: thread_user_1, ok: thread_user_2] <- ThreadUser.create(thread, user_ids) do
+      with [ok: thread_user_1, ok: thread_user_2] <- ThreadUser.create(thread, users_ids) do
         {:ok, [thread_user_1, thread_user_2]}
       end
     end)

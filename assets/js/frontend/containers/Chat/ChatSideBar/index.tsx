@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 
-import { find, isEmpty } from "lodash";
+import { find, isEmpty, sortBy } from "lodash";
 
 import * as styled from "./styles/index";
 
 import { AvatarComponent } from "../../../components/Avatar/avatar";
 import { AvatarColors } from "../../../components/colorCodes";
-import { setSeenTrue } from "../actions";
+import { initializeThread, setSeenTrue } from "../actions";
 
 type ChatSideBarProps = {
   onSetActiveRecipientId: (id: string) => void;
   userId: string;
+  noData: boolean;
   threadsObject: ThreadsObject;
   activeRecipientId: string;
   onSetCurrentThreadId: (id: string) => void;
@@ -26,6 +27,7 @@ export const ChatSideBar = (props: ChatSideBarProps) => {
     onSetCurrentThreadId,
     threadsObject,
     userId,
+    noData,
     currentConvoIdRef,
     onUpdateThreadsObj,
   } = props;
@@ -37,13 +39,16 @@ export const ChatSideBar = (props: ChatSideBarProps) => {
       <styled.SideBarWrapper>
         <styled.Header>Chats</styled.Header>
         <styled.UsersContainer>
-          {!isEmpty(threads) &&
+          {!isEmpty(threads) ? (
             threads.map((thread: Thread) => {
               const chatRecipient = thread.thread_users.filter(
                 (x) => x.id !== userId
               )[0];
               const recipient = find(recipients, { id: chatRecipient.id });
-              const lastMessage = thread.messages.slice(-1)[0];
+              const lastMessage = sortBy(
+                thread.messages,
+                "inserted_at"
+              ).reverse()[0];
               const avatarColors = Object.values(AvatarColors);
               const avatarColor =
                 avatarColors[Number(recipient?.id) % avatarColors.length];
@@ -107,7 +112,20 @@ export const ChatSideBar = (props: ChatSideBarProps) => {
                   </styled.UserChatContainer>
                 </styled.UserChatWrapper>
               );
-            })}
+            })
+          ) : (
+            <>
+              {noData && (
+                <styled.UserChatWrapper
+                  onClick={() => initializeThread(userId)}
+                  active={true}
+                  noShadow
+                >
+                  <styled.NewChat>Police Reception</styled.NewChat>
+                </styled.UserChatWrapper>
+              )}
+            </>
+          )}
         </styled.UsersContainer>
       </styled.SideBarWrapper>
     );
