@@ -10,14 +10,11 @@ export const ReportButton = (props: ReportButtonProps) => {
   return (
     <styled.ReportPersonWrapper>
       <styled.ReportPersonHeader>
-        I may know this person
+        Do you know this person?
       </styled.ReportPersonHeader>
-      <styled.ReportPersonBody>
-        <styled.ReportPersonButton onClick={handleShowModal}>
-          If you have any information about this person you can click here to
-          report. Your Report will be very helpful
-        </styled.ReportPersonButton>
-      </styled.ReportPersonBody>
+      <styled.ReportPersonButton onClick={handleShowModal}>
+        YES I DO
+      </styled.ReportPersonButton>
     </styled.ReportPersonWrapper>
   );
 };

@@ -21,6 +21,7 @@ export const DropdownWrapper = styled.div.attrs<{
   dropdownWidth: number;
   dropdownDistToLeft: number;
   dropdownSettings: Partial<DropdownProps>;
+  isSearch: boolean;
 }>({
   className: "DropdownWrapper",
 })`
@@ -29,18 +30,17 @@ export const DropdownWrapper = styled.div.attrs<{
   background-color: ${({ dropdownSettings }) =>
     dropdownSettings.backgroundColor && `${dropdownSettings.backgroundColor}`};
   position: fixed;
-  top: ${({ distanceToTop }) => distanceToTop && `${distanceToTop}px`};
+  top: ${({ distanceToTop, isSearch }) =>
+    distanceToTop && `${!isSearch ? distanceToTop + 7 : distanceToTop}px`};
   left: ${({ dropdownDistToLeft }) =>
     dropdownDistToLeft && `${dropdownDistToLeft}px`};
   border: 1px solid ${Color.lightgray};
-  border-radius: ${({ dropdownSettings }) =>
-    dropdownSettings.isSearch ? "none" : "5px"};
+  border-radius: 5px;
   border-top: ${({ dropdownSettings }) =>
     !dropdownSettings.borderTop && "none"};
-  border-top-left-radius: ${({ dropdownSettings }) =>
-    !dropdownSettings.borderTop && "0"};
-  border-top-right-radius: ${({ dropdownSettings }) =>
-    !dropdownSettings.borderTop && "0"};
+  border-top-left-radius: ${({ isSearch }) => isSearch && "0"};
+  border-top-right-radius: ${({ isSearch }) => isSearch && "0"};
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 
   width: ${({ dropdownWidth, dropdownSettings }) =>
     dropdownSettings.width
@@ -91,8 +91,8 @@ export const Option = styled.div.attrs<{
   className: "Option",
 })`
   height: 100%;
-  margin: auto;
-  width: 90%;
+  width: 100%;
+  padding: 0 10px;
   display: flex;
   align-items: center;
   color: ${({ dropdownSettings }) => dropdownSettings.fontColor};

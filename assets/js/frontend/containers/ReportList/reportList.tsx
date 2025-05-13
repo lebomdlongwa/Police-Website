@@ -16,6 +16,7 @@ import { SortByComponent } from "./sortBy";
 import { fetchData } from "../requests";
 import { SearchedResultComponent } from "../../components/SearchedResult";
 import { Spinner } from "../../components/Spinner";
+import { AvatarColors } from "../../components/colorCodes";
 
 export const ReportList = () => {
   const [reportList, setReportList] = useState([]);
@@ -94,13 +95,18 @@ export const ReportList = () => {
         ) : (
           <>
             {showReportList &&
-              reportList.map((report) => (
-                <Report
-                  report={report}
-                  onUpdate={handleUpdateReport}
-                  onDelete={handleDeleteReport}
-                />
-              ))}
+              reportList.map((report, id) => {
+                const colors = Object.values(AvatarColors);
+                const avatarColor = colors[id % colors.length];
+                return (
+                  <Report
+                    report={report}
+                    onUpdate={handleUpdateReport}
+                    onDelete={handleDeleteReport}
+                    avatarColor={avatarColor}
+                  />
+                );
+              })}
             {searchedReportId && (
               <SearchedResultComponent
                 list={reportList}

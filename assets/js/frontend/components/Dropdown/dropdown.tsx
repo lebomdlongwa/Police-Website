@@ -21,6 +21,7 @@ export type DropdownProps = {
   isOptionsList?: boolean;
   borderTop?: boolean;
   fn?: (value: string) => void;
+  clearSearchValue?: VoidCallBack;
 };
 
 export const Dropdown = (props: DropdownProps) => {
@@ -39,6 +40,7 @@ export const Dropdown = (props: DropdownProps) => {
     isOptionsList = true,
     borderTop = true,
     fn,
+    clearSearchValue,
   } = props;
 
   const [display, setDisplay] = useState(false);
@@ -86,12 +88,11 @@ export const Dropdown = (props: DropdownProps) => {
   const distanceToLeftWidth =
     dropdownWidth > 0 && distanceToLeft - (width - dropdownWidth) / 2;
 
-  const dropdownDistToLeft = width ? distanceToLeftWidth : distanceToLeft;
-
   return (
     <OnClickOutside
       onClickOutsideFn={() => setDisplay(false)}
       isSearch={isSearch}
+      clearSearchValue={clearSearchValue}
     >
       <styled.DropdownContainer onClick={() => setDisplay(!display)}>
         <styled.Children borderTop={borderTop} ref={childrenRef}>
@@ -100,8 +101,9 @@ export const Dropdown = (props: DropdownProps) => {
         <styled.DropdownWrapper
           distanceToTop={distanceToTop}
           dropdownWidth={dropdownWidth}
-          dropdownDistToLeft={dropdownDistToLeft}
+          dropdownDistToLeft={distanceToLeftWidth}
           dropdownSettings={dropdownSettings}
+          isSearch={isSearch}
         >
           <styled.OptionsWrapper>
             {isOptionsList

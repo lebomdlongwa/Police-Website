@@ -6,7 +6,7 @@ import { SearchComponent } from "../../components/SearchComponent/search";
 import { Tooltip } from "../../components/Tooltip";
 
 type SortByComponentProps = {
-  handleGetReports: (params?: SortByType) => Promise<void>;
+  handleGetReports: (params?: SortByType) => void;
   reportList: ReportItem[];
   handleDisplaySearchedReportId: (id: string) => void;
 };

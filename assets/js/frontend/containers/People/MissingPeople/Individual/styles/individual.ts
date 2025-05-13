@@ -33,7 +33,7 @@ export const CaseHeader = styled.div.attrs({
   align-items: center;
   font-size: 35px;
   border-radius: 4px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 
   @media (max-width: 500px) {
     width: 100%;
@@ -218,13 +218,12 @@ export const CallPolice = styled.div.attrs({
   height: 30vh;
 `;
 
-export const ButtonsWrapper = styled.div.attrs<{ modalButton?: boolean }>({
+export const ButtonsWrapper = styled.div.attrs<{ admin?: boolean }>({
   className: "ButtonsWrapper",
 })`
   width: 100%;
   display: flex;
-  justify-content: ${({ modalButton }) =>
-    modalButton ? "center" : "space-between"};
+  justify-content: ${({ admin }) => (!admin ? "center" : "space-between")};
   align-items: flex-end;
   padding: 0 40px;
 `;

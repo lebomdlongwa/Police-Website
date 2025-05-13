@@ -47,10 +47,21 @@ export const ReportItem = styled.div.attrs({
   padding: 5px 0;
 `;
 
+export const AvatarWrapper = styled.div.attrs({
+  className: "AvatarWrapper",
+})`
+  height: 90%;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 20px;
+  border-right: 1px solid ${Color.lightgray};
+`;
+
 export const ReportContent = styled.div.attrs({
   className: "ReportContent",
 })`
-  width: 80%;
+  width: 75%;
   height: 100%;
   display: flex;
   align-items: center;

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import * as styled from "./styles";
-import { Color } from "../colorCodes";
+import { AvatarColors, Color } from "../colorCodes";
 import { SearchIcon } from "../icons/search";
 import { Dropdown } from "../Dropdown/dropdown";
 import OnClickOutside from "../OnClickOutside";
@@ -59,28 +59,39 @@ export const SearchComponent = (props: SearchComponentProps) => {
 
   const options =
     !isEmpty(searchResults) &&
-    searchResults.map((item) => (
-      <styled.DropdownOption
-        key={item.id}
-        onClick={() => {
-          handleDisplaySearchedItem(item.id);
-          setSearchActive(false);
-          clearSearchTerm();
-        }}
-      >
-        <styled.OptionNameAvatar
-          fontSize={12}
-          initials={item && `${item.name[0]}`}
-          avatarSize={30}
-        />
-        <styled.OptionName>
-          {item && `${item.name} ${item.surname}`}
-        </styled.OptionName>
-      </styled.DropdownOption>
-    ));
+    searchResults.map((item, id) => {
+      const colors = Object.values(AvatarColors).reverse();
+      const avatarColor = colors[id % colors.length];
+
+      return (
+        <styled.DropdownOption
+          key={item.id}
+          onClick={() => {
+            handleDisplaySearchedItem(item.id);
+            setSearchActive(false);
+            clearSearchTerm();
+          }}
+        >
+          <styled.OptionNameAvatar
+            fontSize={12}
+            initials={item && `${item.name[0]}`}
+            avatarSize={30}
+            color={avatarColor}
+          />
+          <styled.OptionName>
+            {item && `${item.name} ${item.surname}`}
+          </styled.OptionName>
+        </styled.DropdownOption>
+      );
+    });
 
   return (
-    <Dropdown isSearch options={options} displayDropdown={searchResultsPresent}>
+    <Dropdown
+      clearSearchValue={clearSearchTerm}
+      isSearch
+      options={options}
+      displayDropdown={searchResultsPresent}
+    >
       <styled.SearchWrapper
         ref={searchbarRef}
         searchResultsPresent={searchResultsPresent}

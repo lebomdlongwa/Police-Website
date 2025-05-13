@@ -10,7 +10,7 @@ type ReportModalComponentProps = {
   showReportEditModal?: boolean;
   handleShowReportModal?: VoidCallBack;
   handleShowReportEditModal?: VoidCallBack;
-  onCreate?: (params: ReportParams) => Promise<void>;
+  onCreate?: (params: ReportParams) => void;
   onUpdate: (id: string, params: ReportParams) => Promise<void>;
 };
 
