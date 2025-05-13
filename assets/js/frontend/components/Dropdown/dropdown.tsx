@@ -22,6 +22,7 @@ export type DropdownProps = {
   borderTop?: boolean;
   fn?: (value: string) => void;
   clearSearchValue?: VoidCallBack;
+  noGap?: boolean;
 };
 
 export const Dropdown = (props: DropdownProps) => {
@@ -39,6 +40,7 @@ export const Dropdown = (props: DropdownProps) => {
     isSearch = false,
     isOptionsList = true,
     borderTop = true,
+    noGap = false,
     fn,
     clearSearchValue,
   } = props;
@@ -61,6 +63,7 @@ export const Dropdown = (props: DropdownProps) => {
     isSearch,
     isOptionsList,
     borderTop,
+    noGap,
   };
 
   useEffect(() => {
@@ -103,7 +106,6 @@ export const Dropdown = (props: DropdownProps) => {
           dropdownWidth={dropdownWidth}
           dropdownDistToLeft={distanceToLeftWidth}
           dropdownSettings={dropdownSettings}
-          isSearch={isSearch}
         >
           <styled.OptionsWrapper>
             {isOptionsList

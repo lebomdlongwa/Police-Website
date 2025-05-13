@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { DropdownProps } from "../dropdown";
 import { Color } from "../../colorCodes";
 import { HideScrollBarMixin } from "../../../appStyles";
@@ -21,37 +21,55 @@ export const DropdownWrapper = styled.div.attrs<{
   dropdownWidth: number;
   dropdownDistToLeft: number;
   dropdownSettings: Partial<DropdownProps>;
-  isSearch: boolean;
 }>({
   className: "DropdownWrapper",
 })`
-  display: ${({ dropdownSettings }) =>
-    dropdownSettings.displayDropdown ? "flex" : "none"};
-  background-color: ${({ dropdownSettings }) =>
-    dropdownSettings.backgroundColor && `${dropdownSettings.backgroundColor}`};
-  position: fixed;
-  top: ${({ distanceToTop, isSearch }) =>
-    distanceToTop && `${!isSearch ? distanceToTop + 7 : distanceToTop}px`};
-  left: ${({ dropdownDistToLeft }) =>
-    dropdownDistToLeft && `${dropdownDistToLeft}px`};
-  border: 1px solid ${Color.lightgray};
   border-radius: 5px;
-  border-top: ${({ dropdownSettings }) =>
-    !dropdownSettings.borderTop && "none"};
-  border-top-left-radius: ${({ isSearch }) => isSearch && "0"};
-  border-top-right-radius: ${({ isSearch }) => isSearch && "0"};
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  border: 1px solid ${Color.lightgray};
 
-  width: ${({ dropdownWidth, dropdownSettings }) =>
-    dropdownSettings.width
-      ? `${dropdownSettings.width}px`
-      : `${dropdownWidth}px`};
-  max-height: ${({ dropdownSettings }) =>
-    dropdownSettings.maxHeight ? `${dropdownSettings.width}px` : "400px"};
-  color: ${({ dropdownSettings }) =>
-    dropdownSettings.fontColor && `${dropdownSettings.fontColor}`};
-  font-size: ${({ dropdownSettings }) =>
-    dropdownSettings.fontSize && `${dropdownSettings.fontSize}`};
+  ${({
+    dropdownSettings,
+    distanceToTop,
+    dropdownWidth,
+    dropdownDistToLeft,
+  }) => {
+    return css`
+      display: ${dropdownSettings.displayDropdown ? "flex" : "none"};
+
+      box-shadow: ${dropdownSettings.isSearch || dropdownSettings.noGap
+        ? "0 4px 6px -4px rgba(0, 0, 0, 0.3)"
+        : "0 2px 5px rgba(0, 0, 0, 0.3)"};
+
+      background-color: ${dropdownSettings.backgroundColor};
+
+      top: ${dropdownSettings.isSearch || dropdownSettings.noGap
+        ? distanceToTop
+        : distanceToTop + 7}px;
+
+      left: ${dropdownDistToLeft}px;
+
+      border-top: ${!dropdownSettings.borderTop && "none"};
+
+      border-top-left-radius: ${dropdownSettings.isSearch && "0"};
+
+      border-top-right-radius: ${dropdownSettings.isSearch && "0"};
+
+      width: ${dropdownSettings.width
+        ? `${dropdownSettings.width}px`
+        : `${dropdownWidth}px`};
+
+      max-height: ${dropdownSettings.maxHeight
+        ? `${dropdownSettings.width}px`
+        : "400px"};
+
+      color: ${dropdownSettings.fontColor && `${dropdownSettings.fontColor}`};
+
+      font-size: ${dropdownSettings.fontSize && `${dropdownSettings.fontSize}`};
+    `;
+  }};
+
+  z-index: 10000;
 
   ${HideScrollBarMixin}
 `;
