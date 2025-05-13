@@ -5,6 +5,7 @@ type OnClickOutsideProps = {
   children: ReactNode;
   onClickOutsideFn: VoidCallBack;
   isSearch?: boolean;
+  clearSearchValue: VoidCallBack;
 };
 
 const OnClickOutsideWrapper = styled.div.attrs<{ isSearch?: boolean }>({
@@ -18,7 +19,12 @@ interface WrapperElement extends HTMLDivElement {
 }
 
 const OnClickOutside = (props: OnClickOutsideProps) => {
-  const { children, onClickOutsideFn, isSearch = false } = props;
+  const {
+    children,
+    onClickOutsideFn,
+    isSearch = false,
+    clearSearchValue,
+  } = props;
 
   const wrapperRef = useRef<WrapperElement>();
 
@@ -26,6 +32,7 @@ const OnClickOutside = (props: OnClickOutsideProps) => {
     const handleClickOutside = (e: MouseEvent) => {
       if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
         onClickOutsideFn();
+        clearSearchValue();
       }
     };
 

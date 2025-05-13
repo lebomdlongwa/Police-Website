@@ -4,11 +4,16 @@ import { Color } from "../../../../../components/colorCodes";
 export const ReportPersonWrapper = styled.div.attrs({
   className: "ReportPersonWrapper",
 })`
-  width: 590px;
+  width: 620px;
   height: 164px;
   margin-top: 30px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  background-color: ${Color.lightBlue};
+  padding: 32px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   @media (max-width: 500px) {
     width: 340px;
@@ -24,48 +29,28 @@ export const ReportPersonWrapper = styled.div.attrs({
 export const ReportPersonHeader = styled.div.attrs({
   className: "ReportPersonHeader",
 })`
-  background-color: ${Color.navyBlueLighter};
-  height: 32%;
-  width: 100%;
-  color: white;
-  font-size: 25px;
-  display: flex;
-  align-items: center;
-  padding-left: 20px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  color: ${Color.darkBlueFont};
+  font-size: 23px;
+  font-weight: 700;
 
-  @media (max-width: 330px) {
-    font-size: 20px;
-    height: 28%;
-  }
-`;
-
-export const ReportPersonBody = styled.div.attrs({
-  className: "ReportPersonBody",
-})`
-  background-color: ${Color.blue};
-  height: 68%;
-  width: 100%;
-  padding: 20px;
-  flex-grow: 1;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-
-  @media (max-width: 330px) {
-    height: 72%;
-  }
+  // @media (max-width: 330px) {
+  //   font-size: 20px;
+  //   height: 28%;
+  // }
 `;
 
 export const ReportPersonButton = styled.div.attrs({
   className: "ReportPersonButton",
 })`
-  color: ${Color.darkBlueFont};
-  background-color: ${Color.lightBlue};
-  height: 100%;
-  padding: 15px;
+  background-color: ${Color.darkBlueFont};
+  border-radius: 20px;
+  padding: 11px;
   display: flex;
   align-items: center;
+  justify-content: center;
+  color: ${Color.lightBlue};
+  font-weight: 700;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 
   &:hover {
     background-color: ${Color.navyBlueLighter};
@@ -74,7 +59,7 @@ export const ReportPersonButton = styled.div.attrs({
     cursor: pointer;
   }
 
-  @media (max-width: 500px) {
-    padding: 5px;
-  }
+  // @media (max-width: 500px) {
+  //   padding: 5px;
+  // }
 `;

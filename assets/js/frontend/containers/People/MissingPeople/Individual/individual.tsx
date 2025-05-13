@@ -112,7 +112,7 @@ export const IndividualComponent = () => {
               {admin && <PictureUpload />}
               <styled.Picture src="" />
             </styled.PictureWrapper>
-            <styled.ButtonsWrapper>
+            <styled.ButtonsWrapper admin={admin}>
               {admin ? (
                 <>
                   <Button
@@ -129,9 +129,7 @@ export const IndividualComponent = () => {
                   </styled.PersonReportsWrapper>
                 </>
               ) : (
-                <styled.ButtonsWrapper modalButton={true}>
-                  {!admin && <ReportButton handleShowModal={handleShowModal} />}
-                </styled.ButtonsWrapper>
+                <ReportButton handleShowModal={handleShowModal} />
               )}
             </styled.ButtonsWrapper>
           </styled.RightColumn>

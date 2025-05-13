@@ -4,11 +4,13 @@ import { ReportModalComponent } from "../ReportModal/reportModal";
 import * as styled from "./styles/report";
 import { Icon } from "../../../components/icons";
 import { ExpandedComponent } from "./expandedItem";
+import { AvatarComponent } from "../../../components/Avatar/avatar";
 
 type ReportProps = {
   report?: ReportItem;
   onUpdate?: (id: string, params: ReportParams) => Promise<void>;
-  onDelete?: (id: string) => Promise<void>;
+  onDelete?: (id: string) => void;
+  avatarColor?: string;
 };
 
 interface WrapperElement extends HTMLDivElement {
@@ -16,7 +18,7 @@ interface WrapperElement extends HTMLDivElement {
 }
 
 export const Report = (props: ReportProps) => {
-  const { report, onDelete, onUpdate } = props;
+  const { report, onDelete, onUpdate, avatarColor } = props;
 
   const [showReportEditModal, setShowReportEditModal] = useState(false);
   const handleShowReportEditModal = () =>
@@ -52,6 +54,13 @@ export const Report = (props: ReportProps) => {
       <styled.ReportBody>
         <styled.ReportItemWrapper ref={wrapperRef} expand={expand}>
           <styled.ReportItem>
+            <styled.AvatarWrapper>
+              <AvatarComponent
+                color={avatarColor}
+                avatarSize={48}
+                initials={report.name[0]}
+              />
+            </styled.AvatarWrapper>
             <styled.ReportContent onClick={handleExpand}>
               <styled.Informant>
                 <styled.Icon>
