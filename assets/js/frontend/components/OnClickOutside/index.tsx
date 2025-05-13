@@ -5,7 +5,7 @@ type OnClickOutsideProps = {
   children: ReactNode;
   onClickOutsideFn: VoidCallBack;
   isSearch?: boolean;
-  clearSearchValue: VoidCallBack;
+  clearSearchValue?: VoidCallBack;
 };
 
 const OnClickOutsideWrapper = styled.div.attrs<{ isSearch?: boolean }>({

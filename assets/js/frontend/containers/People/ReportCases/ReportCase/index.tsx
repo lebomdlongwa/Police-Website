@@ -31,6 +31,7 @@ export const ReportCase = (props: ReportCaseProps) => {
           isOptionsList={false}
           options={options}
           borderTop={false}
+          noGap
         >
           <styled.CaseBody
             expanded={expanded}
