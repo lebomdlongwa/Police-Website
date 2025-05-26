@@ -19,7 +19,7 @@ defmodule ReportAppWeb.Api.MessageView do
       author_id: message.author_id,
       thread_id: message.thread_id,
       seen: message.seen,
-      inserted_at: message.inserted_at,
+      inserted_at: date_time(message.inserted_at),
       updated_at: message.updated_at
     }
   end
@@ -29,5 +29,21 @@ defmodule ReportAppWeb.Api.MessageView do
       success: true,
       message: "Message deleted successfully"
     }
+  end
+
+  defp date_time(date) do
+    current_date = Date.utc_today()
+
+    case current_date == NaiveDateTime.to_date(date) do
+      true ->
+        date
+        |> NaiveDateTime.to_time()
+        |> Time.to_string()
+        |> String.slice(0, 5)
+
+      false ->
+        date
+        |> Calendar.strftime("%-d %b")
+    end
   end
 end

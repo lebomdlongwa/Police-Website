@@ -2,17 +2,11 @@ import { httpGet, httpPost, httpPut, httpDelete } from "../../requests";
 
 const path = "/missing_reports";
 
-export const getMissingReports = (
-  id: string
-): Promise<MissingReportParams[]> => {
-  return httpGet(path, { id });
-};
+export const getMissingReports = (id: string): Promise<MissingReportParams[]> =>
+  httpGet(path, { id });
 
-export const addMissingReport = (
-  params: MissingReportParams
-): Promise<void> => {
-  return httpPost(path, params);
-};
+export const addMissingReport = (params: MissingReportParams): Promise<void> =>
+  httpPost(path, params);
 
 export const updateMissingReport = (
   id: string,

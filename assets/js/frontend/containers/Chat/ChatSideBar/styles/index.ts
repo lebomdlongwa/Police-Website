@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { Color } from "../../../../components/colorCodes";
 
 export const SideBarWrapper = styled.div.attrs({

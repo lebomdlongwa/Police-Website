@@ -44,5 +44,9 @@ defmodule ReportApp.Messenger.Messages do
       update: [set: [seen: true]]
     )
     |> Repo.update_all([])
+
+    updated_thread = Threads.get_thread(thread_id)
+
+    {:ok, updated_thread}
   end
 end

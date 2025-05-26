@@ -41,7 +41,7 @@ export const ChatBody = (props: ChatBodyProps) => {
 
   const thread = threads.filter(
     (thread) =>
-      thread.thread_users.filter((user) => user.id === activeRecipientId)
+      thread.thread_users.filter((user) => user.user_id === activeRecipientId)
         .length > 0
   )[0];
 

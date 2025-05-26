@@ -15,7 +15,7 @@ defmodule ReportAppWeb.MessageChannel do
     case Messages.insert_message_into_thread(message) do
       {:ok, message} ->
         broadcast!(socket, "new_message", %{
-          message: MessageView.render("show.json", %{message: message})
+          message: MessageView.render("message.json", %{message: message})
         })
 
         Logger.info("Broadcasting new message: #{inspect(message)}")

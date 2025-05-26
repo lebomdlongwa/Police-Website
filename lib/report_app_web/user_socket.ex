@@ -6,6 +6,7 @@ defmodule ReportAppWeb.UserSocket do
   ## Channels
   channel "mail:lobby", ReportAppWeb.MailChannel
   channel "chats:*", ReportAppWeb.MessageChannel
+  channel "user:*", ReportAppWeb.UserChannel
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After
