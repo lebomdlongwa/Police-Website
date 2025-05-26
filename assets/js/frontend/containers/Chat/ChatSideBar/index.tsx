@@ -1,21 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
 
+import { Channel } from "phoenix";
 import { find, isEmpty, sortBy } from "lodash";
 
 import * as styled from "./styles/index";
+import { initializeThread, setSeenTrue } from "../actions";
 
 import { AvatarComponent } from "../../../components/Avatar/avatar";
 import { AvatarColors } from "../../../components/colorCodes";
-import { initializeThread, setSeenTrue } from "../actions";
+import { Notification } from "./notification";
 
 type ChatSideBarProps = {
   onSetActiveRecipientId: (id: string) => void;
-  userId: string;
+  user: UserObject;
   noData: boolean;
   threadsObject: ThreadsObject;
   activeRecipientId: string;
+  userChannel: Channel;
   onSetCurrentThreadId: (id: string) => void;
   currentConvoIdRef: React.MutableRefObject<any>;
+  onFetchAndSetUserThreads: () => Promise<void>;
   onUpdateThreadsObj: (
     obj: ThreadsObject | ((prev: ThreadsObject) => ThreadsObject)
   ) => void;
@@ -26,25 +30,53 @@ export const ChatSideBar = (props: ChatSideBarProps) => {
     onSetActiveRecipientId,
     onSetCurrentThreadId,
     threadsObject,
-    userId,
+    user,
     noData,
     currentConvoIdRef,
+    userChannel,
     onUpdateThreadsObj,
+    onFetchAndSetUserThreads,
   } = props;
 
   if (threadsObject) {
     const { threads, recipients } = threadsObject;
 
+    const handleInitializeThread = () => {
+      initializeThread(user?.id)
+        .then((response) => {
+          onFetchAndSetUserThreads();
+
+          userChannel.push("thread_initialized", {
+            thread: response,
+          });
+        })
+        .catch((err) => err);
+    };
+
+    const sortedThreads = sortBy(threads, (thread) => {
+      const messages = thread.messages || [];
+      const lastMessage = messages.at(-1);
+      return lastMessage?.inserted_at;
+    }).reverse();
+
+    const activeSortedThreads = sortedThreads.filter((thread) => {
+      const messages = thread.messages || [];
+      const lastMessage = messages.at(-1);
+      return lastMessage?.inserted_at;
+    });
+
+    const selectedThreads = user?.admin ? activeSortedThreads : sortedThreads;
+
     return (
       <styled.SideBarWrapper>
         <styled.Header>Chats</styled.Header>
         <styled.UsersContainer>
-          {!isEmpty(threads) ? (
-            threads.map((thread: Thread) => {
+          {!isEmpty(selectedThreads) ? (
+            selectedThreads.map((thread: Thread) => {
               const chatRecipient = thread.thread_users.filter(
-                (x) => x.id !== userId
+                (x) => x.user_id !== user?.id
               )[0];
-              const recipient = find(recipients, { id: chatRecipient.id });
+              const recipient = find(recipients, { id: chatRecipient.user_id });
               const lastMessage = sortBy(
                 thread.messages,
                 "inserted_at"
@@ -75,12 +107,18 @@ export const ChatSideBar = (props: ChatSideBarProps) => {
                         }),
                       };
                     });
+                    userChannel.push("message_status_changed", {
+                      thread_id: thread.id,
+                      recipient_id: recipient?.id,
+                    });
                   })
                   .catch((err) =>
                     console.log("Error while updating threadsObject", err)
                   );
               };
 
+              const isUserLastMessageAuthor =
+                lastMessage?.author_id === user?.id;
               const unSeenMessagesCount = (thread.messages || []).filter(
                 (message) => !message.seen
               ).length;
@@ -98,15 +136,16 @@ export const ChatSideBar = (props: ChatSideBarProps) => {
                         <styled.User>
                           {recipient?.name} {recipient?.surname}
                         </styled.User>
-                        <styled.MessageTimestamp>23:09</styled.MessageTimestamp>
+                        <styled.MessageTimestamp>
+                          {lastMessage?.inserted_at}
+                        </styled.MessageTimestamp>
                       </styled.UserTimestampWrapper>
                       <styled.MessageNotificationWrapper>
                         <styled.Message>{lastMessage?.content}</styled.Message>
-                        {unSeenMessagesCount > 0 && (
-                          <styled.Notification>
-                            {unSeenMessagesCount}
-                          </styled.Notification>
-                        )}
+                        <Notification
+                          unSeenMessagesCount={unSeenMessagesCount}
+                          isUserLastMessageAuthor={isUserLastMessageAuthor}
+                        />
                       </styled.MessageNotificationWrapper>
                     </styled.UserMessageWrapper>
                   </styled.UserChatContainer>
@@ -115,9 +154,9 @@ export const ChatSideBar = (props: ChatSideBarProps) => {
             })
           ) : (
             <>
-              {noData && (
+              {noData && !user?.admin && (
                 <styled.UserChatWrapper
-                  onClick={() => initializeThread(userId)}
+                  onClick={handleInitializeThread}
                   active={true}
                   noShadow
                 >

@@ -27,7 +27,7 @@ defmodule ReportAppWeb.Api.ThreadView do
 
   def render("thread_user.json", %{thread: thread_user}) do
     %{
-      id: thread_user.user_id
+      user_id: thread_user.user_id
     }
   end
 end

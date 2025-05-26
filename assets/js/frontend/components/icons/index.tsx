@@ -20,6 +20,8 @@ import send from "./send.png";
 import empty from "./box.png";
 import redWarning from "./warning.png";
 import yellowWarning from "./complain.png";
+import blueTick from "./blue-tick.png";
+import blackTick from "./black-tick.png";
 
 import * as styled from "./styles";
 
@@ -54,6 +56,8 @@ export const Icon = (props: IconProps) => {
     redWarning,
     yellowWarning,
     empty,
+    blueTick,
+    blackTick,
   };
 
   return (

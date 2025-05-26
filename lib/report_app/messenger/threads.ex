@@ -8,7 +8,8 @@ defmodule ReportApp.Messenger.Threads do
   @preloads [:messages, :thread_users]
 
   def get_thread(id) do
-    Repo.get!(Thread, id)
+    thread = Repo.get!(Thread, id)
+    Repo.preload(thread, @preloads)
   end
 
   def get_user_thread_ids(user_id) do
@@ -82,7 +83,8 @@ defmodule ReportApp.Messenger.Threads do
     |> Repo.transaction()
     |> case do
       {:ok, %{thread: thread}} ->
-        {:ok, thread}
+        preloaded_thread = Repo.preload(thread, @preloads)
+        {:ok, preloaded_thread}
 
       {:error, error} ->
         {:error, error}

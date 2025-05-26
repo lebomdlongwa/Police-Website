@@ -22,7 +22,8 @@ export const ChatAppComponent = () => {
     recipients: [],
     threads: [],
   });
-  const channelsRef = useRef<Record<string, Channel>>({});
+  const threadChannelsRef = useRef<Record<string, Channel>>({});
+  const userChannelRef = useRef(null);
   const currentConvoIdRef = useRef(null);
   const { user } = useUser();
 
@@ -32,67 +33,120 @@ export const ChatAppComponent = () => {
   const handleUpdateThreadsObject = (obj: ThreadsObject) =>
     setThreadsObject(obj);
 
-  const isLoading = !user?.id && isEmpty(threadsObject.threads);
+  const isLoading = isEmpty(threadsObject.threads) && !noData;
   const isMessagesValid = true;
-  const currentChannel = channelsRef.current[currentThreadId];
+  const currentChannel = threadChannelsRef.current[currentThreadId];
 
-  useEffect(() => {
-    fetchUserThreads().then((res: ThreadsObject) => {
-      setThreadsObject(res);
+  const fetchAndSetUserThreads = () =>
+    fetchUserThreads(user?.id)
+      .then((res: ThreadsObject) => {
+        setThreadsObject(res);
 
-      if (!isEmpty(res)) {
-        setNoData(true);
-      }
+        if (isEmpty(res.threads)) {
+          setNoData(true);
+        }
 
-      res.threads.forEach((thread) => {
-        const channel = socket.channel(`chats:threadId-${thread.id}`);
+        res.threads.forEach((thread) => {
+          const channel = socket.channel(`chats:threadId-${thread.id}`);
 
-        channel
-          .join()
-          .receive("ok", () => {
-            console.log(`Joined chats:threadId-${thread.id} successfully`);
-          })
-          .receive("error", (resp) => console.log("Unable to join", resp));
+          channel
+            .join()
+            .receive("ok", () => {
+              // console.log(`Joined chats:threadId-${thread.id} successfully`);
+            })
+            .receive("error", (err) => console.log("Unable to join", err));
 
-        channelsRef.current[thread.id] = channel;
+          threadChannelsRef.current[thread.id] = channel;
 
-        channel.on("new_message", (payload) => {
-          const messageObj = payload.message.data;
-          const isMessageFromCurrentThread =
-            messageObj.thread_id === currentConvoIdRef.current;
-          const updatedMessageObj = isMessageFromCurrentThread
-            ? { ...messageObj, seen: true }
-            : messageObj;
+          channel.on("new_message", (payload) => {
+            console.log("New message received: ", payload.message);
 
-          if (isMessageFromCurrentThread) {
-            setSeenTrue(messageObj.thread_id);
-          }
+            const messageObj = payload.message;
 
-          setThreadsObject((prev) => {
-            const updatedThreads = prev.threads.map((thread) => {
-              if (thread.id !== messageObj.thread_id) return thread;
+            const isMessageFromCurrentThread =
+              messageObj.thread_id === currentConvoIdRef.current;
+            const isUserMessageAuthor = messageObj.author_id === user?.id;
+
+            if (isMessageFromCurrentThread && !isUserMessageAuthor) {
+              setSeenTrue(messageObj.thread_id);
+
+              userChannelRef.current.push("message_status_changed", {
+                thread_id: thread.id,
+                recipient_id: messageObj.author_id,
+              });
+            }
+
+            const updatedMessageObj =
+              isMessageFromCurrentThread && !isUserMessageAuthor
+                ? { ...messageObj, seen: true }
+                : messageObj;
+
+            setThreadsObject((prev) => {
+              const updatedThreads = prev.threads.map((thread) => {
+                if (thread.id !== messageObj.thread_id) return thread;
+
+                return {
+                  ...thread,
+                  messages: [...thread.messages, updatedMessageObj],
+                };
+              });
 
               return {
-                ...thread,
-                messages: [...thread.messages, updatedMessageObj],
+                ...prev,
+                threads: updatedThreads,
               };
             });
-
-            return {
-              ...prev,
-              threads: updatedThreads,
-            };
           });
         });
+      })
+      .catch((err) => err);
+
+  useEffect(() => {
+    if (user?.id) {
+      fetchAndSetUserThreads();
+
+      const userChannel = socket.channel(`user:${user.id}`);
+      console.log(`user:${user.id}`);
+
+      userChannel
+        .join()
+        .receive("ok", () => console.log(`Joined user:${user.id} successfully`))
+        .receive("error", (err) => console.log("Unable to join", err));
+
+      userChannelRef.current = userChannel;
+
+      userChannel.on("new_thread", (payload) => {
+        console.log("New thread received: ", payload.thread.data);
+        fetchAndSetUserThreads();
       });
-    });
+
+      userChannel.on("message_seen", (payload) => {
+        console.log("Message seen: ", payload);
+
+        setThreadsObject((prev) => {
+          return {
+            ...prev,
+            threads: prev.threads.map((thd: Thread) => {
+              if (thd.id !== payload.thread_id) return thd;
+
+              return {
+                ...thd,
+                messages: thd.messages.map((msg) =>
+                  msg.seen ? msg : { ...msg, seen: true }
+                ),
+              };
+            }),
+          };
+        });
+      });
+    }
 
     return () => {
-      Object.values(channelsRef.current).forEach((channel: Channel) =>
+      Object.values(threadChannelsRef.current).forEach((channel: Channel) =>
         channel.leave()
       );
     };
-  }, []);
+  }, [user]);
 
   return (
     <styled.ChatAppWrapper>
@@ -103,12 +157,14 @@ export const ChatAppComponent = () => {
           <ChatSideBar
             threadsObject={threadsObject}
             onSetActiveRecipientId={handleSetActiveRecipientId}
-            userId={user?.id}
+            user={user}
             activeRecipientId={activeRecipientId}
             onSetCurrentThreadId={handleSetCurrentThreadId}
             currentConvoIdRef={currentConvoIdRef}
             onUpdateThreadsObj={handleUpdateThreadsObject}
+            onFetchAndSetUserThreads={fetchAndSetUserThreads}
             noData={noData}
+            userChannel={userChannelRef.current}
           />
           <ChatBody
             currentChannel={currentChannel}

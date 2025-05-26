@@ -11,7 +11,7 @@ type Message = {
 type Thread = {
   id: string;
   messages: Message[];
-  thread_users: { id: string }[];
+  thread_users: { user_id: string }[];
 };
 
 type ThreadsObject = {
