@@ -1,10 +1,11 @@
 import React, { ChangeEvent, Component } from "react";
+
 import * as styled from "./styles";
+
 import { Color } from "../../../components/colorCodes";
 import { Button } from "../../../components/Button/button";
 import { ShadowContainer } from "../../../appStyles";
-import { DatePickerComponent } from "../../../components/DateComponent";
-import { createMail } from "../../Mail/actions";
+import { socket } from "../../../socket";
 
 type PeopleReportModalProps = {
   handleShowModal: VoidCallBack;
@@ -40,6 +41,26 @@ export class PeopleReportModal extends Component<
       name: "",
       surname: "",
     };
+
+    this.channel = socket.channel("mail:lobby", {});
+    this.channelJoined = false;
+  }
+
+  channel = socket.channel("mail:lobby", {});
+  channelJoined = false;
+
+  componentDidMount() {
+    if (!this.channelJoined) {
+      this.channel
+        .join()
+        .receive("ok", (resp) => {
+          console.log("Joined successfully", resp);
+          this.channelJoined = true;
+        })
+        .receive("error", (resp) => {
+          console.log("Unable to join", resp);
+        });
+    }
   }
 
   onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -52,11 +73,13 @@ export class PeopleReportModal extends Component<
   handleCreateMailReport = () => {
     const { id, user } = this.props;
 
-    createMail({
-      ...this.state,
-      missing_person_id: id,
-      name: user.name,
-      surname: user.surname,
+    this.channel.push("send_mails", {
+      mail: {
+        ...this.state,
+        missing_person_id: id,
+        name: user.name,
+        surname: user.surname,
+      },
     });
   };
 
@@ -81,7 +104,12 @@ export class PeopleReportModal extends Component<
             <styled.DateAndPlaceContainer>
               <styled.DateWrapper>
                 <styled.InputLabel>Date Last Seen</styled.InputLabel>
-                <DatePickerComponent />
+                <styled.FormInput
+                  placeholder="Enter date seen..."
+                  onChange={this.onChange}
+                  value={this.state.date_last_seen}
+                  name="date_last_seen"
+                />
               </styled.DateWrapper>
               <styled.Place>
                 <styled.InputLabel>Last Place Seen At</styled.InputLabel>

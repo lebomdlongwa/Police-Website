@@ -15,11 +15,10 @@ export const SignIn = (props: SignInProps) => {
 
   const [notSignedIn, setNotSignedIn] = useState(false);
   const [formObject, setFormObject] = useState({
-    username: null,
-    password: null,
-    name: null,
-    surname: null,
-    admin: null,
+    username: "",
+    password: "",
+    name: "",
+    surname: "",
   });
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) =>
@@ -32,23 +31,19 @@ export const SignIn = (props: SignInProps) => {
   const googleSignText = `SIGN ${notSignedIn ? "UP" : "IN"} WITH GOOGLE`;
 
   const handleSubmitCredentials = (admin: boolean) => {
-    setFormObject({
+    const updatedFormObject = {
       ...formObject,
       admin: admin,
-    });
+    };
 
-    let response: UserObject;
-
-    if (formObject.admin !== null) {
-      if (notSignedIn) {
-        signUp(formObject)
-          .then((response) => onCurrentUser(response))
-          .catch((err) => err);
-      } else {
-        login(formObject)
-          .then((response) => onCurrentUser(response))
-          .catch((err) => err);
-      }
+    if (notSignedIn) {
+      signUp(updatedFormObject)
+        .then((response) => onCurrentUser(response))
+        .catch((err) => err);
+    } else {
+      login(updatedFormObject)
+        .then((response) => onCurrentUser(response))
+        .catch((err) => err);
     }
   };
 

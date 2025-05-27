@@ -56,7 +56,7 @@ export class SortByComponent extends Component<SortByComponentProps, State> {
         <styled.SortByWrapper>
           <styled.SortByLabel>Sort By:</styled.SortByLabel>
           <styled.OptionsWrapper>
-            <styled.Options
+            {/* <styled.Options
               onClick={() => {
                 this.handleClickOption("officer");
               }}
@@ -66,7 +66,7 @@ export class SortByComponent extends Component<SortByComponentProps, State> {
               <styled.XIcon active={this.state.officer}>
                 <XIcon size={30} color={Color.white} />
               </styled.XIcon>
-            </styled.Options>
+            </styled.Options> */}
             <Tooltip content="Sort Report list by grade" position="S">
               <styled.Options
                 onClick={() => this.handleClickOption("grade")}

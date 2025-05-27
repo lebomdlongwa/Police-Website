@@ -124,13 +124,13 @@ class AddFormComponent extends Component<AddFormComponentProps, State> {
                 name="idNumber"
               />
             </styled.FormInputWrapper>
-            <styled.FormInputWrapper>
+            {/* <styled.FormInputWrapper>
               <styled.FormLabel>
                 Date Lost
                 <styled.RequiredAsterisk>*</styled.RequiredAsterisk>
               </styled.FormLabel>
               <styled.FormInput />
-            </styled.FormInputWrapper>
+            </styled.FormInputWrapper> */}
           </styled.FormBody>
           <styled.FormFooter>
             <Button
