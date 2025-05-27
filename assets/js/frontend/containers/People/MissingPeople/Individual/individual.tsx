@@ -141,28 +141,32 @@ export const IndividualComponent = () => {
                 <styled.Picture src={formInputObj?.img_url} />
               </styled.PictureContent>
             </styled.PictureWrapper>
-            <styled.ButtonsWrapper admin={admin}>
+            <styled.ButtonsWrapper notCentered={admin && isIdValid}>
               {admin ? (
                 <>
-                  <Button
-                    text="Delete Person"
-                    onClick={handleDeleteMissingPerson}
-                    paddingSides={20}
-                    buttonColor={Color.red}
-                    buttonColorOnHover={Color.red}
-                  />
+                  {isIdValid && (
+                    <Button
+                      text="Delete Person"
+                      onClick={handleDeleteMissingPerson}
+                      paddingSides={20}
+                      buttonColor={Color.red}
+                      buttonColorOnHover={Color.red}
+                    />
+                  )}
                   <Button
                     text={isIdValid ? "Edit Person" : "Upload Person"}
                     onClick={addOrUpdate}
                     paddingSides={20}
                   />
-                  <styled.PersonReportsWrapper>
-                    <StyledLink
-                      to={`${routes.missing_person_reports}/${url_id}`}
-                    >
-                      <styled.PersonReportsButton text="View Cases" />
-                    </StyledLink>
-                  </styled.PersonReportsWrapper>
+                  {isIdValid && (
+                    <styled.PersonReportsWrapper>
+                      <StyledLink
+                        to={`${routes.missing_person_reports}/${url_id}`}
+                      >
+                        <styled.PersonReportsButton text="View Cases" />
+                      </StyledLink>
+                    </styled.PersonReportsWrapper>
+                  )}
                 </>
               ) : (
                 <ReportButton handleShowModal={handleShowModal} />

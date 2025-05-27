@@ -83,6 +83,88 @@ export const BriefCircumstanceHeader = styled.div.attrs({
   align-items: center;
   font-weight: 800;
   font-size: 15px;
+  gap: 30px;
+`;
+
+export const AskAiButton = styled.div.attrs({
+  className: "AskAiButton",
+})`
+  // width: 50px;
+  // height: 50px;
+`;
+
+export const SummarizedBrief = styled.div.attrs<{
+  left: number;
+  top: number;
+}>({
+  className: "SummarizedBrief",
+})`
+  max-width: 400px;
+  min-width: 300px;
+  max-height: 350px;
+  border-radius: 10px;
+  border: 1px solid ${Color.lightgray};
+  position: fixed;
+  top: ${({ top }) => `${top}px`};
+  left: ${({ left }) => `${left}px`};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+  z-index: 10000;
+  background-color: white;
+`;
+
+export const AskGeminiHeader = styled.div.attrs({
+  className: "AskGeminiHeader",
+})`
+  width: 100%;
+  height: 46px;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid ${Color.lightgray};
+  color: ${Color.black};
+  font-weight: 900;
+  position: relative;
+`;
+
+export const CloseAiModal = styled.div.attrs({
+  className: "CloseAiModal",
+})`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const AskGeminiBody = styled.div.attrs({
+  className: "AskGeminiBody",
+})`
+  width: 100%;
+  padding: 20px;
+  color: ${Color.black};
+  font-weight: 600;
+  background-color: ${Color.chalk};
+`;
+
+export const Summary = styled.p`
+  font-weight: 600;
+  color: ${Color.black};
+  margin-bottom: 1rem;
+`;
+
+export const List = styled.ul`
+  list-style-type: disc;
+  padding-left: 1.25rem; /* equivalent to pl-5 */
+  color: ${Color.black};
+`;
+
+export const ListItem = styled.li`
+  margin-bottom: 0.5rem;
+  color: ${Color.black};
+  font-weight: 600;
 `;
 
 export const BriefCircumstanceContent = styled.div.attrs({
@@ -95,6 +177,7 @@ export const BriefCircumstanceContent = styled.div.attrs({
   font-weight: 600;
   margin-top: 10px;
   overflow-x: hidden;
+  padding: 0 2px;
 `;
 
 export const BottomItemWrapper = styled.div.attrs({

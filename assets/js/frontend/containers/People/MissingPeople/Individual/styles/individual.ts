@@ -236,12 +236,13 @@ export const CallPolice = styled.div.attrs({
   height: 30vh;
 `;
 
-export const ButtonsWrapper = styled.div.attrs<{ admin?: boolean }>({
+export const ButtonsWrapper = styled.div.attrs<{ notCentered?: boolean }>({
   className: "ButtonsWrapper",
 })`
   width: 100%;
   display: flex;
-  justify-content: ${({ admin }) => (!admin ? "center" : "space-between")};
+  justify-content: ${({ notCentered }) =>
+    notCentered ? "space-between" : "center"};
   align-items: flex-end;
   padding: 0 40px;
 `;

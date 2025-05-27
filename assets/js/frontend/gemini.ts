@@ -1,18 +1,15 @@
-import { baseUrl } from "./containers/requests";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
-export const askGemini = (prompt: string) => {
-  fetch(`${baseUrl}/gemini`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ prompt: prompt }),
-  })
-    .then((response) =>
-      response
-        .json()
-        .then((data) =>
-          console.log(data?.content?.candidates[0]?.content?.parts[0]?.text)
-        )
-        .catch((err) => err)
-    )
-    .catch((err) => err);
+const genAI = new GoogleGenerativeAI("AIzaSyD8XeKXwElIvhXRVjr8pbvYLF5Kfd4GpgI");
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+export const generateContent = async (
+  handleSetIsLoading: (value: boolean) => void,
+  briefSummary: string
+) => {
+  handleSetIsLoading(true);
+  const prompt = `Can you please summarize the following text in a concise manner, and list details in bullet points? \n\n${briefSummary}`;
+
+  const result = await model.generateContent(prompt);
+  return result.response.text;
 };
