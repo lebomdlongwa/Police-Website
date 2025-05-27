@@ -46,7 +46,7 @@ export const ButtonContent = styled.div.attrs<{
     borderColor ? `1px solid ${borderColor}` : "none"};
   ${({ paddingTopBottom }) =>
     paddingTopBottom &&
-    `padding-top: ${paddingTopBottom}; padding-bottom: ${paddingTopBottom}`};
+    `padding-top: ${paddingTopBottom}px; padding-bottom: ${paddingTopBottom}px`};
   ${({ paddingSides }) =>
     paddingSides &&
     `padding-left: ${paddingSides}px; padding-right: ${paddingSides}px`};
