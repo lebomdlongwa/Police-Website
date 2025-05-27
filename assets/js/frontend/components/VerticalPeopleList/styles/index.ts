@@ -50,6 +50,7 @@ export const PersonTile = styled(Link).attrs<{ img: string }>({
   position: relative;
   margin-right: 10px;
   text-decoration: none;
+  position: relative;
 
   &:last-child {
     margin-right: 0;
@@ -70,6 +71,14 @@ export const PersonTile = styled(Link).attrs<{ img: string }>({
       transform: none;
     }
   }
+`;
+
+export const ImageLoader = styled.div.attrs({
+  className: "ImageLoader",
+})`
+  position: absolute;
+  top: 50%;
+  left: 50%;
 `;
 
 export const TileContent = styled.div.attrs({
@@ -97,6 +106,8 @@ export const NameAndAge = styled.div.attrs({
   display: flex;
   align-items: center;
   margin-left: 10px;
+  background-color: ${Color.black};
+  padding: 2px;
 `;
 
 export const SurName = styled.div.attrs({

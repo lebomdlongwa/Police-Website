@@ -7,7 +7,7 @@ defmodule ReportApp.Mail do
 
   @person_report_params [
     :type,
-    # :date_last_seen,
+    :date_last_seen,
     :location_last_seen,
     :known_as,
     :clothes_worn,

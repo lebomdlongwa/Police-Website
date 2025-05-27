@@ -50,28 +50,28 @@ const Banner = ({ admin }: { admin: boolean }) => {
   return (
     <styled.Wrapper>
       <styled.BannerImage>
-        {admin && (
-          <styled.LinksWrapper>
-            <styled.Links onClick={handleShowModal}>Report Crime</styled.Links>
-            {showReportModal && (
-              <BannerReportModal
-                handleShowModal={handleShowModal}
-                user={user}
-                onSetImgUrl={onSetImgUrl}
-                onSetLocation={onSetLocation}
-                imgUrl={imgUrl}
-                location={location}
-                submitForm={submitForm}
-              />
-            )}
-            <styled.Links onClick={() => handleScrollEvent("missing")}>
-              View Missing People
-            </styled.Links>
-            <styled.Links onClick={() => handleScrollEvent("wanted")}>
-              View Wanted People
-            </styled.Links>
-          </styled.LinksWrapper>
-        )}
+        {/* {admin && ( */}
+        <styled.LinksWrapper>
+          <styled.Links onClick={handleShowModal}>Report Crime</styled.Links>
+          {showReportModal && (
+            <BannerReportModal
+              handleShowModal={handleShowModal}
+              user={user}
+              onSetImgUrl={onSetImgUrl}
+              onSetLocation={onSetLocation}
+              imgUrl={imgUrl}
+              location={location}
+              submitForm={submitForm}
+            />
+          )}
+          {/* <styled.Links onClick={() => handleScrollEvent("missing")}>
+            View Missing People
+          </styled.Links>
+          <styled.Links onClick={() => handleScrollEvent("wanted")}>
+            View Wanted People
+          </styled.Links> */}
+        </styled.LinksWrapper>
+        {/* )} */}
       </styled.BannerImage>
     </styled.Wrapper>
   );

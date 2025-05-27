@@ -19,15 +19,17 @@ export const MissingList = () => {
 
   return (
     <styled.MissingPeopleWrapper>
-      <StyledLink to={`${routes.missing}/:id`}>
-        {admin && (
+      {admin ? (
+        <StyledLink to={`${routes.missing}/:id`}>
           <Button
             text="Upload New Missing Person"
             buttonColor={Color.black}
             buttonColorOnHover={Color.lightBlack}
           />
-        )}
-      </StyledLink>
+        </StyledLink>
+      ) : (
+        <styled.MissingHeader>Missing People List</styled.MissingHeader>
+      )}
       <PeopleListComponent peopleList={missingPeopleList} />
     </styled.MissingPeopleWrapper>
   );

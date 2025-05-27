@@ -28,7 +28,7 @@ export const PeopleListComponent = (props: PeopleListComponentProps) => {
               <styled.TileContent>
                 <styled.Details>
                   <styled.NameAndAge>
-                    <div>{`${person.fullname} (${person.age})`}</div>
+                    {`${person.fullname} (${person.age})`}
                   </styled.NameAndAge>
                 </styled.Details>
               </styled.TileContent>

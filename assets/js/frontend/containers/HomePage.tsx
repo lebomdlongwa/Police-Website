@@ -10,7 +10,7 @@ export const HomePage = ({ admin }: { admin: boolean }) => {
     <styled.HomePageWrapper>
       <Banner admin={admin} />
       {/* <TilePageLinks /> */}
-      {!admin && <HorizontalPeopleList />}
+      {/* {!admin && <HorizontalPeopleList />} */}
     </styled.HomePageWrapper>
   );
 };

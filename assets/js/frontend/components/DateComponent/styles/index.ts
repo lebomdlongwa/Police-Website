@@ -10,6 +10,7 @@ export const CalendarInputWrapper = styled.div.attrs({
   align-items: center;
   border: 1px solid ${Color.lightgray};
   border-radius: 4px;
+  padding: 10px;
 `;
 
 export const FormInput = styled.input.attrs<{ width?: number }>({
@@ -19,7 +20,6 @@ export const FormInput = styled.input.attrs<{ width?: number }>({
   border: none;
   flex: 1;
   width: ${({ width }) => (width ? `${width}%` : "100%")};
-  padding: 10px;
   color: ${Color.black};
   font-size: 16px;
   font-weight: 600;

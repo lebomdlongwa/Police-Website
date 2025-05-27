@@ -34,7 +34,7 @@ export const LinksWrapper = styled.div.attrs({
   className: "LinksWrapper",
 })`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
   align-items: center;
   position: absolute;
