@@ -22,7 +22,10 @@ defmodule ReportAppWeb.Api.MissingView do
       height: missing.height,
       weight: missing.weight,
       body_stature: missing.body_stature,
-      skin_colour: missing.skin_colour
+      skin_colour: missing.skin_colour,
+      img_url: missing.img_url,
+      inserted_at: missing.inserted_at,
+      updated_at: missing.updated_at
       # report_date: Date.to_string(missing_person.inserted_at)
     }
   end

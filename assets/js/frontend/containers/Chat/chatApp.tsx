@@ -11,7 +11,7 @@ import * as styled from "./styles/chatApp";
 
 import { socket } from "../../socket";
 import { useUser } from "../userContext";
-import { Spinner } from "../../components/Spinner";
+import { CircleLoader, Spinner } from "../../components/Spinner";
 
 export const ChatAppComponent = () => {
   const [showPersonDetails, setShowPersonDetails] = useState(true);
@@ -151,7 +151,7 @@ export const ChatAppComponent = () => {
   return (
     <styled.ChatAppWrapper>
       {isLoading ? (
-        <Spinner size={30} />
+        <CircleLoader size={60} />
       ) : (
         <>
           <ChatSideBar

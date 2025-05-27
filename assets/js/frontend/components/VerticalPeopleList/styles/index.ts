@@ -32,11 +32,12 @@ export const Container = styled.div.attrs({
   }
 `;
 
-export const PersonTile = styled(Link).attrs({
+export const PersonTile = styled(Link).attrs<{ img: string }>({
   className: "Person_Tile",
 })`
-  // background-color: ${Color.darkBlue};
-  background-image: url(${require("../../../images/police_riot.jpg")});
+  background-image: url(${({ img }) => img});
+  background-size: cover;
+  background-position: center;
   width: 18vw;
   min-width: 172px;
   max-width: 220px;

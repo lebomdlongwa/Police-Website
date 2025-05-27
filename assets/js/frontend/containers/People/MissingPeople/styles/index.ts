@@ -5,7 +5,7 @@ export const MissingPeopleWrapper = styled.div.attrs({
   className: "MissingPeopleWrapper",
 })`
   padding: 20px;
-  background-color: ${Color.white};
+  background-color: ${Color.chalk};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,14 +13,6 @@ export const MissingPeopleWrapper = styled.div.attrs({
   @media (max-width: 500px) {
     padding: 7px;
   }
-`;
-
-export const Picture = styled.div.attrs({
-  className: "Picture",
-})`
-  height: 100%;
-  width: 18vw;
-  border: 1px solid #0c213a;
 `;
 
 export const UploadedFile = styled.div.attrs({

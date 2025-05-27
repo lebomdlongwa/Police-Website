@@ -12,7 +12,7 @@ import * as styled from "./styles/index";
 import { SearchComponent } from "../../components/SearchComponent/search";
 import { Color } from "../../components/colorCodes";
 import { socket } from "../../socket";
-import { Spinner } from "../../components/Spinner";
+import { CircleLoader } from "../../components/Spinner";
 import { NoDataComponent } from "../../components/NoData";
 
 export const MailBox = () => {
@@ -157,7 +157,7 @@ export const MailBox = () => {
             <styled.MailsWrapper>
               {noData && <NoDataComponent isEmail />}
               {isEmpty(mails) && !noData ? (
-                <Spinner size={25} />
+                <CircleLoader size={50} />
               ) : (
                 <>
                   {!selectedMailId ? (

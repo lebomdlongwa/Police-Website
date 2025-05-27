@@ -3,7 +3,7 @@ defmodule ReportApp.MissingPerson.MissingPerson do
 
   import Ecto.Changeset
 
-  @required_params [:fullname, :age, :last_seen, :last_place_seen, :skin_colour, :body_stature]
+  @required_params [:fullname, :age, :last_seen, :last_place_seen, :skin_colour, :body_stature, :img_url]
   @params @required_params ++ [:clothes, :height, :weight]
 
   schema "missing_person" do
@@ -16,6 +16,7 @@ defmodule ReportApp.MissingPerson.MissingPerson do
     field :weight, :string
     field :body_stature, :string
     field :skin_colour, :string
+    field :img_url, :string
 
     timestamps()
   end

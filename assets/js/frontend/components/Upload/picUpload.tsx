@@ -1,15 +1,17 @@
 import React, { useRef, useState } from "react";
 import * as styled from "./styles/picture";
-import { uploadFile } from "../../containers/People/MissingPeople/actions";
 import { Button } from "../Button/button";
-import { imgDB } from "./firebaseConfig";
-import { v4 } from "uuid";
-import { ref } from "firebase/storage";
+import { storage } from "../../firebase";
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
-type PictureUploadProps = {};
+type PictureUploadProps = {
+  handleSetImgUrl: (url: string) => void;
+  handleImgLoading: VoidCallBack;
+};
 
 export const PictureUpload = (props: PictureUploadProps) => {
-  const [image, setImage] = useState("");
+  const { handleSetImgUrl, handleImgLoading } = props;
+
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleUploadClick = () => {
@@ -18,12 +20,33 @@ export const PictureUpload = (props: PictureUploadProps) => {
     }
   };
 
-  const onUploadImg = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      console.log("Uploaded file:", file);
-      uploadFile(file);
-    }
+  const handleSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    handleImgLoading();
+
+    const file = e.target.files?.[0];
+
+    if (!file) return;
+
+    const storageRef = ref(storage, `files/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+      },
+      (error) => {
+        alert(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          handleSetImgUrl(downloadURL);
+        });
+      }
+    );
   };
 
   return (
@@ -31,7 +54,7 @@ export const PictureUpload = (props: PictureUploadProps) => {
       <styled.InputPhoto>Select file to upload...</styled.InputPhoto>
       <styled.FileUploader>
         <Button text="Select" onClick={handleUploadClick} size="small" />
-        <styled.UploadInput ref={fileInputRef} onChange={onUploadImg} />
+        <styled.UploadInput ref={fileInputRef} onChange={handleSubmit} />
       </styled.FileUploader>
     </styled.Wrapper>
   );

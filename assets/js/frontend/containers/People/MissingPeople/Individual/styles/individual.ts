@@ -9,7 +9,7 @@ export const Wrapper = styled.div.attrs({
   height: 100%;
   min-width: 1250px;
   min-height: 100vh;
-  padding: 20px 30px;
+  padding: 10px 20px;
   background-color: ${Color.chalk};
 
   @media (max-width: 500px) {
@@ -81,6 +81,7 @@ export const PictureWrapper = styled.div.attrs<{ isAdmin?: boolean }>({
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
   gap: 20px;
 
   @media (max-width: 500px) {
@@ -88,13 +89,30 @@ export const PictureWrapper = styled.div.attrs<{ isAdmin?: boolean }>({
   }
 `;
 
-export const Picture = styled.img.attrs({
-  className: "Picture",
+export const PictureContent = styled.div.attrs({
+  className: "PictureContent",
 })`
   height: 300px;
   width: 300px;
   border: 1px solid lightgray;
   border-radius: 5px;
+  position: relative;
+`;
+
+export const Loader = styled.div.attrs({
+  className: "Loader",
+})`
+  position: absolute;
+  top: 135px;
+  left: 135px;
+`;
+
+export const Picture = styled.img.attrs({
+  className: "Picture",
+})`
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
 `;
 
 export const PersonReportsWrapper = styled.div.attrs({
