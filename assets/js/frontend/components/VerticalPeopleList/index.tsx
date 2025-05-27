@@ -5,7 +5,7 @@ import { isEmpty } from "lodash";
 import * as styled from "./styles";
 
 import { routes } from "../../containers/PoliceApp";
-import { Spinner } from "../Spinner";
+import { CircleLoader } from "../Spinner";
 
 type PeopleListComponentProps = {
   peopleList: MissingPersonParams[];
@@ -17,11 +17,14 @@ export const PeopleListComponent = (props: PeopleListComponentProps) => {
   return (
     <styled.VerticalListWrapper>
       {isEmpty(peopleList) ? (
-        <Spinner size={30} />
+        <CircleLoader size={60} />
       ) : (
         <styled.Container>
           {peopleList?.map((person) => (
-            <styled.PersonTile to={`${routes.missing}/${person.id}`}>
+            <styled.PersonTile
+              img={person.img_url}
+              to={`${routes.missing}/${person.id}`}
+            >
               <styled.TileContent>
                 <styled.Details>
                   <styled.NameAndAge>

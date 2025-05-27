@@ -11,7 +11,7 @@ import { useUser } from "../userContext";
 import { fetchData } from "../requests";
 import { SearchComponent } from "../../components/SearchComponent/search";
 import { SearchedResultComponent } from "../../components/SearchedResult";
-import { Spinner } from "../../components/Spinner";
+import { CircleLoader } from "../../components/Spinner";
 import { AvatarColors } from "../../components/colorCodes";
 
 export const IdPassportPage = () => {
@@ -49,7 +49,7 @@ export const IdPassportPage = () => {
       </styled.HeaderContainer>
       <styled.BodyContainer center={isEmpty(idList)}>
         {isEmpty(idList) ? (
-          <Spinner size={30} />
+          <CircleLoader size={60} />
         ) : (
           <>
             {searchedId && (

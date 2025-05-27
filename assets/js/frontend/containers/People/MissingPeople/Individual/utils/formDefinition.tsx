@@ -45,3 +45,17 @@ export const FormDerfinition = [
     name: "skin_colour",
   },
 ];
+
+export const initialFormInputObjState = {
+  fullname: "",
+  age: "",
+  last_seen: "",
+  last_place_seen: "",
+  clothes: "",
+  height: "",
+  weight: "",
+  body_stature: "medium",
+  skin_colour: "",
+  id: null,
+  img_url: null,
+};

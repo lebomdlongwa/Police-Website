@@ -15,7 +15,7 @@ import { SortByComponent } from "./sortBy";
 
 import { fetchData } from "../requests";
 import { SearchedResultComponent } from "../../components/SearchedResult";
-import { Spinner } from "../../components/Spinner";
+import { CircleLoader } from "../../components/Spinner";
 import { AvatarColors } from "../../components/colorCodes";
 
 export const ReportList = () => {
@@ -91,7 +91,7 @@ export const ReportList = () => {
       </styled.HeaderContainer>
       <styled.BodyContainer center={isEmpty(reportList)}>
         {isEmpty(reportList) ? (
-          <Spinner size={30} />
+          <CircleLoader size={60} />
         ) : (
           <>
             {showReportList &&

@@ -1,7 +1,10 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import * as styled from "./styles/individual";
 import { ReportButton } from "../ReportButtonModal";
-import { FormDerfinition } from "./utils/formDefinition";
+import {
+  FormDerfinition,
+  initialFormInputObjState,
+} from "./utils/formDefinition";
 import { DetailRowComponent } from "./utils/groupedComponent";
 import {
   addMissingPerson,
@@ -16,6 +19,8 @@ import { useUser } from "../../../userContext";
 import { PeopleReportModal } from "../../ReportModal/reportModal";
 import { PictureUpload } from "../../../../components/Upload/picUpload";
 import { Button } from "../../../../components/Button/button";
+import { CircleLoader } from "../../../../components/Spinner";
+import { Color } from "../../../../components/colorCodes";
 
 export const IndividualComponent = () => {
   const { admin, user } = useUser();
@@ -23,6 +28,7 @@ export const IndividualComponent = () => {
   const navigate = useNavigate();
   const [showReportModal, setShowReportModal] = useState(false);
   const [upload, setUpload] = useState<UploadData | null>(null);
+  const [imgLoading, setImgLoading] = useState(false);
 
   const [formInputObj, setFormInputObj] = useState<MissingPersonParams>({
     fullname: "",
@@ -36,6 +42,7 @@ export const IndividualComponent = () => {
     body_stature: "medium",
     skin_colour: "",
     id: null,
+    img_url: null,
   });
 
   const isIdValid = url_id && url_id !== ":id";
@@ -46,6 +53,16 @@ export const IndividualComponent = () => {
   }, []);
 
   const handleShowModal = () => setShowReportModal(!showReportModal);
+  const handleImgLoading = () => setImgLoading(!imgLoading);
+
+  const handleSetImgUrl = (url: string) => {
+    setFormInputObj((prev: MissingPersonParams) => ({
+      ...prev,
+      img_url: url,
+    }));
+
+    setImgLoading(false);
+  };
 
   const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormInputObj({
@@ -77,18 +94,18 @@ export const IndividualComponent = () => {
 
   const handleDeleteMissingPerson = () => {
     deleteMissingPerson(url_id)
-      .then(
-        (response) => response
-        // setFormInputObj({ ...response })
-      )
+      .then(() => setFormInputObj(initialFormInputObjState))
       .catch((err) => err);
   };
 
   const addOrUpdate = () => {
     if (isIdValid) {
       handleUpdateMissingPerson();
+      handleGetMissingPerson(url_id);
     } else {
-      handleAddMissingPerson();
+      if (formInputObj?.img_url) {
+        handleAddMissingPerson();
+      }
     }
   };
 
@@ -109,22 +126,41 @@ export const IndividualComponent = () => {
           </styled.Details>
           <styled.RightColumn>
             <styled.PictureWrapper isAdmin={admin}>
-              {admin && <PictureUpload />}
-              <styled.Picture src="" />
+              {admin && (
+                <PictureUpload
+                  handleImgLoading={handleImgLoading}
+                  handleSetImgUrl={handleSetImgUrl}
+                />
+              )}
+              <styled.PictureContent>
+                {imgLoading && (
+                  <styled.Loader>
+                    <CircleLoader size={40} />
+                  </styled.Loader>
+                )}
+                <styled.Picture src={formInputObj?.img_url} />
+              </styled.PictureContent>
             </styled.PictureWrapper>
             <styled.ButtonsWrapper admin={admin}>
               {admin ? (
                 <>
                   <Button
+                    text="Delete Person"
+                    onClick={handleDeleteMissingPerson}
+                    paddingSides={20}
+                    buttonColor={Color.red}
+                    buttonColorOnHover={Color.red}
+                  />
+                  <Button
                     text={isIdValid ? "Edit Person" : "Upload Person"}
                     onClick={addOrUpdate}
-                    paddingSides={55}
+                    paddingSides={20}
                   />
                   <styled.PersonReportsWrapper>
                     <StyledLink
                       to={`${routes.missing_person_reports}/${url_id}`}
                     >
-                      <styled.PersonReportsButton text="View Reported Cases" />
+                      <styled.PersonReportsButton text="View Cases" />
                     </StyledLink>
                   </styled.PersonReportsWrapper>
                 </>
@@ -142,15 +178,6 @@ export const IndividualComponent = () => {
             user={user}
           />
         )}
-        {/* <styled.Footer>
-          You have made some changes
-          <styled.FooterButtonsWrapper>
-            <styled.FooterButton text="Cancel" />
-            <StyledLink to={routes.missing}>
-              <styled.FooterButton text="Save" onClick={addOrUpdate} />
-            </StyledLink>
-          </styled.FooterButtonsWrapper>
-        </styled.Footer> */}
       </styled.Body>
     </styled.Wrapper>
   );

@@ -9,6 +9,7 @@ type MissingPersonParams = {
   weight?: string;
   body_stature?: "skinny" | "medium" | "fat";
   skin_colour: string;
+  img_url: string;
 };
 
 type UploadData = {

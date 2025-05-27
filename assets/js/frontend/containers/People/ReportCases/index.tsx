@@ -7,7 +7,7 @@ import { ReportCase } from "./ReportCase";
 import * as styled from "./styles/index";
 
 import { getMissingReports } from "../ReportModal/actions";
-import { Spinner } from "../../../components/Spinner";
+import { CircleLoader } from "../../../components/Spinner";
 import { NoDataComponent } from "../../../components/NoData";
 
 export const ReportCasesComponent = () => {
@@ -38,7 +38,7 @@ export const ReportCasesComponent = () => {
       <styled.ReportCasesWrapper isLoading={isLoading} noData={noData}>
         {noData && <NoDataComponent />}
         {isLoading ? (
-          <Spinner size={30} />
+          <CircleLoader size={60} />
         ) : (
           missingReports.map((missingReport) => (
             <ReportCase report={missingReport} />

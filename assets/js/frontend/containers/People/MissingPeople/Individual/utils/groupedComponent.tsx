@@ -17,7 +17,12 @@ type DetailRowsProps = {
 export const DetailRowComponent = (props: DetailRowsProps) => {
   const { formInput, onChange, item } = props;
   const { admin } = useUser();
-  const value = formInput[`${item.name}` as keyof typeof formInput];
+
+  if (!formInput) {
+    return null; // or show a fallback
+  }
+
+  const value = formInput[`${item?.name}` as keyof typeof formInput];
 
   return (
     <styled.DetailRows>
