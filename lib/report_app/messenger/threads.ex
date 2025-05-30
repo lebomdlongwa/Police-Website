@@ -63,8 +63,9 @@ defmodule ReportApp.Messenger.Threads do
     admin_id =
       from(u in User,
         where: u.admin == true,
-        select: u.id
+        select: u.id,
       )
+      |> first()
       |> Repo.one()
 
     users_ids = [admin_id, user_id]
