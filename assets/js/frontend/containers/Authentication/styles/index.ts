@@ -141,7 +141,6 @@ export const BlueText = styled.span.attrs({
 export const SignInButtonsWrapper = styled.div.attrs<{ notSignedIn: boolean }>({
   className: "SignInButtonsWrapper",
 })`
-  width: 100%;
   display: flex;
   flex-direction: ${({ notSignedIn }) => (notSignedIn ? "column" : "row")};
   margin-top: 10px;
@@ -163,10 +162,11 @@ export const SignInText = styled.div.attrs({
 export const DefaultSignInWrapper = styled.div.attrs<{ notSignedIn: boolean }>({
   className: "DefaultSignInWrapper",
 })`
-  ${({ notSignedIn }) => notSignedIn && "width: 100%"};
   display: flex;
   justify-content: space-between;
   align-items: center;
+  ${({ notSignedIn }) => notSignedIn && "width: 100%"};
+  gap: 10px;
 `;
 
 export const GoogleButtonWrapper = styled.div.attrs<{ notSignedIn: boolean }>({

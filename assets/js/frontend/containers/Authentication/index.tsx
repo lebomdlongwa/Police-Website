@@ -115,7 +115,7 @@ export const SignIn = (props: SignInProps) => {
                 />
               )}
             </styled.DefaultSignInWrapper>
-            <styled.GoogleButtonWrapper notSignedIn={notSignedIn}>
+            {/* <styled.GoogleButtonWrapper notSignedIn={notSignedIn}>
               <styled.GoogleButton
                 onClick={signUpWithGoogle}
                 notSignedIn={notSignedIn}
@@ -123,7 +123,7 @@ export const SignIn = (props: SignInProps) => {
                 <styled.GoogleIcon src={google_logo} />
                 {googleSignText}
               </styled.GoogleButton>
-            </styled.GoogleButtonWrapper>
+            </styled.GoogleButtonWrapper> */}
           </styled.SignInButtonsWrapper>
           {!notSignedIn && (
             <styled.SignInText>
